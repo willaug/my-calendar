@@ -1,0 +1,42 @@
+{
+  "name": "my-calendar",
+  "version": "1.0.0",
+  "description": "monorepo do projeto my-calendar",
+  "main": "index.js",
+  "scripts": {
+    "commit": "npx cz",
+    "lint": "lerna run lint --stream",
+    "lint-fix": "lerna run lint-fix --stream",
+    "prepare": "husky install",
+    "test": "lerna run test --stream"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/willaug/my-calendar.git"
+  },
+  "keywords": [
+    "calendar",
+    "calendario",
+    "my-calendar",
+    "my calendar",
+    "myCalendar",
+    "my_calendar",
+    "agendamento",
+    "agenda"
+  ],
+  "author": "William Augusto <william.santos315@outlook.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "@commitlint/cli": "^13.2.1",
+    "commitizen": "^4.2.4",
+    "commitlint-config-gitmoji": "^2.2.5",
+    "cz-customizable": "^6.3.0",
+    "husky": "^7.0.0",
+    "lerna": "^4.0.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-customizable"
+    }
+  }
+}
