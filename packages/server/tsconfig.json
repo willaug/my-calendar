@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "es2021",                                 
+    "experimentalDecorators": true,                      
+    "emitDecoratorMetadata": true,                       
+    "module": "commonjs",                                
+    "rootDir": "./src",
+    "baseUrl": ".",  
+    "paths": {                                     
+      "@interfaces/*": ["./src/interfaces/*"],
+      "@configs/*": ["./src/configs/*"],
+      "@models/*": ["./src/models/*"],
+      "@schemas/*": ["./src/schemas/*"],
+      "@resolvers/*": ["./src/resolvers/*"]
+    },                                      
+    "typeRoots": [              
+      "./node_modules/@types"
+    ],                                             
+    "resolveJsonModule": true,                          
+    "allowJs": true,                                     
+    "outDir": "./dist",                                 
+    "removeComments": true,                            
+    "esModuleInterop": true,                             
+    "forceConsistentCasingInFileNames": true,           
+    "skipLibCheck": true 
+  },
+  "exclude": [
+    "./dist/**/*"
+  ]
+}
