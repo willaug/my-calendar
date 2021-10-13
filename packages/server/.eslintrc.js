@@ -1,9 +1,13 @@
 module.exports = {
   settings: {
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts'],
+    },
     'import/resolver': {
       node: {
         extensions: ['.ts'],
       },
+      typescript: {},
     },
   },
   env: {
@@ -20,10 +24,12 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: [
+    'import',
     '@typescript-eslint',
   ],
   rules: {
     'no-console': 'off',
     'import/extensions': 'off',
+    'import/prefer-default-export': 'off',
   },
 };
