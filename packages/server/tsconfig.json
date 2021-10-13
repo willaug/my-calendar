@@ -25,6 +25,9 @@
     "skipLibCheck": true 
   },
   "exclude": [
-    "./dist/**/*"
+    "./dist/**/*",
+    "./coverage/**/*",
+    "*.js",
+    "./jest.config.ts"
   ]
 }
