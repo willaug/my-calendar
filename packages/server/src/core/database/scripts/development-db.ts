@@ -13,7 +13,6 @@ const developmentDb = async (): Promise<void> => {
 
     await client.query(`DROP DATABASE IF EXISTS ${connection.database};`);
     await client.query(`CREATE DATABASE ${connection.database};`);
-    await client.end();
 
     console.clear();
     console.log(`[${yellow('DEVELOPMENT')}] ${green(connection.database)} database was created!`);
@@ -23,10 +22,11 @@ const developmentDb = async (): Promise<void> => {
 
     const seeds = await knex.seed.run();
     console.log(`[${yellow('DEVELOPMENT')}] ${green(seeds[0].length)} seed(s) inserted into the database!`);
-
-    await knex.destroy();
   } catch (err) {
     console.log(red(err));
+  } finally {
+    await client.end();
+    await knex.destroy();
   }
 };
 
