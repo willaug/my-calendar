@@ -1,6 +1,6 @@
 import dotEnv from 'dotenv';
 
-dotEnv.config({ path: '@core/../.env' });
+dotEnv.config({ path: `${__dirname}/../../../.env` });
 
 const development = {
   client: 'pg',
