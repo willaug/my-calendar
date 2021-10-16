@@ -7,8 +7,9 @@
     "start-prod": "npm run build && node dist/server",
     "start-dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules --no-notify src/server.ts",
     "commit": "cd .. && npm run commit",
-    "test": "jest --detectOpenHandles --passWithNoTests",
+    "test": "npm run create-db && jest --detectOpenHandles --passWithNoTests",
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
+    "create-db": "ts-node-dev -r tsconfig-paths/register --transpile-only --ignore-watch node_modules --no-notify src/core/database/scripts/create-db.ts",
     "migrate-make": "npx knex --knexfile src/core/database/config.ts migrate:make -x ts"
   },
   "keywords": [
@@ -36,6 +37,7 @@
     "@babel/preset-typescript": "^7.15.0",
     "@types/express": "^4.17.13",
     "@types/jest": "^27.0.2",
+    "@types/pg": "^8.6.1",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "babel-jest": "^27.2.5",

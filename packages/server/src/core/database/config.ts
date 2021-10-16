@@ -1,9 +1,8 @@
-import { Knex } from 'knex';
 import dotEnv from 'dotenv';
 
-dotEnv.config({ path: '../../../.env' });
+dotEnv.config({ path: '@core/../.env' });
 
-const development: Knex.Config = {
+const development = {
   client: 'pg',
   connection: {
     host: process.env.DB_HOST_DEV || '127.0.0.1',
