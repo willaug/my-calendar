@@ -20,7 +20,7 @@ const development = {
   seeds: {
     directory: `${__dirname}/seeds`,
   },
-  onUpdateTrigger: (table) => `
+  onUpdateTrigger: (table: String) => `
     CREATE TRIGGER ${table}_updated_at
     BEFORE UPDATE ON ${table}
     FOR EACH ROW
