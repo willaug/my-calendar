@@ -1,28 +1,26 @@
 {
   "compilerOptions": {
-    "target": "es2021",                                 
-    "experimentalDecorators": true,                      
-    "emitDecoratorMetadata": true,                       
-    "module": "commonjs",                                
-    "rootDir": "./src",
-    "baseUrl": ".",  
-    "paths": {                                     
+    "target": "es2021",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "module": "commonjs",
+    "rootDir": ".",
+    "baseUrl": ".",
+    "paths": {
       "@interfaces/*": ["./src/core/interfaces/*"],
       "@core/*": ["./src/core/*"],
-      "@models/*": ["./src/models/*"],
+      "@models/*": [ "./src/models/*"],
       "@schemas/*": ["./src/schemas/*"],
       "@resolvers/*": ["./src/resolvers/*"]
-    },                                      
-    "typeRoots": [              
-      "./node_modules/@types"
-    ],                                             
-    "resolveJsonModule": true,                          
-    "allowJs": true,                                     
-    "outDir": "./dist",                                 
-    "removeComments": true,                            
-    "esModuleInterop": true,                             
-    "forceConsistentCasingInFileNames": true,           
-    "skipLibCheck": true 
+    },
+    "typeRoots": ["./node_modules/@types"],
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "outDir": "./dist",
+    "removeComments": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
   },
   "exclude": [
     "./dist/**/*",

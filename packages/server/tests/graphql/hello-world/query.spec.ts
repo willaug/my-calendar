@@ -1,10 +1,11 @@
 import request from 'supertest';
-import App from '../../src/app';
+import App from '../../../src/app';
+import printError from '../../utils/print-error';
 
 const { express } = new App();
 
 describe('Query Hello World', () => {
-  test('helloWorld should return welcome message', async () => {
+  test('helloWorld should response welcome message', async () => {
     const response = await request(express)
       .post('/')
       .send({
@@ -18,7 +19,7 @@ describe('Query Hello World', () => {
       })
       .set('Accept', 'application/json');
 
-    expect(response.ok).toEqual(true);
+    printError(response);
     expect(response.status).toEqual(200);
     expect(response.body).toHaveProperty('data');
     expect(response.body.data).toHaveProperty('helloWorld');
