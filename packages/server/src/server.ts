@@ -1,8 +1,24 @@
-import { blue } from 'chalk';
-import app from './app';
+import { blue, yellow } from 'chalk';
+import App from './app';
 
-const hostPort = process.env.HOST_PORT || 4000;
-app.listen(hostPort, () => {
-  console.clear();
-  console.log(`[${blue('RUNNING')}] MyCalendar API is running on ${blue(`http://localhost:${hostPort}`)}`);
-});
+class Server extends App {
+  public constructor() {
+    super();
+    this.startServer();
+  }
+
+  private startServer(): void {
+    this.express.listen(this.hostPort, () => {
+      console.clear();
+
+      if (process.env.ENVIRONMENT === 'prod') {
+        console.log(`[${yellow('PRODUCTION')}] MyCalendar API is running on ${yellow(this.host)}`);
+        return;
+      }
+
+      console.log(`[${blue('DEVELOPMENT')}] MyCalendar API is running on ${blue(this.host)}`);
+    });
+  }
+}
+
+export default new Server();

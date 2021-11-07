@@ -6,10 +6,18 @@ export default {
   coverageProvider: 'babel',
   collectCoverageFrom: [
     'src/**/*.ts',
+    '!src/server.ts',
   ],
   coverageReporters: [
     'text-summary',
     'html',
+  ],
+  coveragePathIgnorePatterns: [
+    'node_modules',
+    'interfaces',
+    'migrations',
+    'scripts',
+    'seeds',
   ],
   testEnvironment: 'node',
   forceExit: true,
