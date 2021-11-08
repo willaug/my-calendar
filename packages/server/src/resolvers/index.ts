@@ -1,9 +1,11 @@
-// import accounts from './accounts';
+import accounts from './accounts';
 import helloWorld from './hello-world';
+import scalarTypes from './scalar-types';
 
 const resolvers = {
+  ...scalarTypes,
+  ...accounts,
   ...helloWorld,
-  // ...accounts,
 };
 
 export default resolvers;

@@ -1,5 +1,5 @@
 import request from 'supertest';
-import App from '../../../src/app';
+import App from '@src/app';
 import printError from '../../utils/print-error';
 
 const { express } = new App();

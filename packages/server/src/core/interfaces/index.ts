@@ -1,5 +1,6 @@
-import { Account } from './account';
+import { Account, AccountSnackCase } from './account';
 
 export {
   Account,
+  AccountSnackCase,
 };
