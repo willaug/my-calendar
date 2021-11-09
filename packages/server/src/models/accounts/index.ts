@@ -1,19 +1,8 @@
 import { Account } from '@interfaces/index';
 import { Knex } from 'knex';
 import myCalendarDatabase from '@core/database';
-import CustomApolloError from '@core/errors/custom-apollo-error';
+import throwError from '@core/errors/throw-error';
 import AccountsMapper from './mapper';
-
-function throwError(err: any, field: any = null): void {
-  if (err.constraint === 'accounts_email_unique') {
-    throw new CustomApolloError(
-      `column email (${field}) already in an account`,
-      'ACCOUNTS_EMAIL_DUPLICATED',
-    );
-  }
-
-  throw new Error(err);
-}
 
 class AccountsModel extends AccountsMapper {
   public database: Knex;
@@ -31,7 +20,7 @@ class AccountsModel extends AccountsMapper {
 
       return response;
     } catch (err) {
-      return throwError(err, accountInput.email);
+      return throwError(err);
     }
   }
 }

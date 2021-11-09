@@ -99,7 +99,7 @@ describe('Create Account', () => {
     const [error] = response.body.errors;
 
     expect(error).toHaveProperty('message');
-    expect(error.message).toEqual('column email (william@example.com) already in an account');
-    expect(error.extensions.code).toEqual('ACCOUNTS_EMAIL_DUPLICATED');
+    expect(error.message).toEqual('column email (william@example.com) already exists');
+    expect(error.extensions.code).toEqual('ACCOUNTS_EMAIL_UNIQUE');
   });
 });

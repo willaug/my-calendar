@@ -1,10 +1,8 @@
-import { pathsToModuleNameMapper } from 'ts-jest/utils';
-import { compilerOptions } from './tsconfig.json';
-
 export default {
   clearMocks: true,
   restoreMocks: true,
   collectCoverage: true,
+  roots: ["<rootDir>/tests/"],
   coverageDirectory: 'coverage',
   coverageProvider: 'babel',
   collectCoverageFrom: [
@@ -20,7 +18,6 @@ export default {
     'interfaces',
     'database',
   ],
-  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>' }),
   testEnvironment: 'node',
   forceExit: true,
 };
