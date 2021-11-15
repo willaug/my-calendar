@@ -1,6 +1,2 @@
-import { Account, AccountSnackCase } from './account';
-
-export {
-  Account,
-  AccountSnackCase,
-};
+export * from './account';
+export * from './login';

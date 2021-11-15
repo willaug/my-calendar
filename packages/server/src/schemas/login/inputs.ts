@@ -1,7 +1,8 @@
 import { gql } from 'apollo-server-express';
 
 export default gql`
-  scalar Timestamp
-  scalar Email
-  scalar Token
+  input LoginInput {
+    email: Email!
+    password: String!
+  }
 `;

@@ -1,4 +1,4 @@
-interface Account {
+export interface Account {
   id?: string;
   name: string;
   email: string;
@@ -8,7 +8,7 @@ interface Account {
   updatedAt?: Date;
 }
 
-interface AccountSnackCase {
+export interface AccountSnackCase {
   id?: string;
   name: string;
   email: string;
@@ -17,8 +17,3 @@ interface AccountSnackCase {
   created_at?: Date;
   updated_at?: Date;
 }
-
-export {
-  Account,
-  AccountSnackCase,
-};

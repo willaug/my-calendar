@@ -1,7 +1,7 @@
-import { Account } from '@interfaces/index';
 import { Knex } from 'knex';
+import { AccountSnackCase } from '@interfaces/index';
 import myCalendarDatabase from '@core/database';
-import throwError from '@core/errors/throw-error';
+import throwError from '@core/functions/throw-error';
 import AccountsMapper from './mapper';
 
 class AccountsModel extends AccountsMapper {
@@ -12,9 +12,9 @@ class AccountsModel extends AccountsMapper {
     this.database = myCalendarDatabase;
   }
 
-  public async createAccount({ accountInput }): Promise<Account | void> {
+  public async createAccount({ accountInput }): Promise<AccountSnackCase | void> {
     try {
-      const [response] = await this.database('accounts')
+      const [response] = await this.database<AccountSnackCase>('accounts')
         .insert(await AccountsMapper.toCreateAccount(accountInput))
         .returning('*');
 
