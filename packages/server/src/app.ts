@@ -2,6 +2,7 @@ import express, { Express } from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import dotEnv from 'dotenv';
 
+import formatError from '@core/functions/format-error';
 import typeDefs from './schemas';
 import resolvers from './resolvers';
 import models from './models';
@@ -23,6 +24,7 @@ class App {
       typeDefs,
       resolvers,
       playground: process.env.ENVIRONMENT !== 'prod',
+      formatError,
       context: () => ({
         models,
       }),
