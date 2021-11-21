@@ -1,20 +1,9 @@
 import { Knex } from 'knex';
 import { compare } from 'bcrypt';
-import { sign } from 'jsonwebtoken';
 import { AccountSnackCase, Login } from '@interfaces/index';
 import myCalendarDatabase from '@core/database';
 import { ApolloError } from 'apollo-server-express';
-
-function generateToken(account: AccountSnackCase): string {
-  const secretKey = process.env.ACCESS_TOKEN || '1234';
-  const options = { expiresIn: process.env.EXPIRATION_TOKEN || '3h' };
-  const payload = {
-    id: account.id,
-    email: account.email,
-  };
-
-  return sign(payload, secretKey, options);
-}
+import { generateToken } from '@core/functions/generate-token';
 
 function throwLoginError(): void {
   throw new ApolloError(

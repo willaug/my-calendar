@@ -18,6 +18,7 @@ module.exports = {
         '@models': './src/models',
         '@schemas': './src/schemas',
         '@resolvers': './src/resolvers',
+        '@middlewares': './src/middlewares',
         '@src': './src',
       },
     },

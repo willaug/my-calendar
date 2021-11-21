@@ -12,6 +12,7 @@
       "@models/*": [ "./src/models/*"],
       "@schemas/*": ["./src/schemas/*"],
       "@resolvers/*": ["./src/resolvers/*"],
+      "@middlewares/*": ["./src/middlewares/*"],
       "@src/*": ["./src/*"]
     },
     "typeRoots": ["./node_modules/@types"],

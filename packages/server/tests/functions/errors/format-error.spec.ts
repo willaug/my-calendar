@@ -1,4 +1,4 @@
-import formatError from '@core/functions/format-error';
+import formatError from '@core/functions/errors/format-error';
 import { GraphQLError } from 'graphql';
 
 const err = {
@@ -7,13 +7,13 @@ const err = {
 } as GraphQLError;
 
 describe('FormatError', () => {
-  test('FormatError function should new err', () => {
+  test('FormatError function should return unsuccessful', () => {
     const formatedError = formatError(err);
 
     expect(formatedError.message).toEqual('any error');
   });
 
-  test('FormatError function should internal server err', () => {
+  test('FormatError function should return internal server error', () => {
     err.extensions.code = 'INTERNAL_SERVER_ERROR';
     const formatedError = formatError(err);
 

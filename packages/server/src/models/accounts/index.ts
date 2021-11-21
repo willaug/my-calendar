@@ -1,7 +1,7 @@
 import { Knex } from 'knex';
 import { AccountSnackCase } from '@interfaces/index';
 import myCalendarDatabase from '@core/database';
-import throwError from '@core/functions/throw-error';
+import throwError from '@core/functions/errors/throw-error';
 import AccountsMapper from './mapper';
 
 class AccountsModel extends AccountsMapper {
