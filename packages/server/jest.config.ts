@@ -3,6 +3,7 @@ export default {
   restoreMocks: true,
   collectCoverage: true,
   roots: ["<rootDir>/tests/"],
+  testSequencer: "./jest-sequence.js",
   coverageDirectory: 'coverage',
   coverageProvider: 'babel',
   collectCoverageFrom: [

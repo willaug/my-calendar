@@ -1,9 +1,9 @@
-import decodeToken from '@core/functions/decode-token';
-import { correctTokenTypeOne, incorrectTokenTypeTwo } from '@tests/utils/create-token';
+import decodeToken from '@core/functions/token/decode-token';
+import { correctWillAugToken, incorretWillAugTokenWithoutId } from '@tests/utils/create-token';
 
 const req = {
   headers: {
-    authorization: correctTokenTypeOne,
+    authorization: correctWillAugToken,
   },
 };
 
@@ -17,7 +17,7 @@ describe('DecodeToken', () => {
   });
 
   test('DecodeToken function without id into token should return unsuccessful', async () => {
-    req.headers.authorization = incorrectTokenTypeTwo;
+    req.headers.authorization = incorretWillAugTokenWithoutId;
     const response = await decodeToken({ req });
 
     expect(response).toEqual(null);

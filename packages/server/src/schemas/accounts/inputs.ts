@@ -12,7 +12,7 @@ export default gql`
     email: Email
   }
 
-  input UpdatePasswordAccountInput {
+  input UpdatePassAccountInput {
     currentPassword: String!
     newPassword: String!
     confirmNewPassword: String!

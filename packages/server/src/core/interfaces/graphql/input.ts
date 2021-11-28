@@ -4,6 +4,11 @@ export interface Input {
     email?: string;
     password?: string;
   };
+  passAccountInput?: {
+    currentPassword: string;
+    newPassword: string;
+    confirmNewPassword: string;
+  };
   loginInput?: {
     email?: string;
     password?: string;

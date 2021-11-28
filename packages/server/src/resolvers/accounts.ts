@@ -1,3 +1,4 @@
+import { UserInputError } from 'apollo-server-express';
 import {
   Account,
   AccountSnackCase,
@@ -12,6 +13,13 @@ export default {
     },
     updateAccount: (_: any, { accountInput }: Input, { models, authAccount }: Context): Account => {
       return models.Accounts.updateAccount({ accountInput, authAccount });
+    },
+    updatePassAccount: (_: any, { passAccountInput }: Input, { models, authAccount }: Context): Account => {
+      if (passAccountInput.newPassword !== passAccountInput.confirmNewPassword) {
+        throw new UserInputError('Field newPassword is different from confirmNewPassword');
+      }
+
+      return models.Accounts.updatePassAccount({ passAccountInput, authAccount });
     },
   },
   Account: {

@@ -1,7 +1,7 @@
 import request from 'supertest';
 import moment from 'moment';
 import App from '@src/app';
-import { correctTokenTypeTwo, incorrectTokenTypeOne } from '@tests/utils/create-token';
+import { correctWillDoeToken, incorretWillAugToken } from '@tests/utils/create-token';
 import printError from '@tests/utils/print-error';
 
 const { express } = new App();
@@ -30,7 +30,7 @@ describe('Update Account', () => {
           },
         },
       })
-      .set('Authorization', correctTokenTypeTwo)
+      .set('Authorization', correctWillDoeToken)
       .set('Accept', 'application/json');
 
     printError(response);
@@ -67,7 +67,7 @@ describe('Update Account', () => {
           },
         },
       })
-      .set('Authorization', correctTokenTypeTwo)
+      .set('Authorization', correctWillDoeToken)
       .set('Accept', 'application/json');
 
     const [error] = response.body.errors;
@@ -94,7 +94,7 @@ describe('Update Account', () => {
           },
         },
       })
-      .set('Authorization', incorrectTokenTypeOne)
+      .set('Authorization', incorretWillAugToken)
       .set('Accept', 'application/json');
 
     const [error] = response.body.errors;

@@ -4,7 +4,7 @@ import dotEnv from 'dotenv';
 
 import AuthenticationDirective from '@directives/authentication';
 import formatError from '@core/functions/errors/format-error';
-import decodeToken from '@core/functions/decode-token';
+import decodeToken from '@core/functions/token/decode-token';
 import resolvers from './resolvers';
 import typeDefs from './schemas';
 import models from './models';

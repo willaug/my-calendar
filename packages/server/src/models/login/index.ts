@@ -1,9 +1,10 @@
-import { Knex } from 'knex';
+import { ApolloError } from 'apollo-server-express';
 import { compare } from 'bcrypt';
+import { Knex } from 'knex';
+
+import { generateToken } from '@core/functions/token/generate-token';
 import { AccountSnackCase, Login } from '@interfaces/index';
 import myCalendarDatabase from '@core/database';
-import { ApolloError } from 'apollo-server-express';
-import { generateToken } from '@core/functions/generate-token';
 
 function throwLoginError(): void {
   throw new ApolloError(

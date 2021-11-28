@@ -11,6 +11,7 @@ export interface ContextModels {
   Accounts?: {
     createAccount?: any;
     updateAccount?: any;
+    updatePassAccount?: any;
   };
   Login?: {
     authenticate?: any;

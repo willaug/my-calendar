@@ -1,7 +1,10 @@
 import { Knex } from 'knex';
+import { compare, hash } from 'bcrypt';
+import { ApolloError } from 'apollo-server-express';
+
 import { AccountSnackCase } from '@interfaces/index';
-import myCalendarDatabase from '@core/database';
 import throwError from '@core/functions/errors/throw-error';
+import myCalendarDatabase from '@core/database';
 import AccountsMapper from './mapper';
 
 class AccountsModel extends AccountsMapper {
@@ -35,6 +38,28 @@ class AccountsModel extends AccountsMapper {
     } catch (err) {
       return throwError(err);
     }
+  }
+
+  public async updatePassAccount({ passAccountInput, authAccount }): Promise<AccountSnackCase> {
+    const account = await this.database<AccountSnackCase>('accounts')
+      .where('id', authAccount.id)
+      .first();
+
+    const isCorrectPassword = await compare(passAccountInput.currentPassword, account.password);
+    if (!isCorrectPassword) {
+      throw new ApolloError(
+        'The current password is incorrect',
+        'CURRENT_PASSWORD_INCORRECT',
+      );
+    }
+
+    const password = await hash(passAccountInput.newPassword, Number(process.env.HASH_SALT) || 10);
+    const [response] = await this.database<AccountSnackCase>('accounts')
+      .update({ password })
+      .where('id', authAccount.id)
+      .returning('*');
+
+    return response;
   }
 }
 
