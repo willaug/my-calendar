@@ -1,8 +1,8 @@
-import { Login } from '@interfaces/index';
+import { Login, Input, Context } from '@interfaces/index';
 
 export default {
   Mutation: {
-    login: (parent: any, { loginInput }: any, { models }: any): Login => {
+    login: (_: any, { loginInput }: Input, { models }: Context): Login => {
       return models.Login.authenticate({ loginInput });
     },
   },

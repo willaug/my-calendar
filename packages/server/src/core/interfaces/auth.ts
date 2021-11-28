@@ -1,7 +1,4 @@
 export interface AuthAccount {
+  [key: string]: any;
   id: string;
-}
-
-export interface AuthJwtPayload {
-  id: string
 }

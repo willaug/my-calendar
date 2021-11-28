@@ -1,7 +1,7 @@
 import request from 'supertest';
 import App from '@src/app';
 import validator from 'validator';
-import printError from '../../utils/print-error';
+import printError from '@tests/utils/print-error';
 
 const { express } = new App();
 

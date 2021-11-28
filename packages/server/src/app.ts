@@ -1,10 +1,12 @@
+import { ApolloServer, ExpressContext } from 'apollo-server-express';
 import express, { Express } from 'express';
-import { ApolloServer } from 'apollo-server-express';
 import dotEnv from 'dotenv';
 
+import AuthenticationDirective from '@directives/authentication';
 import formatError from '@core/functions/errors/format-error';
-import typeDefs from './schemas';
+import decodeToken from '@core/functions/decode-token';
 import resolvers from './resolvers';
+import typeDefs from './schemas';
 import models from './models';
 
 dotEnv.config();
@@ -25,9 +27,14 @@ class App {
       resolvers,
       playground: process.env.ENVIRONMENT !== 'prod',
       formatError,
-      context: () => ({
+      context: async ({ req, res }: ExpressContext) => ({
+        authAccount: await decodeToken({ req, res }),
         models,
+        req,
       }),
+      schemaDirectives: {
+        authentication: AuthenticationDirective,
+      },
     });
 
     server.applyMiddleware({

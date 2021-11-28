@@ -1,4 +1,4 @@
-import App from '../../src/app';
+import App from '@src/app';
 
 describe('API', () => {
   test('API without "host port" should response successful', () => {

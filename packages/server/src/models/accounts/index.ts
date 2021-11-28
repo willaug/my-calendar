@@ -23,6 +23,19 @@ class AccountsModel extends AccountsMapper {
       return throwError(err);
     }
   }
+
+  public async updateAccount({ accountInput, authAccount }): Promise<AccountSnackCase | void> {
+    try {
+      const [response] = await this.database<AccountSnackCase>('accounts')
+        .update(accountInput)
+        .where('id', authAccount.id)
+        .returning('*');
+
+      return response;
+    } catch (err) {
+      return throwError(err);
+    }
+  }
 }
 
 export default new AccountsModel();
