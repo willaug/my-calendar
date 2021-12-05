@@ -25,8 +25,9 @@ class App {
     const server = new ApolloServer({
       typeDefs,
       resolvers,
-      playground: process.env.ENVIRONMENT !== 'prod',
       formatError,
+      introspection: process.env.NODE_ENV !== 'production',
+      playground: process.env.NODE_ENV !== 'production',
       context: async ({ req, res }: ExpressContext) => ({
         authAccount: await decodeToken({ req, res }),
         models,

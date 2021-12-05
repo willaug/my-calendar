@@ -9,11 +9,15 @@ async function auth({ req }: ExpressContext | any): Promise<boolean> {
     const { authorization } = req.headers;
 
     const token = authorization && authorization.split(/\s/)[1];
-    const secretKey = process.env.ACCESS_TOKEN || '1234';
+    const secretKey = process.env.ACCESS_AUTH_TOKEN || '1234';
 
     const decoded = verify(token, secretKey) as AuthAccount;
+    if (!decoded.account_id || decoded.purpose !== 'AUTHENTICATION') {
+      return false;
+    }
+
     const account = await database<AccountSnackCase>('accounts')
-      .where('id', decoded.id)
+      .where('id', decoded.account_id)
       .first();
 
     return Boolean(account);

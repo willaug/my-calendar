@@ -7,8 +7,8 @@ const { express } = new App();
 
 describe('Login', () => {
   test('login should response successful', async () => {
-    delete process.env.ACCESS_TOKEN;
-    delete process.env.EXPIRATION_TOKEN;
+    delete process.env.ACCESS_AUTH_TOKEN;
+    delete process.env.EXPIRATION_AUTH_TOKEN;
 
     const response = await request(express)
       .post('/')

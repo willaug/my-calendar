@@ -1,5 +1,6 @@
 import { mergeTypeDefs } from '@graphql-tools/merge';
 
+import passwordReset from './password-reset';
 import scalarTypes from './scalar-types';
 import helloWorld from './hello-world';
 import directives from './directives';
@@ -11,6 +12,7 @@ const types = mergeTypeDefs([
   login,
   helloWorld,
   scalarTypes,
+  passwordReset,
   directives,
 ]);
 

@@ -31,7 +31,7 @@ class AccountsModel extends AccountsMapper {
     try {
       const [response] = await this.database<AccountSnackCase>('accounts')
         .update(accountInput)
-        .where('id', authAccount.id)
+        .where('id', authAccount.account_id)
         .returning('*');
 
       return response;
@@ -42,7 +42,7 @@ class AccountsModel extends AccountsMapper {
 
   public async updatePassAccount({ passAccountInput, authAccount }): Promise<AccountSnackCase> {
     const account = await this.database<AccountSnackCase>('accounts')
-      .where('id', authAccount.id)
+      .where('id', authAccount.account_id)
       .first();
 
     const isCorrectPassword = await compare(passAccountInput.currentPassword, account.password);
@@ -56,7 +56,7 @@ class AccountsModel extends AccountsMapper {
     const password = await hash(passAccountInput.newPassword, Number(process.env.HASH_SALT) || 10);
     const [response] = await this.database<AccountSnackCase>('accounts')
       .update({ password })
-      .where('id', authAccount.id)
+      .where('id', authAccount.account_id)
       .returning('*');
 
     return response;

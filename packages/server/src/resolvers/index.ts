@@ -1,13 +1,15 @@
+import login from './login';
 import accounts from './accounts';
 import helloWorld from './hello-world';
-import login from './login';
+import passwordReset from './password-reset';
 import scalarTypes from './scalar-types';
 
 const resolvers = [
-  scalarTypes,
-  accounts,
   login,
+  accounts,
   helloWorld,
+  scalarTypes,
+  passwordReset,
 ];
 
 export default resolvers;

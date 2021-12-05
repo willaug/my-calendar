@@ -12,5 +12,12 @@ export interface Input {
   loginInput?: {
     email?: string;
     password?: string;
+  };
+  passwordResetInput?: {
+    email?: string;
+    newPassword?: string;
+    confirmNewPassword?: string;
+    token?: string;
+    ip?: string;
   }
 }

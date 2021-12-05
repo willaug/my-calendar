@@ -1,8 +1,12 @@
 import request from 'supertest';
 import moment from 'moment';
 import App from '@src/app';
-import { correctWillDoeToken, incorretWillAugToken } from '@tests/utils/create-token';
 import printError from '@tests/utils/print-error';
+import {
+  correctWillDoeToken,
+  incorrectTokenWithoutData,
+  incorretWillAugToken,
+} from '@tests/utils/create-token';
 
 const { express } = new App();
 
@@ -77,7 +81,7 @@ describe('Update Account', () => {
     expect(error.extensions.code).toEqual('ACCOUNTS_EMAIL_UNIQUE');
   });
 
-  test('updateAccount without existent user should response unsuccessful', async () => {
+  test('updateAccount without existent account should response unsuccessful', async () => {
     const response = await request(express)
       .post('/')
       .send({
@@ -95,6 +99,33 @@ describe('Update Account', () => {
         },
       })
       .set('Authorization', incorretWillAugToken)
+      .set('Accept', 'application/json');
+
+    const [error] = response.body.errors;
+
+    expect(error).toHaveProperty('message');
+    expect(error.message).toEqual('Account not authenticated');
+    expect(error.extensions.code).toEqual('UNAUTHENTICATED');
+  });
+
+  test('updateAccount with incorrect token should response unsuccessful', async () => {
+    const response = await request(express)
+      .post('/')
+      .send({
+        query: `#graphql
+        mutation updateAccount($accountInput: UpdateAccountInput!) {
+          updateAccount(accountInput: $accountInput) {
+            id
+          }
+        }
+      `,
+        variables: {
+          accountInput: {
+            email: 'william@example.org.br',
+          },
+        },
+      })
+      .set('Authorization', incorrectTokenWithoutData)
       .set('Accept', 'application/json');
 
     const [error] = response.body.errors;

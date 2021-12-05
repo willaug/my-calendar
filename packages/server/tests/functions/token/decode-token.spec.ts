@@ -12,7 +12,8 @@ describe('DecodeToken', () => {
     const response = await decodeToken({ req });
 
     expect(response).toStrictEqual({
-      id: 'fbb537c1-359a-5c4c-84bc-9e82d5d8295a',
+      account_id: 'fbb537c1-359a-5c4c-84bc-9e82d5d8295a',
+      purpose: 'AUTHENTICATION',
     });
   });
 

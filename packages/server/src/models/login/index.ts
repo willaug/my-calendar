@@ -2,7 +2,7 @@ import { ApolloError } from 'apollo-server-express';
 import { compare } from 'bcrypt';
 import { Knex } from 'knex';
 
-import { generateToken } from '@core/functions/token/generate-token';
+import { generateAuthToken } from '@core/functions/token/generate-token';
 import { AccountSnackCase, Login } from '@interfaces/index';
 import myCalendarDatabase from '@core/database';
 
@@ -31,7 +31,7 @@ class LoginModel {
     if (!isCorrectPassword) throwLoginError();
 
     const response = {
-      token: generateToken(account),
+      token: generateAuthToken(account),
     } as Login;
 
     return response;

@@ -1,4 +1,5 @@
 export interface AuthAccount {
   [key: string]: any;
-  id: string;
+  account_id: string;
+  purpose: 'AUTHENTICATION';
 }

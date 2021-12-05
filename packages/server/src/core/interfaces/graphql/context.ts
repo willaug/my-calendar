@@ -16,4 +16,7 @@ export interface ContextModels {
   Login?: {
     authenticate?: any;
   };
+  PasswordReset?: {
+    createPasswordReset?: any;
+  }
 }

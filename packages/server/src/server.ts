@@ -11,7 +11,7 @@ class Server extends App {
     this.express.listen(this.hostPort, () => {
       console.clear();
 
-      if (process.env.ENVIRONMENT === 'prod') {
+      if (process.env.NODE_ENV === 'production') {
         console.log(`[${yellow('PRODUCTION')}] MyCalendar API is running on ${yellow(this.host)}`);
         return;
       }
