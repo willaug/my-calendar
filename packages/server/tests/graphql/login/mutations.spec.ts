@@ -60,7 +60,7 @@ describe('Login', () => {
     const [error] = response.body.errors;
 
     expect(error).toHaveProperty('message');
-    expect(error.message).toEqual('The email or password is incorrect');
+    expect(error.message).toEqual('the email or password is incorrect');
     expect(error.extensions.code).toEqual('EMAIL_OR_PASSWORD_INCORRECT');
   });
 
@@ -87,7 +87,7 @@ describe('Login', () => {
     const [error] = response.body.errors;
 
     expect(error).toHaveProperty('message');
-    expect(error.message).toEqual('The email or password is incorrect');
+    expect(error.message).toEqual('the email or password is incorrect');
     expect(error.extensions.code).toEqual('EMAIL_OR_PASSWORD_INCORRECT');
   });
 });

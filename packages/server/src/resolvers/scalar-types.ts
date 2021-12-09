@@ -16,14 +16,6 @@ export default {
       return value;
     },
   }),
-  Token: new GraphQLScalarType({
-    name: 'Token',
-    description: 'Token custom scalar type',
-    // parseValue: (value: string): string | void => {
-    //   if (!validator.isJWT(value)) throw new Error();
-    //   return value;
-    // },
-  }),
   IP: new GraphQLScalarType({
     name: 'IP',
     description: 'IP custom scalar type',

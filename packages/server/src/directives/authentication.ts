@@ -12,7 +12,7 @@ async function auth({ req }: ExpressContext | any): Promise<boolean> {
     const secretKey = process.env.ACCESS_AUTH_TOKEN || '1234';
 
     const decoded = verify(token, secretKey) as AuthAccount;
-    if (!decoded.account_id || decoded.purpose !== 'AUTHENTICATION') {
+    if (!decoded.account_id || !decoded.solicited_at || decoded.purpose !== 'AUTHENTICATION') {
       return false;
     }
 

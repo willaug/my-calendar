@@ -61,7 +61,7 @@ describe('Update Password of Account', () => {
     const [error] = response.body.errors;
 
     expect(error).toHaveProperty('message');
-    expect(error.message).toEqual('The current password is incorrect');
+    expect(error.message).toEqual('the current password is incorrect');
     expect(error.extensions.code).toEqual('CURRENT_PASSWORD_INCORRECT');
   });
 

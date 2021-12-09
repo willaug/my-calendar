@@ -9,6 +9,7 @@ export interface PasswordResetSnackCase {
   account_id?: string;
   created_at?: string;
   updated_at?: string;
+  expires_at?: string;
   solicited_by?: PasswordResetRequester;
   updated_by?: PasswordResetRequester;
 }
@@ -19,27 +20,27 @@ export interface PasswordResetMessage {
 
 export interface PasswordResetData {
   passwordResetInput: Input['passwordResetInput'];
-  account: AccountSnackCase;
-  token: string;
+  account?: AccountSnackCase;
+  token?: string;
   agent: DeviceDetectorResult;
   accountLocation: PasswordResetAccountLocation;
 }
 
 export interface PasswordResetAccountLocation {
-  query: string;
-  status: string;
-  country: string;
-  countryCode: string;
-  region: string;
-  regionName: string;
-  city: string;
-  zip: number;
-  lat: number;
-  lon: number;
-  timezone: string;
-  isp: string;
-  org: string;
-  as: string;
+  query?: string;
+  status?: string;
+  country?: string;
+  countryCode?: string;
+  region?: string;
+  regionName?: string;
+  city?: string;
+  zip?: number;
+  lat?: number;
+  lon?: number;
+  timezone?: string;
+  isp?: string;
+  org?: string;
+  as?: string;
 }
 
 export interface PasswordResetRequester {

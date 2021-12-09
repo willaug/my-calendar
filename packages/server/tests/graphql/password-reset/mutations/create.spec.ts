@@ -7,10 +7,6 @@ const { express } = new App();
 
 describe('Create PasswordReset', () => {
   test('createPasswordReset without device information should response successful', async () => {
-    delete process.env.EXPIRATION_PASSWORD_RESET_TOKEN;
-    delete process.env.PASS_RESET_FROM_EMAIL_ADDRESS;
-    delete process.env.ACCESS_PASSWORD_RESET_TOKEN;
-
     const response = await request(express)
       .post('/')
       .send({
@@ -95,7 +91,7 @@ describe('Create PasswordReset', () => {
     const [error] = response.body.errors;
 
     expect(error).toHaveProperty('message');
-    expect(error.message).toEqual('Account does not exist');
+    expect(error.message).toEqual('account does not exist');
     expect(error.extensions.code).toEqual('ACCOUNT_DOES_NOT_EXIST');
   });
 

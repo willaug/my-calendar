@@ -8,7 +8,7 @@ import myCalendarDatabase from '@core/database';
 
 function throwLoginError(): void {
   throw new ApolloError(
-    'The email or password is incorrect',
+    'the email or password is incorrect',
     'EMAIL_OR_PASSWORD_INCORRECT',
   );
 }

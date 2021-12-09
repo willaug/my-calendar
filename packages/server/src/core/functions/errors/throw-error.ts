@@ -13,7 +13,7 @@ export default function throwError(err: any): void {
   }
 
   throw new ApolloError(
-    'An internal server error occurred',
+    'an internal server error occurred',
     'INTERNAL_SERVER_ERROR',
   );
 }

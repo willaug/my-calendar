@@ -48,7 +48,7 @@ class AccountsModel extends AccountsMapper {
     const isCorrectPassword = await compare(passAccountInput.currentPassword, account.password);
     if (!isCorrectPassword) {
       throw new ApolloError(
-        'The current password is incorrect',
+        'the current password is incorrect',
         'CURRENT_PASSWORD_INCORRECT',
       );
     }

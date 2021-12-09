@@ -17,7 +17,7 @@ describe('FormatError', () => {
     err.extensions.code = 'INTERNAL_SERVER_ERROR';
     const formatedError = formatError(err);
 
-    expect(formatedError.message).toEqual('An internal server error occurred');
+    expect(formatedError.message).toEqual('an internal server error occurred');
     expect(formatedError.extensions.code).toEqual('INTERNAL_SERVER_ERROR');
   });
 });

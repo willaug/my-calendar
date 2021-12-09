@@ -7,7 +7,7 @@ export default gql`
   }
 
   input UpdatePasswordResetInput {
-    token: Token!
+    token: String!
     newPassword: String!
     confirmNewPassword: String!
     ip: IP!
