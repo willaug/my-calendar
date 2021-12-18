@@ -3,10 +3,11 @@ export default {
   UPDATE_SUBJECT: 'Redefinição de senha concluída com sucesso',
   CREATE: {
     HELLO: 'Olá',
-    DESCRIPTION: 'Foi solicitada uma redefinição de senha da sua conta. Para prosseguir com o procedimento, clique no link abaixo:',
-    RESET_PASSWORD: 'Redefinir senha',
-    OBSERVATION: 'Se não foi você, ignore este e-mail.',
+    DESCRIPTION: 'Você solicitou a redefinição de sua senha, para prosseguir com o procedimento é necessário seguir as instruções',
+    ON_THIS_LINK: 'neste link',
+    OBSERVATION: 'Por segurança, o link não poderá ser reutilizado e vencerá em',
     UNKNOWN: 'Desconhecido',
+    HOURS: 'horas',
     SOLICITED_BY: {
       DESCRIPTION: 'Informações de solicitação:',
       LOCATION: 'Localização:',
@@ -20,5 +21,9 @@ export default {
       LOCATION: 'Localização:',
       DEVICE: 'Dispositivo:',
     },
+  },
+  FOOTER: {
+    CREATED_BY: 'Este projeto foi desenvolvido por',
+    OBSERVATION: 'Todos os nomes e informações são fictícios e foram desenvolvidos visando o aprendizado.',
   },
 };

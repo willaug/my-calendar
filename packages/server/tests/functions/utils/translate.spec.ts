@@ -1,4 +1,4 @@
-import translate from '@core/functions/translate';
+import translate from '@core/functions/utils/translate';
 
 const data = {
   english: {

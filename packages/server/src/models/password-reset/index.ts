@@ -1,11 +1,11 @@
 import { sendEmail } from '@core/functions/emails/send-email';
 import { ApolloError } from 'apollo-server-express';
+import DeviceDetector from 'device-detector-js';
 import { randomBytes } from 'crypto';
 import { Knex } from 'knex';
 import moment from 'moment';
 import axios from 'axios';
-import DeviceDetector from 'device-detector-js';
-import translate from '@core/functions/translate';
+import translate from '@core/functions/utils/translate';
 import myCalendarDatabase from '@core/database';
 import {
   AccountSnackCase,
@@ -13,6 +13,10 @@ import {
   PasswordResetMessage,
   PasswordResetSnackCase,
 } from '@interfaces/index';
+import {
+  generateRequesterDevice,
+  generateRequesterLocation,
+} from '@core/functions/utils/generate-requester';
 import portuguese from '@core/functions/emails/templates/password-reset/i18n/portuguese';
 import english from '@core/functions/emails/templates/password-reset/i18n/english';
 import PasswordResetMapper from './mapper';
@@ -61,6 +65,9 @@ class PasswordResetModel extends PasswordResetMapper {
         token: randomBytes(70).toString('hex'),
       }))
       .returning('*');
+
+    passwordReset.solicited_by_requester_location = generateRequesterLocation(passwordReset.solicited_by);
+    passwordReset.solicited_by_requester_device = generateRequesterDevice(passwordReset.solicited_by);
 
     const translatedData = translate({ lang, langData: { portuguese, english } });
     await sendEmail({
@@ -123,16 +130,20 @@ class PasswordResetModel extends PasswordResetMapper {
       };
     });
 
+    const { account, passwordResetUpdated } = updatedData;
+    passwordResetUpdated.updated_by_requester_location = generateRequesterLocation(passwordResetUpdated.updated_by);
+    passwordResetUpdated.updated_by_requester_device = generateRequesterDevice(passwordResetUpdated.updated_by);
+
     const translatedData = translate({ lang, langData: { portuguese, english } });
     await sendEmail({
       fromEmail: process.env.PASS_RESET_FROM_EMAIL_ADDRESS || 'no-reply@mycalendar.com',
-      toEmail: updatedData.account.email,
+      toEmail: account.email,
       title: translatedData.UPDATE_SUBJECT,
       template: {
         path: '/password-reset/update-password-reset.ejs',
         variables: {
-          account: updatedData.account,
-          passwordReset: updatedData.passwordResetUpdated,
+          account,
+          passwordReset: passwordResetUpdated,
           translatedData,
         },
       },
