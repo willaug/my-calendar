@@ -8,6 +8,7 @@ export default {
   coverageProvider: 'babel',
   collectCoverageFrom: [
     'src/**/*.ts',
+    '!bin/**/*.ts',
     '!src/server.ts',
   ],
   coverageReporters: [

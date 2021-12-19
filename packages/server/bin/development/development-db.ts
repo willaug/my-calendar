@@ -1,9 +1,9 @@
 import { green, red, yellow } from 'chalk';
 import { Client } from 'pg';
-import knex from '..';
-import { development } from '../config';
+import knex from '@core/database';
+import { development } from '@core/database/config';
 
-const developmentDb = async (): Promise<void> => {
+export default async function developmentDb(): Promise<void> {
   const { connection } = development;
   const connectionDevelopmentURL = `postgres://${connection.user}:${connection.password}@${connection.host}/postgres`;
   const client = new Client(connectionDevelopmentURL);
@@ -14,7 +14,6 @@ const developmentDb = async (): Promise<void> => {
     await client.query(`DROP DATABASE IF EXISTS ${connection.database};`);
     await client.query(`CREATE DATABASE ${connection.database};`);
 
-    console.clear();
     console.log(`[${yellow('DEVELOPMENT')}] ${green(connection.database)} database was created!`);
 
     const migrations = await knex.migrate.latest();
@@ -28,6 +27,4 @@ const developmentDb = async (): Promise<void> => {
     await client.end();
     await knex.destroy();
   }
-};
-
-export default developmentDb();
+}
