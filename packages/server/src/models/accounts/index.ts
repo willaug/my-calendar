@@ -15,6 +15,12 @@ class AccountsModel extends AccountsMapper {
     this.database = myCalendarDatabase;
   }
 
+  public async account({ authAccount }): Promise<AccountSnackCase> {
+    return this.database<AccountSnackCase>('accounts')
+      .where('id', authAccount.account_id)
+      .first();
+  }
+
   public async createAccount({ accountInput }): Promise<AccountSnackCase | void> {
     try {
       const [response] = await this.database<AccountSnackCase>('accounts')

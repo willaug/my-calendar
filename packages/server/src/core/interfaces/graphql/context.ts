@@ -9,6 +9,7 @@ export interface Context {
 
 export interface ContextModels {
   Accounts?: {
+    account?: any;
     createAccount?: any;
     updateAccount?: any;
     updatePassAccount?: any;

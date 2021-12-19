@@ -7,6 +7,11 @@ import {
 } from '@interfaces/index';
 
 export default {
+  Query: {
+    account: (_: any, __: any, { models, authAccount }: Context): Account => {
+      return models.Accounts.account({ authAccount });
+    },
+  },
   Mutation: {
     createAccount: (_: any, { accountInput }: Input, { models }: Context): Account => {
       return models.Accounts.createAccount({ accountInput });

@@ -26,8 +26,8 @@ class App {
       typeDefs,
       resolvers,
       formatError,
-      introspection: true,
-      playground: true,
+      introspection: process.env.NODE_ENV !== 'production',
+      playground: process.env.NODE_ENV !== 'production',
       context: async ({ req, res }: ExpressContext) => ({
         authAccount: await decodeToken({ req, res }),
         models,
