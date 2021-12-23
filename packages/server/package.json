@@ -46,6 +46,7 @@
     "moment": "^2.29.1",
     "nodemailer": "^6.7.2",
     "pg": "^8.7.1",
+    "sharp": "^0.29.3",
     "validator": "^13.7.0"
   },
   "devDependencies": {
@@ -64,6 +65,7 @@
     "@types/jsonwebtoken": "^8.5.5",
     "@types/nodemailer": "^6.4.4",
     "@types/pg": "^8.6.1",
+    "@types/sharp": "^0.29.4",
     "@types/supertest": "^2.0.11",
     "@types/validator": "^13.6.6",
     "@typescript-eslint/eslint-plugin": "^5.0.0",

@@ -5,6 +5,7 @@ import { compare, hash } from 'bcrypt';
 import { randomBytes } from 'crypto';
 import { extname } from 'path';
 import { Knex } from 'knex';
+import sharp from 'sharp';
 
 import throwError from '@core/functions/errors/throw-error';
 import { AccountSnackCase } from '@interfaces/index';
@@ -84,10 +85,13 @@ class AccountsModel extends AccountsMapper {
     }
 
     const stream = createReadStream();
-    const fileExtension = extname(filename);
     const randomString = randomBytes(32).toString('hex');
-    const newFilename = `${randomString}-192px${fileExtension}`;
-    const filePath = `${__dirname}/../../../public/images/accounts/${newFilename}`;
+    const path = `${__dirname}/../../../public/images/accounts/`;
+
+    const fileExtension = extname(filename);
+    const newFilename = `${randomString}-not-resized${fileExtension}`;
+    const filePath = `${path}${newFilename}`;
+    const newFilePath = filePath.replace('not-resized', '256px');
 
     const writeStream = createWriteStream(filePath);
     stream.pipe(writeStream);
@@ -103,6 +107,9 @@ class AccountsModel extends AccountsMapper {
       );
     }
 
+    await sharp(filePath).resize(256, 256, { fit: 'cover' }).toFile(newFilePath);
+    unlinkSync(filePath);
+
     return this.database.transaction(async (trx: Knex): Promise<AccountSnackCase> => {
       const account = await trx<AccountSnackCase>('accounts')
         .where('id', authAccount.account_id)
@@ -113,7 +120,7 @@ class AccountsModel extends AccountsMapper {
       }
 
       const [response] = await this.database<AccountSnackCase>('accounts')
-        .update('photo_path', newFilename)
+        .update('photo_path', newFilename.replace('not-resized', '256px'))
         .where('id', authAccount.account_id)
         .returning('*');
 

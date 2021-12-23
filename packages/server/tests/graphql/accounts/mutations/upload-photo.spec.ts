@@ -22,7 +22,7 @@ describe('Upload Photo of Account', () => {
       .field('map', JSON.stringify({
         0: ['variables.photoAccountInput'],
       }))
-      .attach('0', Buffer.from('*'), 'example.jpg')
+      .attach('0', `${__dirname}/../../../utils/images/horse.jpg`)
       .set('Authorization', correctWillDoeToken)
       .set('Content-Type', 'multipart/form-data');
 
