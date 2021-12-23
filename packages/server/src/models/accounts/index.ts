@@ -1,9 +1,13 @@
-import { Knex } from 'knex';
-import { compare, hash } from 'bcrypt';
+import { createWriteStream, statSync, unlinkSync } from 'fs';
 import { ApolloError } from 'apollo-server-express';
+import { finished } from 'stream/promises';
+import { compare, hash } from 'bcrypt';
+import { randomBytes } from 'crypto';
+import { extname } from 'path';
+import { Knex } from 'knex';
 
-import { AccountSnackCase } from '@interfaces/index';
 import throwError from '@core/functions/errors/throw-error';
+import { AccountSnackCase } from '@interfaces/index';
 import myCalendarDatabase from '@core/database';
 import AccountsMapper from './mapper';
 
@@ -62,6 +66,45 @@ class AccountsModel extends AccountsMapper {
     const password = await hash(passAccountInput.newPassword, Number(process.env.HASH_SALT) || 10);
     const [response] = await this.database<AccountSnackCase>('accounts')
       .update({ password })
+      .where('id', authAccount.account_id)
+      .returning('*');
+
+    return response;
+  }
+
+  public async uploadPhotoAccount({ photoAccountInput, authAccount }): Promise<AccountSnackCase> {
+    const { createReadStream, filename, mimetype } = await photoAccountInput;
+
+    const allowedMimes = ['image/jpg', 'image/jpeg', 'image/png'];
+    if (!allowedMimes.includes(mimetype)) {
+      throw new ApolloError(
+        'invalid photo format',
+        'INVALID_PHOTO_FORMAT',
+      );
+    }
+
+    const stream = createReadStream();
+    const fileExtension = extname(filename);
+    const randomString = randomBytes(32).toString('hex');
+    const newFilename = `${randomString}-192px${fileExtension}`;
+    const filePath = `${__dirname}/../../../public/images/accounts/${newFilename}`;
+
+    const writeStream = createWriteStream(filePath);
+    stream.pipe(writeStream);
+    await finished(writeStream);
+
+    const { size } = statSync(filePath);
+    const maxSizeFile = 2 * 1024 * 1024;
+    if (size > maxSizeFile) {
+      unlinkSync(filePath);
+      throw new ApolloError(
+        'photo exceeds the maximum size of 2 mb',
+        'PHOTO_EXCEEDS_MAXIMUM_SIZE',
+      );
+    }
+
+    const [response] = await this.database<AccountSnackCase>('accounts')
+      .update('photo_path', newFilename)
       .where('id', authAccount.account_id)
       .returning('*');
 

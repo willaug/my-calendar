@@ -1,8 +1,8 @@
+import { correctWillAugToken } from '@tests/utils/create-token';
+import printError from '@tests/utils/print-error';
 import request from 'supertest';
 import moment from 'moment';
 import App from '@src/app';
-import { correctWillAugToken } from '@tests/utils/create-token';
-import printError from '@tests/utils/print-error';
 
 const { express } = new App();
 
@@ -36,7 +36,7 @@ describe('Account', () => {
       id: 'fbb537c1-359a-5c4c-84bc-9e82d5d8295a',
       name: 'William Augusto',
       email: 'william@example.com',
-      photoPath: null,
+      photoPath: expect.any(String),
       createdAt: expect.any(String),
       updatedAt: expect.any(String),
     });

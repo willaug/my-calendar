@@ -1,8 +1,10 @@
 import { GraphQLScalarType } from 'graphql';
+import { GraphQLUpload } from 'graphql-upload';
 import moment from 'moment';
 import validator from 'validator';
 
 export default {
+  Upload: GraphQLUpload,
   Timestamp: new GraphQLScalarType({
     name: 'Timestamp',
     description: 'Timestamp custom scalar type',

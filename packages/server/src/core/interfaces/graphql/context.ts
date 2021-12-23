@@ -13,6 +13,7 @@ export interface ContextModels {
     createAccount?: any;
     updateAccount?: any;
     updatePassAccount?: any;
+    uploadPhotoAccount?: any;
   };
   Login?: {
     authenticate?: any;

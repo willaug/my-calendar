@@ -9,6 +9,7 @@ export interface Input {
     newPassword: string;
     confirmNewPassword: string;
   };
+  photoAccountInput?: any;
   loginInput?: {
     email?: string;
     password?: string;

@@ -1,7 +1,7 @@
+import printError from '@tests/utils/print-error';
+import { internet } from 'faker';
 import request from 'supertest';
 import App from '@src/app';
-import { internet } from 'faker';
-import printError from '@tests/utils/print-error';
 
 const { express } = new App();
 

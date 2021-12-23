@@ -1,6 +1,6 @@
+import printError from '@tests/utils/print-error';
 import request from 'supertest';
 import App from '@src/app';
-import printError from '@tests/utils/print-error';
 
 const { express } = new App();
 

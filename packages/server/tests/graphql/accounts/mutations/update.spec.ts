@@ -1,12 +1,12 @@
-import request from 'supertest';
-import moment from 'moment';
-import App from '@src/app';
 import printError from '@tests/utils/print-error';
 import {
   correctWillDoeToken,
   incorrectTokenWithoutData,
   incorretWillAugToken,
 } from '@tests/utils/create-token';
+import request from 'supertest';
+import moment from 'moment';
+import App from '@src/app';
 
 const { express } = new App();
 

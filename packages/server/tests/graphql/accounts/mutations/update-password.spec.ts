@@ -1,7 +1,7 @@
-import request from 'supertest';
-import App from '@src/app';
 import { correctWillDoeToken } from '@tests/utils/create-token';
 import printError from '@tests/utils/print-error';
+import request from 'supertest';
+import App from '@src/app';
 
 const { express } = new App();
 
@@ -90,7 +90,7 @@ describe('Update Password of Account', () => {
     const [error] = response.body.errors;
 
     expect(error).toHaveProperty('message');
-    expect(error.message).toEqual('Field newPassword is different from confirmNewPassword');
+    expect(error.message).toEqual('field newPassword is different from confirmNewPassword');
     expect(error.extensions.code).toEqual('BAD_USER_INPUT');
   });
 });

@@ -1,6 +1,16 @@
-import createPublicDirectory from './create-public-directory';
+import { red } from 'chalk';
+import createPublicDirectory from './create-files-directory';
 import developmentDb from './development-db';
 
-console.clear();
-createPublicDirectory();
-developmentDb();
+const run = async (): Promise<void> => {
+  console.clear();
+
+  try {
+    await createPublicDirectory();
+    await developmentDb();
+  } catch (err) {
+    console.log(red(err));
+  }
+};
+
+run();

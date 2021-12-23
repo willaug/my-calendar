@@ -5,7 +5,14 @@ import { randomBytes } from 'crypto';
 import { Knex } from 'knex';
 import moment from 'moment';
 import axios from 'axios';
+
+import portuguese from '@core/functions/emails/templates/password-reset/i18n/portuguese';
+import english from '@core/functions/emails/templates/password-reset/i18n/english';
 import translate from '@core/functions/utils/translate';
+import {
+  generateRequesterDevice,
+  generateRequesterLocation,
+} from '@core/functions/utils/generate-requester';
 import myCalendarDatabase from '@core/database';
 import {
   AccountSnackCase,
@@ -13,12 +20,6 @@ import {
   PasswordResetMessage,
   PasswordResetSnackCase,
 } from '@interfaces/index';
-import {
-  generateRequesterDevice,
-  generateRequesterLocation,
-} from '@core/functions/utils/generate-requester';
-import portuguese from '@core/functions/emails/templates/password-reset/i18n/portuguese';
-import english from '@core/functions/emails/templates/password-reset/i18n/english';
 import PasswordResetMapper from './mapper';
 
 function accountDeviceInfo(userAgent: string): DeviceDetector.DeviceDetectorResult {

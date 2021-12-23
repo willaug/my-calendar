@@ -1,8 +1,9 @@
-import { AuthenticationError, ExpressContext, SchemaDirectiveVisitor } from 'apollo-server-express';
+import { AuthenticationError, ExpressContext } from 'apollo-server-express';
+import { getDirective, MapperKind, mapSchema } from '@graphql-tools/utils';
 import { AccountSnackCase, AuthAccount } from '@interfaces/index';
+import { GraphQLFieldConfig, GraphQLSchema } from 'graphql';
 import { verify } from 'jsonwebtoken';
 import database from '@core/database';
-import { GraphQLField } from 'graphql';
 
 async function auth({ req }: ExpressContext | any): Promise<boolean> {
   try {
@@ -26,21 +27,27 @@ async function auth({ req }: ExpressContext | any): Promise<boolean> {
   }
 }
 
-class AuthenticationDirective extends SchemaDirectiveVisitor {
-  public visitFieldDefinition(field: GraphQLField<any, any>): void {
-    const { resolve } = field;
+export default function authentication(schema: GraphQLSchema): GraphQLSchema {
+  return mapSchema(schema, {
+    [MapperKind.OBJECT_FIELD]: (fieldConfig: GraphQLFieldConfig<any, any, any>) => {
+      const authDirective = getDirective(schema, fieldConfig, 'isAuthenticated')?.[0];
 
-    // eslint-disable-next-line no-param-reassign
-    field.resolve = async (...args: any[]) => {
-      const authenticated = await auth({ req: args[2].req });
+      if (authDirective) {
+        const { resolve } = fieldConfig;
 
-      if (authenticated) {
-        return resolve.apply(this, args);
+        // eslint-disable-next-line no-param-reassign
+        fieldConfig.resolve = async (...args: any[]) => {
+          const authenticated = await auth({ req: args[2].req });
+
+          if (authenticated) {
+            return resolve.apply(this, args);
+          }
+
+          throw new AuthenticationError('Account not authenticated');
+        };
       }
 
-      throw new AuthenticationError('Account not authenticated');
-    };
-  }
+      return fieldConfig;
+    },
+  });
 }
-
-export default AuthenticationDirective;

@@ -21,15 +21,21 @@ export default {
     },
     updatePassAccount: (_: any, { passAccountInput }: Input, { models, authAccount }: Context): Account => {
       if (passAccountInput.newPassword !== passAccountInput.confirmNewPassword) {
-        throw new UserInputError('Field newPassword is different from confirmNewPassword');
+        throw new UserInputError('field newPassword is different from confirmNewPassword');
       }
 
       return models.Accounts.updatePassAccount({ passAccountInput, authAccount });
     },
+    uploadPhotoAccount: (_: any, { photoAccountInput }: Input, { models, authAccount }: Context): Account => {
+      return models.Accounts.uploadPhotoAccount({ photoAccountInput, authAccount });
+    },
   },
   Account: {
-    photoPath: ({ photo_path }: AccountSnackCase) => photo_path,
     createdAt: ({ created_at }: AccountSnackCase) => created_at,
     updatedAt: ({ updated_at }: AccountSnackCase) => updated_at,
+    photoPath: ({ photo_path }: AccountSnackCase) => {
+      if (!photo_path) return null;
+      return `${process.env.HOST_URL}/images/accounts/${photo_path}`;
+    },
   },
 };
