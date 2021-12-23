@@ -21,7 +21,6 @@ describe('Update Account', () => {
               id
               name
               email
-              photoPath
               createdAt
               updatedAt
             }
@@ -46,7 +45,6 @@ describe('Update Account', () => {
       id: '20ee8046-d30e-511d-9fe1-f772f90a89c6',
       name: 'William',
       email: 'will@example.com.br',
-      photoPath: null,
       createdAt: expect.any(String),
       updatedAt: expect.any(String),
     });

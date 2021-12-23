@@ -1,4 +1,4 @@
-import { correctWillDoeToken, correctWillIpsumToken } from '@tests/utils/create-token';
+import { correctWillAugToken, correctWillIpsumToken } from '@tests/utils/create-token';
 import printError from '@tests/utils/print-error';
 import request from 'supertest';
 import App from '@src/app';
@@ -40,7 +40,7 @@ describe('Delete Photo of Account', () => {
           }
       `,
       })
-      .set('Authorization', correctWillDoeToken)
+      .set('Authorization', correctWillAugToken)
       .set('Accept', 'application/json');
 
     const [error] = response.body.errors;

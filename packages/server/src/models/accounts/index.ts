@@ -103,12 +103,22 @@ class AccountsModel extends AccountsMapper {
       );
     }
 
-    const [response] = await this.database<AccountSnackCase>('accounts')
-      .update('photo_path', newFilename)
-      .where('id', authAccount.account_id)
-      .returning('*');
+    return this.database.transaction(async (trx: Knex): Promise<AccountSnackCase> => {
+      const account = await trx<AccountSnackCase>('accounts')
+        .where('id', authAccount.account_id)
+        .first();
 
-    return response;
+      if (account.photo_path) {
+        unlinkSync(`${__dirname}/../../../public/images/accounts/${account.photo_path}`);
+      }
+
+      const [response] = await this.database<AccountSnackCase>('accounts')
+        .update('photo_path', newFilename)
+        .where('id', authAccount.account_id)
+        .returning('*');
+
+      return response;
+    });
   }
 
   public async deletePhotoAccount({ authAccount }): Promise<AccountSnackCase> {

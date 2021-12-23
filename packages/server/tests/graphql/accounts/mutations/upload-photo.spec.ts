@@ -11,6 +11,35 @@ describe('Upload Photo of Account', () => {
       .post('/')
       .field('operations', JSON.stringify({
         query: `#graphql
+        mutation uploadPhotoAccount($photoAccountInput: Upload!) {
+          uploadPhotoAccount(photoAccountInput: $photoAccountInput) {
+            id
+            photoPath
+          }
+        }
+    `,
+      }))
+      .field('map', JSON.stringify({
+        0: ['variables.photoAccountInput'],
+      }))
+      .attach('0', Buffer.from('*'), 'example.jpg')
+      .set('Authorization', correctWillDoeToken)
+      .set('Content-Type', 'multipart/form-data');
+
+    printError(response);
+    expect(response.status).toEqual(200);
+    expect(response.body).toHaveProperty('data');
+    expect(response.body.data.uploadPhotoAccount).toStrictEqual({
+      id: '20ee8046-d30e-511d-9fe1-f772f90a89c6',
+      photoPath: expect.stringContaining(`${process.env.HOST_URL}/images/accounts/`),
+    });
+  });
+
+  test('uploadPhotoAccount with photo account should response successful', async () => {
+    const response = await request(express)
+      .post('/')
+      .field('operations', JSON.stringify({
+        query: `#graphql
           mutation uploadPhotoAccount($photoAccountInput: Upload!) {
             uploadPhotoAccount(photoAccountInput: $photoAccountInput) {
               id
@@ -22,7 +51,7 @@ describe('Upload Photo of Account', () => {
       .field('map', JSON.stringify({
         0: ['variables.photoAccountInput'],
       }))
-      .attach('0', `${__dirname}/../../../utils/images/jobs.jpg`)
+      .attach('0', `${__dirname}/../../../utils/images/bread.jpg`)
       .set('Authorization', correctWillDoeToken)
       .set('Content-Type', 'multipart/form-data');
 
@@ -51,7 +80,7 @@ describe('Upload Photo of Account', () => {
       .field('map', JSON.stringify({
         0: ['variables.photoAccountInput'],
       }))
-      .attach('0', Buffer.from('hello'), 'example.txt')
+      .attach('0', Buffer.from('*'), 'example.txt')
       .set('Authorization', correctWillDoeToken)
       .set('Content-Type', 'multipart/form-data');
 
