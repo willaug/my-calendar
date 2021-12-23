@@ -25,6 +25,12 @@ export const correctWillDoeToken = authTestToken({
   email: 'will@example.com',
 });
 
+export const correctWillIpsumToken = authTestToken({
+  id: 'e89b29c6-086a-581b-bdde-a5c09c1687bc',
+  name: 'William Ipsum',
+  email: 'will@ipsum.com',
+});
+
 export const incorretWillAugToken = authTestToken({
   id: '8724c4b4-c123-52d5-bfce-305793a0bb8f',
   name: 'William Augusto',

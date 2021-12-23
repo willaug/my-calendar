@@ -36,7 +36,7 @@ describe('Account', () => {
       id: 'fbb537c1-359a-5c4c-84bc-9e82d5d8295a',
       name: 'William Augusto',
       email: 'william@example.com',
-      photoPath: expect.any(String),
+      photoPath: null,
       createdAt: expect.any(String),
       updatedAt: expect.any(String),
     });

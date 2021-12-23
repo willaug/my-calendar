@@ -29,6 +29,9 @@ export default {
     uploadPhotoAccount: (_: any, { photoAccountInput }: Input, { models, authAccount }: Context): Account => {
       return models.Accounts.uploadPhotoAccount({ photoAccountInput, authAccount });
     },
+    deletePhotoAccount: (_: any, __: Input, { models, authAccount }: Context): Account => {
+      return models.Accounts.deletePhotoAccount({ authAccount });
+    },
   },
   Account: {
     createdAt: ({ created_at }: AccountSnackCase) => created_at,

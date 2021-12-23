@@ -6,5 +6,6 @@ export default gql`
     updateAccount(accountInput: UpdateAccountInput!): Account! @isAuthenticated
     updatePassAccount(passAccountInput: UpdatePassAccountInput!): Account! @isAuthenticated
     uploadPhotoAccount(photoAccountInput: Upload!): Account! @isAuthenticated
+    deletePhotoAccount: Account! @isAuthenticated
   }
 `;

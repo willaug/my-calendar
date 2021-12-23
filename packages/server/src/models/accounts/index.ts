@@ -110,6 +110,29 @@ class AccountsModel extends AccountsMapper {
 
     return response;
   }
+
+  public async deletePhotoAccount({ authAccount }): Promise<AccountSnackCase> {
+    return this.database.transaction(async (trx: Knex): Promise<AccountSnackCase> => {
+      const account = await trx<AccountSnackCase>('accounts')
+        .where('id', authAccount.account_id)
+        .first();
+
+      if (!account.photo_path) {
+        throw new ApolloError(
+          'account has no image to delete',
+          'ACCOUNT_HAS_NO_IMAGE',
+        );
+      }
+
+      unlinkSync(`${__dirname}/../../../public/images/accounts/${account.photo_path}`);
+      const [response] = await trx<AccountSnackCase>('accounts')
+        .update('photo_path', null)
+        .where('id', authAccount.account_id)
+        .returning('*');
+
+      return response;
+    });
+  }
 }
 
 export default new AccountsModel();

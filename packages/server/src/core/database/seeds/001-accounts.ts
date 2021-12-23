@@ -1,9 +1,12 @@
-import { Knex } from 'knex';
+import { writeFileSync } from 'fs';
 import { hash } from 'bcrypt';
+import { Knex } from 'knex';
 import dotEnv from 'dotenv';
 
 dotEnv.config({ path: `${__dirname}/../../../../.env` });
 export async function seed(knex: Knex): Promise<void> {
+  writeFileSync('public/images/accounts/example.jpg', Buffer.from('*'));
+
   await knex('accounts').del();
   await knex('accounts').insert([
     {
@@ -17,6 +20,13 @@ export async function seed(knex: Knex): Promise<void> {
       name: 'William Doe',
       email: 'will@example.com',
       password: await hash('example', Number(process.env.HASH_SALT) || 10),
+    },
+    {
+      id: 'e89b29c6-086a-581b-bdde-a5c09c1687bc',
+      name: 'William Ipsum',
+      email: 'will@ipsum.com',
+      photo_path: 'example.jpg',
+      password: await hash('1234', Number(process.env.HASH_SALT) || 10),
     },
   ]);
 }

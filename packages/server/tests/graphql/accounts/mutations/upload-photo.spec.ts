@@ -1,4 +1,4 @@
-import { correctWillAugToken } from '@tests/utils/create-token';
+import { correctWillDoeToken } from '@tests/utils/create-token';
 import printError from '@tests/utils/print-error';
 import request from 'supertest';
 import App from '@src/app';
@@ -23,14 +23,14 @@ describe('Upload Photo of Account', () => {
         0: ['variables.photoAccountInput'],
       }))
       .attach('0', `${__dirname}/../../../utils/images/jobs.jpg`)
-      .set('Authorization', correctWillAugToken)
+      .set('Authorization', correctWillDoeToken)
       .set('Content-Type', 'multipart/form-data');
 
     printError(response);
     expect(response.status).toEqual(200);
     expect(response.body).toHaveProperty('data');
     expect(response.body.data.uploadPhotoAccount).toStrictEqual({
-      id: 'fbb537c1-359a-5c4c-84bc-9e82d5d8295a',
+      id: '20ee8046-d30e-511d-9fe1-f772f90a89c6',
       photoPath: expect.stringContaining(`${process.env.HOST_URL}/images/accounts/`),
     });
   });
@@ -52,7 +52,7 @@ describe('Upload Photo of Account', () => {
         0: ['variables.photoAccountInput'],
       }))
       .attach('0', Buffer.from('hello'), 'example.txt')
-      .set('Authorization', correctWillAugToken)
+      .set('Authorization', correctWillDoeToken)
       .set('Content-Type', 'multipart/form-data');
 
     const [error] = response.body.errors;
@@ -79,7 +79,7 @@ describe('Upload Photo of Account', () => {
         0: ['variables.photoAccountInput'],
       }))
       .attach('0', Buffer.alloc(3 * 1024 * 1024), 'example.png')
-      .set('Authorization', correctWillAugToken)
+      .set('Authorization', correctWillDoeToken)
       .set('Content-Type', 'multipart/form-data');
 
     const [error] = response.body.errors;
