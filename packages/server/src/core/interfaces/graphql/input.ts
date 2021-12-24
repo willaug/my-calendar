@@ -20,5 +20,14 @@ export interface Input {
     confirmNewPassword?: string;
     token?: string;
     ip?: string;
+  },
+  createReminderInput?: {
+    title?: string;
+    repeat?: boolean;
+    fullDay?: boolean;
+    description?: string;
+    scheduledTo?: Date;
+    rememberEmail?: boolean;
+    reminderColor?: string;
   }
 }

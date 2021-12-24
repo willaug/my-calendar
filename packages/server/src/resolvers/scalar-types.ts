@@ -1,14 +1,24 @@
-import { GraphQLScalarType } from 'graphql';
 import { GraphQLUpload } from 'graphql-upload';
-import moment from 'moment';
+import { GraphQLScalarType } from 'graphql';
 import validator from 'validator';
 
 export default {
   Upload: GraphQLUpload,
+  HexadecimalColor: new GraphQLScalarType({
+    name: 'HexadecimalColor',
+    description: 'HexadecimalColor custom scalar type',
+    parseValue: (value: string): string | void => {
+      if (!validator.isHexColor(value)) throw new Error();
+      return value;
+    },
+  }),
   Timestamp: new GraphQLScalarType({
     name: 'Timestamp',
     description: 'Timestamp custom scalar type',
-    serialize: (value: string): string => moment(value).toISOString(),
+    parseValue: (value: string): string | void => {
+      if (!validator.isISO8601(value)) throw new Error();
+      return value;
+    },
   }),
   Email: new GraphQLScalarType({
     name: 'Email',
@@ -20,7 +30,7 @@ export default {
   }),
   IP: new GraphQLScalarType({
     name: 'IP',
-    description: 'IP custom scalar type',
+    description: 'IPV4 or IPV6',
     parseValue: (value: string): string | void => {
       if (!validator.isIP(value)) throw new Error();
       return value;
