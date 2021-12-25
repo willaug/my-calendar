@@ -29,5 +29,16 @@ export interface Input {
     scheduledTo?: Date;
     rememberEmail?: boolean;
     reminderColor?: string;
+  },
+  updateReminderInput?: {
+    id?: string;
+    title?: string;
+    repeat?: boolean;
+    fullDay?: boolean;
+    description?: string;
+    scheduledTo?: Date;
+    rememberEmail?: boolean;
+    reminderColor?: string;
+    archived?: boolean;
   }
 }

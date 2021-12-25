@@ -10,4 +10,16 @@ export default gql`
     rememberEmail: Boolean
     reminderColor: HexadecimalColor
   }
+
+  input UpdateReminderInput {
+    id: ID!
+    title: String
+    repeat: Boolean
+    fullDay: Boolean
+    archived: Boolean
+    description: String
+    scheduledTo: Timestamp
+    rememberEmail: Boolean
+    reminderColor: HexadecimalColor
+  }
 `;

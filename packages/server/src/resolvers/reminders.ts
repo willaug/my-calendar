@@ -10,6 +10,9 @@ export default {
     createReminder: (_: any, { createReminderInput }: Input, { models, authAccount }: Context): Reminder => {
       return models.Reminders.createReminder({ createReminderInput, authAccount });
     },
+    updateReminder: (_: any, { updateReminderInput }: Input, { models, authAccount }: Context): Reminder => {
+      return models.Reminders.updateReminder({ updateReminderInput, authAccount });
+    },
   },
   Reminder: {
     fullDay: ({ full_day }: ReminderSnackCase) => full_day,

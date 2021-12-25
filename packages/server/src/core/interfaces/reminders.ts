@@ -19,7 +19,7 @@ export interface ReminderSnackCase {
   title: string;
   repeat: boolean;
   full_day: boolean;
-  account_id: string;
+  account_id?: string;
   description: string | null;
   scheduled_to: Date;
   remember_email: boolean;
