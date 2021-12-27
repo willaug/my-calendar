@@ -18,7 +18,7 @@ export async function seed(knex: Knex): Promise<void> {
       account_id: '20ee8046-d30e-511d-9fe1-f772f90a89c6',
       title: 'Comprar pão',
       scheduled_to: date.future(),
-      repeat: true,
+      repeat: 'every_monday',
       archived: true,
       full_day: false,
       remember_email: true,

@@ -3,7 +3,7 @@ import { gql } from 'apollo-server-express';
 export default gql`
   input CreateReminderInput {
     title: String!
-    repeat: Boolean
+    repeat: ReminderRepeatEnum
     fullDay: Boolean
     description: String
     scheduledTo: Timestamp!
@@ -14,7 +14,7 @@ export default gql`
   input UpdateReminderInput {
     id: ID!
     title: String
-    repeat: Boolean
+    repeat: ReminderRepeatEnum
     fullDay: Boolean
     archived: Boolean
     description: String
@@ -37,13 +37,13 @@ export default gql`
     scheduledToEnd: Timestamp
     reminderColorIn: [HexadecimalColor!]
     rememberEmailEqual: Boolean
-    repeatEqual: Boolean
+    repeatIn: [ReminderRepeatEnum!]
     fullDayEqual: Boolean
     archivedEqual: Boolean
   }
 
   input QueryRemindersOrderByInput {
-    orderColumn: QueryRemindersOrderByColumn!
-    orderDirection: QueryRemindersOrderByDirection!
+    orderColumn: QueryRemindersOrderByColumnEnum!
+    orderDirection: QueryRemindersOrderByDirectionEnum!
   }
 `;

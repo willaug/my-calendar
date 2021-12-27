@@ -51,7 +51,7 @@ describe('Create Reminder', () => {
       title: 'Consulta dermatológica',
       description: 'Consulta com o médico John Doe',
       scheduledTo: expect.any(String),
-      repeat: false,
+      repeat: 'never',
       fullDay: false,
       archived: false,
       remembered: false,

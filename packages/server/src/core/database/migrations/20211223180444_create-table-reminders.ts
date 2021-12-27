@@ -2,6 +2,18 @@ import { Knex } from 'knex';
 import { development } from '../config';
 
 export async function up(knex: Knex): Promise<void> {
+  const repeatEnum = [
+    'never',
+    'every_day',
+    'every_monday',
+    'every_tuesday',
+    'every_wednesday',
+    'every_thursday',
+    'every_friday',
+    'every_saturday',
+    'every_sunday',
+  ];
+
   await knex.schema.createTable('reminders', (table: Knex.TableBuilder) => {
     table.uuid('id').primary().defaultTo(knex.raw('gen_random_uuid()'));
     table.uuid('account_id').references('id').inTable('accounts')
@@ -10,7 +22,7 @@ export async function up(knex: Knex): Promise<void> {
       .notNullable();
     table.string('title', 70).notNullable();
     table.string('description', 200);
-    table.boolean('repeat').notNullable().defaultTo(false);
+    table.enum('repeat', repeatEnum).notNullable().defaultTo('never');
     table.boolean('full_day').notNullable().defaultTo(true);
     table.boolean('archived').notNullable().defaultTo(false);
     table.boolean('remembered').notNullable().defaultTo(false);

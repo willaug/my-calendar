@@ -1,11 +1,12 @@
 import {
+  ReminderSnackCase,
   Reminders,
   Reminder,
-  ReminderSnackCase,
   Context,
   Input,
 } from '@interfaces/index';
 import { ApolloError } from 'apollo-server-express';
+import { camelCase } from 'change-case';
 import moment from 'moment';
 
 function scheduledToIsBeforeNowErr(scheduledTo: Date): void {
@@ -44,5 +45,6 @@ export default {
     scheduledTo: ({ scheduled_to }: ReminderSnackCase) => scheduled_to,
     rememberEmail: ({ remember_email }: ReminderSnackCase) => remember_email,
     reminderColor: ({ reminder_color }: ReminderSnackCase) => reminder_color,
+    repeat: ({ repeat }: ReminderSnackCase) => camelCase(String(repeat)),
   },
 };

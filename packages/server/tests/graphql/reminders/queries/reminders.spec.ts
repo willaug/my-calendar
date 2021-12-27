@@ -54,7 +54,7 @@ describe('Reminders', () => {
       {
         id: '4923e408-b524-5e35-8dd7-bb55a296ca82',
         title: 'Comprar pão',
-        repeat: true,
+        repeat: 'everyMonday',
         fullDay: false,
         archived: true,
         remembered: false,
@@ -68,7 +68,7 @@ describe('Reminders', () => {
       {
         id: 'c646fd10-9953-5bd7-8005-d5e122a963f8',
         title: 'Consulta médica',
-        repeat: false,
+        repeat: 'never',
         fullDay: true,
         archived: false,
         remembered: false,
@@ -82,7 +82,7 @@ describe('Reminders', () => {
       {
         id: 'c4ce88bc-186e-5219-a930-4189b76a7713',
         title: 'Consulta odontológica',
-        repeat: false,
+        repeat: 'never',
         fullDay: true,
         archived: false,
         remembered: false,
@@ -215,7 +215,7 @@ describe('Reminders', () => {
               scheduledToEnd: '2021-02-11T07:17:36.000Z',
               reminderColorIn: ['#9087e3'],
               rememberEmailEqual: false,
-              repeatEqual: false,
+              repeatIn: ['never'],
               fullDayEqual: true,
               archivedEqual: false,
             },
@@ -241,7 +241,7 @@ describe('Reminders', () => {
       {
         id: 'c4ce88bc-186e-5219-a930-4189b76a7713',
         title: 'Consulta odontológica',
-        repeat: false,
+        repeat: 'never',
         fullDay: true,
         archived: false,
         remembered: false,

@@ -41,7 +41,7 @@ describe('Reminder', () => {
     expect(response.body.data.reminder).toStrictEqual({
       id: '4923e408-b524-5e35-8dd7-bb55a296ca82',
       title: 'Comprar pão',
-      repeat: true,
+      repeat: 'everyMonday',
       fullDay: false,
       archived: true,
       remembered: false,

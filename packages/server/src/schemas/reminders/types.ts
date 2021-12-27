@@ -6,7 +6,7 @@ export default gql`
     title: String!
     scheduledTo: Timestamp!
     description: String
-    repeat: Boolean!
+    repeat: ReminderRepeatEnum!
     fullDay: Boolean!
     rememberEmail: Boolean!
     reminderColor: HexadecimalColor!
@@ -23,16 +23,28 @@ export default gql`
     offset: Int!
   }
 
-  enum QueryRemindersOrderByDirection {
+  enum QueryRemindersOrderByDirectionEnum {
     desc
     asc
   }
 
-  enum QueryRemindersOrderByColumn {
+  enum QueryRemindersOrderByColumnEnum {
     title
     description
     scheduledTo
     createdAt
     updatedAt
+  }
+
+  enum ReminderRepeatEnum {
+    never
+    everyDay
+    everyMonday
+    everyTuesday
+    everyWednesday
+    everyThursday
+    everyFriday
+    everySaturday
+    everySunday
   }
 `;

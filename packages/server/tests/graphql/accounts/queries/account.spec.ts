@@ -26,6 +26,7 @@ describe('Account', () => {
               description
               scheduledTo
               fullDay
+              repeat
             }
           }
         }
@@ -53,6 +54,7 @@ describe('Account', () => {
           description: 'Lembrar de renovar!',
           scheduledTo: expect.any(String),
           fullDay: false,
+          repeat: 'never',
         },
       ],
     });

@@ -50,7 +50,7 @@ describe('Update Reminder', () => {
       title: 'Retirar passaporte europeu',
       description: 'Retirar!',
       scheduledTo: expect.any(String),
-      repeat: false,
+      repeat: 'never',
       fullDay: false,
       archived: true,
       remembered: false,

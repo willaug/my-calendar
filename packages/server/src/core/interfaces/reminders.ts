@@ -8,7 +8,7 @@ export interface Reminders {
 export interface Reminder {
   id?: string;
   title: string;
-  repeat: boolean;
+  repeat: ReminderRepeat;
   fullDay: boolean;
   accountId: string;
   scheduledTo: Date;
@@ -24,7 +24,7 @@ export interface Reminder {
 export interface ReminderSnackCase {
   id?: string;
   title: string;
-  repeat: boolean;
+  repeat: ReminderRepeatSnackCase;
   full_day: boolean;
   account_id?: string;
   description: string | null;
@@ -38,18 +38,42 @@ export interface ReminderSnackCase {
 }
 
 export interface RemindersQueryConditions {
-  titleLike?: string
-  descriptionLike?: string
-  scheduledToStart?: Date
-  scheduledToEnd?: Date
-  reminderColorIn?: string[]
-  rememberEmailEqual?: boolean
-  repeatEqual?: boolean
-  fullDayEqual?: boolean
-  archivedEqual?: boolean
+  titleLike?: string;
+  descriptionLike?: string;
+  scheduledToStart?: Date;
+  scheduledToEnd?: Date;
+  reminderColorIn?: string[];
+  rememberEmailEqual?: boolean;
+  repeatIn?: ReminderRepeat[];
+  fullDayEqual?: boolean;
+  archivedEqual?: boolean;
 }
 
 export interface RemindersOrderBy {
   orderColumn: string;
   orderDirection: 'asc' | 'desc';
+}
+
+export enum ReminderRepeatSnackCase {
+  'never',
+  'every_day',
+  'every_monday',
+  'every_tuesday',
+  'every_wednesday',
+  'every_thursday',
+  'every_friday',
+  'every_saturday',
+  'every_sunday',
+}
+
+export enum ReminderRepeat {
+  'never',
+  'everyDay',
+  'everyMonday',
+  'everyTuesday',
+  'everyWednesday',
+  'everyThursday',
+  'everyFriday',
+  'everySaturday',
+  'everySunday',
 }
