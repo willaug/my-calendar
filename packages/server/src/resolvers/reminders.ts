@@ -5,18 +5,35 @@ import {
   Context,
   Input,
 } from '@interfaces/index';
+import { ApolloError } from 'apollo-server-express';
+import moment from 'moment';
+
+function scheduledToIsBeforeNowErr(scheduledTo: Date): void {
+  if (scheduledTo && moment(scheduledTo).isBefore(moment())) {
+    throw new ApolloError(
+      'scheduledTo is before now',
+      'SCHEDULED_TO_IS_BEFORE_NOW',
+    );
+  }
+}
 
 export default {
   Query: {
     reminders: (_: any, { queryRemindersInput }: Input, { models, authAccount }: Context): Reminders => {
       return models.Reminders.reminders({ queryRemindersInput: queryRemindersInput || {}, authAccount });
     },
+
+    reminder: (_: any, { queryReminderInput }: Input, { models, authAccount }: Context): Reminder => {
+      return models.Reminders.reminder({ queryReminderInput, authAccount });
+    },
   },
   Mutation: {
     createReminder: (_: any, { createReminderInput }: Input, { models, authAccount }: Context): Reminder => {
+      scheduledToIsBeforeNowErr(createReminderInput.scheduledTo);
       return models.Reminders.createReminder({ createReminderInput, authAccount });
     },
     updateReminder: (_: any, { updateReminderInput }: Input, { models, authAccount }: Context): Reminder => {
+      scheduledToIsBeforeNowErr(updateReminderInput.scheduledTo);
       return models.Reminders.updateReminder({ updateReminderInput, authAccount });
     },
   },

@@ -25,6 +25,7 @@ export interface ContextModels {
   },
   Reminders?: {
     reminders?: any;
+    reminder?: any;
     createReminder?: any;
     updateReminder?: any;
   }

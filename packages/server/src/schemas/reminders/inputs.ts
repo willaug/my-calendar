@@ -46,5 +46,4 @@ export default gql`
     orderColumn: QueryRemindersOrderByColumn!
     orderDirection: QueryRemindersOrderByDirection!
   }
-
 `;

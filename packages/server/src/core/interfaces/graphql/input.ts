@@ -48,5 +48,6 @@ export interface Input {
     orderBy?: RemindersOrderBy;
     limit?: number;
     offset?: number;
-  }
+  },
+  queryReminderInput?: string;
 }
