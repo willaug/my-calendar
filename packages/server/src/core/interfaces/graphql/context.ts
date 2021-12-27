@@ -24,6 +24,7 @@ export interface ContextModels {
     updatePasswordReset?: any;
   },
   Reminders?: {
+    reminders?: any;
     createReminder?: any;
     updateReminder?: any;
   }

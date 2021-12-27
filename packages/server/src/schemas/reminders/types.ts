@@ -5,7 +5,7 @@ export default gql`
     id: ID!
     title: String!
     scheduledTo: Timestamp!
-    description: String!
+    description: String
     repeat: Boolean!
     fullDay: Boolean!
     rememberEmail: Boolean!
@@ -14,5 +14,25 @@ export default gql`
     remembered: Boolean!
     createdAt: Timestamp!
     updatedAt: Timestamp!
+  }
+  
+  type Reminders {
+    results: [Reminder]
+    totalCount: Int!
+    limit: Int!
+    offset: Int!
+  }
+
+  enum QueryRemindersOrderByDirection {
+    desc
+    asc
+  }
+
+  enum QueryRemindersOrderByColumn {
+    title
+    description
+    scheduledTo
+    createdAt
+    updatedAt
   }
 `;

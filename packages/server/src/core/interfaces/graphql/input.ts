@@ -1,3 +1,5 @@
+import { RemindersOrderBy, RemindersQueryConditions } from '../reminders';
+
 export interface Input {
   accountInput?: {
     name?: string;
@@ -40,5 +42,11 @@ export interface Input {
     rememberEmail?: boolean;
     reminderColor?: string;
     archived?: boolean;
+  },
+  queryRemindersInput?: {
+    where?: RemindersQueryConditions;
+    orderBy?: RemindersOrderBy;
+    limit?: number;
+    offset?: number;
   }
 }

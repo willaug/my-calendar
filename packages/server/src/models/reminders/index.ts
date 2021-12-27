@@ -1,4 +1,4 @@
-import { ReminderSnackCase } from '@core/interfaces/index';
+import { Reminders, ReminderSnackCase } from '@core/interfaces/index';
 import { ApolloError } from 'apollo-server-express';
 import myCalendarDatabase from '@core/database';
 import { Knex } from 'knex';
@@ -16,6 +16,38 @@ class RemindersModel extends RemindersMapper {
   public constructor() {
     super();
     this.database = myCalendarDatabase;
+  }
+
+  public async reminders({ queryRemindersInput, authAccount }): Promise<Reminders> {
+    const {
+      where, orderBy, limit, offset,
+    } = queryRemindersInput;
+
+    const query = this.database<ReminderSnackCase>('reminders')
+      .where('account_id', authAccount.account_id)
+      .modify((queryBuilder: any) => {
+        if (where) {
+          queryBuilder.where((builder: any) => RemindersMapper.toQueryConditions(builder, where));
+        }
+      });
+
+    const { count } = await query.clone().count().first();
+    const results = await query
+      .clone()
+      .limit(limit || 10)
+      .offset(offset || 0)
+      .modify((builder: any) => {
+        if (orderBy) {
+          builder.orderBy(orderBy.orderColumn, orderBy.orderDirection);
+        }
+      });
+
+    return {
+      results,
+      totalCount: Number(count),
+      limit: limit || 10,
+      offset: offset || 0,
+    };
   }
 
   public async createReminder({ createReminderInput, authAccount }): Promise<ReminderSnackCase> {

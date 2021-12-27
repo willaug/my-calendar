@@ -1,3 +1,10 @@
+export interface Reminders {
+  results: ReminderSnackCase[];
+  totalCount: number;
+  limit: number;
+  offset: number;
+}
+
 export interface Reminder {
   id?: string;
   title: string;
@@ -28,4 +35,21 @@ export interface ReminderSnackCase {
   archived?: boolean;
   created_at?: Date;
   updated_at?: Date;
+}
+
+export interface RemindersQueryConditions {
+  titleLike?: string
+  descriptionLike?: string
+  scheduledToStart?: Date
+  scheduledToEnd?: Date
+  reminderColorIn?: string[]
+  rememberEmailEqual?: boolean
+  repeatEqual?: boolean
+  fullDayEqual?: boolean
+  archivedEqual?: boolean
+}
+
+export interface RemindersOrderBy {
+  orderColumn: string;
+  orderDirection: 'asc' | 'desc';
 }

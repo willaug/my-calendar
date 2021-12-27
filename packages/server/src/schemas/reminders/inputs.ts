@@ -22,4 +22,29 @@ export default gql`
     rememberEmail: Boolean
     reminderColor: HexadecimalColor
   }
+
+  input QueryRemindersInput {
+    where: QueryRemindersWhereInput
+    orderBy: QueryRemindersOrderByInput
+    limit: Int
+    offset: Int
+  }
+
+  input QueryRemindersWhereInput {
+    titleLike: String
+    descriptionLike: String
+    scheduledToStart: Timestamp
+    scheduledToEnd: Timestamp
+    reminderColorIn: [HexadecimalColor!]
+    rememberEmailEqual: Boolean
+    repeatEqual: Boolean
+    fullDayEqual: Boolean
+    archivedEqual: Boolean
+  }
+
+  input QueryRemindersOrderByInput {
+    orderColumn: QueryRemindersOrderByColumn!
+    orderDirection: QueryRemindersOrderByDirection!
+  }
+
 `;

@@ -1,4 +1,5 @@
 import {
+  Reminders,
   Reminder,
   ReminderSnackCase,
   Context,
@@ -6,6 +7,11 @@ import {
 } from '@interfaces/index';
 
 export default {
+  Query: {
+    reminders: (_: any, { queryRemindersInput }: Input, { models, authAccount }: Context): Reminders => {
+      return models.Reminders.reminders({ queryRemindersInput: queryRemindersInput || {}, authAccount });
+    },
+  },
   Mutation: {
     createReminder: (_: any, { createReminderInput }: Input, { models, authAccount }: Context): Reminder => {
       return models.Reminders.createReminder({ createReminderInput, authAccount });
