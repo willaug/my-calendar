@@ -8,5 +8,6 @@ export default gql`
     photoPath: String
     createdAt: Timestamp!
     updatedAt: Timestamp!
+    reminders: [Reminder]
   }
 `;

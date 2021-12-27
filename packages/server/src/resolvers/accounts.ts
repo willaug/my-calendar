@@ -1,10 +1,12 @@
-import { UserInputError } from 'apollo-server-express';
 import {
-  Account,
+  ReminderSnackCase,
   AccountSnackCase,
+  Account,
   Context,
   Input,
-} from '@interfaces/index';
+} from '@core/interfaces/index';
+import { UserInputError } from 'apollo-server-express';
+import myCalendarDatabase from '@core/database';
 
 export default {
   Query: {
@@ -39,6 +41,13 @@ export default {
     photoPath: ({ photo_path }: AccountSnackCase) => {
       if (!photo_path) return null;
       return `${process.env.HOST_URL}/images/accounts/${photo_path}`;
+    },
+    reminders: ({ id }: AccountSnackCase) => {
+      return myCalendarDatabase<ReminderSnackCase>('reminders')
+        .where('account_id', id)
+        .orderBy('scheduled_to', 'desc')
+        .offset(0)
+        .limit(100);
     },
   },
 };

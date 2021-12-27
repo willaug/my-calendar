@@ -20,6 +20,13 @@ describe('Account', () => {
             photoPath
             createdAt
             updatedAt
+            reminders {
+              id
+              title
+              description
+              scheduledTo
+              fullDay
+            }
           }
         }
       `,
@@ -39,6 +46,15 @@ describe('Account', () => {
       photoPath: null,
       createdAt: expect.any(String),
       updatedAt: expect.any(String),
+      reminders: [
+        {
+          id: '18f5b04a-631d-54bb-9839-aea9fa8079d0',
+          title: 'Renovar passaporte',
+          description: 'Lembrar de renovar!',
+          scheduledTo: expect.any(String),
+          fullDay: false,
+        },
+      ],
     });
 
     expect(moment(account.createdAt).isValid()).toBe(true);
