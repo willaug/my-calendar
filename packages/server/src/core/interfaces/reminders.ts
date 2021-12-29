@@ -37,6 +37,14 @@ export interface ReminderSnackCase {
   updated_at?: Date;
 }
 
+export interface ReminderAndAccountSnackCase extends ReminderSnackCase {
+  account_name: string;
+  account_email: string;
+  account_language: string;
+  scheduled_date?: string;
+  scheduled_time?: string;
+}
+
 export interface RemindersQueryConditions {
   titleLike?: string;
   descriptionLike?: string;

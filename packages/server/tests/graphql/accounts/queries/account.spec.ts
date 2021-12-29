@@ -58,6 +58,14 @@ describe('Account', () => {
           fullDay: false,
           repeat: 'never',
         },
+        {
+          id: '4e4365df-4b11-5d33-96cf-69a335068f7c',
+          title: 'Revisão do carro',
+          description: null,
+          scheduledTo: expect.any(String),
+          fullDay: true,
+          repeat: 'never',
+        },
       ],
     });
 

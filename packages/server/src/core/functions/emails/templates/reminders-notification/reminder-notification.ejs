@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyCalendar - notifications</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      border: none;
+      outline: none;
+      list-style: none;
+      color: #808080;
+      border-spacing: 0;
+      text-decoration: none;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    a {
+      color: #596bef;
+      font-weight: 500;
+    }
+
+    p {
+      font-size: 1em;
+      font-weight: 400;
+      text-align: left;
+    }
+
+    img {
+      width: 40%;
+      height: auto;
+      max-width: 200px;
+    }
+
+    .main {
+      width: 95%;
+      padding: 25px;
+      margin: 25px 0;
+      max-width: 600px;
+      border-radius: 8px;
+      background-color: #ffffff;
+    }
+
+    .main__title {
+      font-size: 1.8em;
+      font-weight: 700;
+      color: #303030;
+    }
+
+    .main_sticky {
+      width: 230px;
+      display: inline-block;
+      border-radius: 6px;
+      padding: 12px;
+    }
+    
+    .main_sticky h3 {
+      color: #ffffff;
+      font-weight: 700;
+      text-align: left;
+      overflow: hidden;
+      font-size: 1.45em;
+      margin-bottom: 25px;
+      word-wrap:break-word;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      text-overflow: ellipsis;
+      -webkit-box-orient: vertical;
+    }
+
+    .main_sticky h4 {
+      font-size: 1em;
+      color: #e0dede;
+      overflow: hidden;
+      font-weight: 400;
+      margin-bottom: 15px;
+      word-wrap:break-word;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      text-overflow: ellipsis;
+      -webkit-box-orient: vertical;
+    }
+
+    .main_sticky p {
+      font-size: 1em;
+      font-weight: 500;
+      color: #eeeaea;
+    }
+
+    .main__footer p {
+      font-size: 0.8em;
+    }
+
+    .main__copyright {
+      text-align: center;
+    }
+  </style>
+</head>
+<body style="background-color: #f2f2f2">
+  <center>
+    <table class="main">
+      <tbody>
+        <tr>
+          <td align="center">
+            <img src="https://raw.githubusercontent.com/willaug/my-calendar/master/brand/logo.png" alt="my calendar">
+            <br>
+            <br>
+            <br>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h1 class="main__title">
+              <%= translatedData.HELLO %>, 
+              <%= reminder.account_name.split(/\s/)[0] %>!
+            </h1>
+            <br>
+            <br>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= translatedData.GET_READY %>
+            <b><%= reminder.title %></b>,
+            <%= translatedData.ABOUT_TO_HAPPEN %>
+            <a href="<%= process.env.CLIENT_REMINDERS_URL || 'http://localhost:8080/reminders' %>/<%= reminder.id %>" target="_blank" rel="noopener noreferrer"><%= translatedData.ON_THIS_LINK %></a>.
+            <br>
+            <br>
+            <br>
+            <br>
+          </td>
+        </tr>
+        <tr style="display: flex; justify-content: center;">
+            <td class="main_sticky" style="background-color: <%= reminder.reminder_color %>;">
+              <h3><%= reminder.title %></h3>
+              <% if (reminder.description) { %> 
+                <h4><%= reminder.description %> </h4>
+              <% } %>
+              <% if (reminder.full_day) { %> 
+                <p><%= reminder.scheduled_date %></p>
+              <% } else { %>
+                <p>
+                  <%= reminder.scheduled_date %> 
+                  <%= translatedData.AT %> 
+                  <%= reminder.scheduled_time %>
+                  (UTC)
+                </p>
+              <% } %>  
+            </td>
+        </tr>
+        <tr class="main__footer">
+          <td>
+            <br>
+            <br>
+            <br>
+            <p>
+              <%= translatedData.FOOTER.CREATED_BY %>
+                <a href="https://github.com/willaug" target="_blank" rel="noopener noreferrer">@willaug</a>.
+              <%= translatedData.FOOTER.OBSERVATION %>
+            </p>
+            <br>
+          </td>
+        </tr>
+        <tr class="main__copyright">
+          <td>
+            <small>
+              ©<%= new Date().getFullYear() %> MyCalendar
+            </small>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </center>
+</body>
+</html>

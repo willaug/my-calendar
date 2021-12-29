@@ -26,6 +26,7 @@ export async function seed(knex: Knex): Promise<void> {
       name: 'William Ipsum',
       email: 'will@ipsum.com',
       photo_path: 'example.jpg',
+      language: 'pt_br',
       password: await hash('1234', Number(process.env.HASH_SALT) || 10),
     },
   ]);
