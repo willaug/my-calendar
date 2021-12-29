@@ -12,7 +12,7 @@ const data = {
 describe('Translate', () => {
   test('Translate function with english language should return successful', () => {
     const translatedData = translate({
-      lang: 'english',
+      lang: 'en',
       langData: {
         english: data.english,
         portuguese: data.portuguese,
@@ -26,7 +26,7 @@ describe('Translate', () => {
 
   test('Translate function with portuguese language should return successful', () => {
     const translatedData = translate({
-      lang: 'pt-BR',
+      lang: 'pt_br',
       langData: {
         english: data.english,
         portuguese: data.portuguese,

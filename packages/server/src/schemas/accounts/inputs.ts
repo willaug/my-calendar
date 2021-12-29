@@ -5,11 +5,13 @@ export default gql`
     name: String!
     email: Email!
     password: String!
+    language: AccountLanguageEnum
   }
 
   input UpdateAccountInput {
     name: String
     email: Email
+    language: AccountLanguageEnum
   }
 
   input UpdatePassAccountInput {

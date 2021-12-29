@@ -16,6 +16,7 @@ describe('Create Account', () => {
               id
               name
               email
+              language
               photoPath
               createdAt
               updatedAt
@@ -27,6 +28,7 @@ describe('Create Account', () => {
             name: 'John Doe',
             email: 'john@doe.com',
             password: 'john123',
+            language: 'en',
           },
         },
       })
@@ -40,6 +42,7 @@ describe('Create Account', () => {
       name: 'John Doe',
       email: 'john@doe.com',
       photoPath: null,
+      language: 'en',
       createdAt: expect.any(String),
       updatedAt: expect.any(String),
     });

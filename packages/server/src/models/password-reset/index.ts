@@ -45,7 +45,7 @@ class PasswordResetModel extends PasswordResetMapper {
     this.database = myCalendarDatabase;
   }
 
-  public async createPasswordReset({ lang, passwordResetInput, userAgent }): Promise<PasswordResetMessage> {
+  public async createPasswordReset({ passwordResetInput, userAgent }): Promise<PasswordResetMessage> {
     const account = await this.database<AccountSnackCase>('accounts')
       .where('email', passwordResetInput.email)
       .first();
@@ -70,7 +70,7 @@ class PasswordResetModel extends PasswordResetMapper {
     passwordReset.solicited_by_requester_location = generateRequesterLocation(passwordReset.solicited_by);
     passwordReset.solicited_by_requester_device = generateRequesterDevice(passwordReset.solicited_by);
 
-    const translatedData = translate({ lang, langData: { portuguese, english } });
+    const translatedData = translate({ lang: account.language, langData: { portuguese, english } });
     await sendEmail({
       fromEmail: process.env.PASS_RESET_FROM_EMAIL_ADDRESS || 'no-reply@mycalendar.com',
       toEmail: account.email,
@@ -84,7 +84,7 @@ class PasswordResetModel extends PasswordResetMapper {
     return { message: 'success' };
   }
 
-  public async updatePasswordReset({ lang, passwordResetInput, userAgent }): Promise<PasswordResetMessage> {
+  public async updatePasswordReset({ passwordResetInput, userAgent }): Promise<PasswordResetMessage> {
     const passwordReset = await this.database<PasswordResetSnackCase>('password_reset')
       .where('token', passwordResetInput.token)
       .first();
@@ -135,7 +135,7 @@ class PasswordResetModel extends PasswordResetMapper {
     passwordResetUpdated.updated_by_requester_location = generateRequesterLocation(passwordResetUpdated.updated_by);
     passwordResetUpdated.updated_by_requester_device = generateRequesterDevice(passwordResetUpdated.updated_by);
 
-    const translatedData = translate({ lang, langData: { portuguese, english } });
+    const translatedData = translate({ lang: account.language, langData: { portuguese, english } });
     await sendEmail({
       fromEmail: process.env.PASS_RESET_FROM_EMAIL_ADDRESS || 'no-reply@mycalendar.com',
       toEmail: account.email,

@@ -18,6 +18,7 @@ describe('Account', () => {
             name
             email
             photoPath
+            language
             createdAt
             updatedAt
             reminders {
@@ -45,6 +46,7 @@ describe('Account', () => {
       name: 'William Augusto',
       email: 'william@example.com',
       photoPath: null,
+      language: 'en',
       createdAt: expect.any(String),
       updatedAt: expect.any(String),
       reminders: [

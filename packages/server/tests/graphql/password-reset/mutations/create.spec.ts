@@ -25,7 +25,6 @@ describe('Create PasswordReset', () => {
         },
       })
       .set('User-Agent', 'Mozilla/5.0')
-      .set('Accept-Language', 'en,pt-BR;q=0.9,pt;q=0.8,fr;q=0.7')
       .set('Accept', 'application/json');
 
     printError(response);
@@ -55,7 +54,6 @@ describe('Create PasswordReset', () => {
         },
       })
       .set('User-Agent', 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 6.4; en) Opera 8.00')
-      .set('Accept-Language', 'pt-BR,en;q=0.9,pt;q=0.8,fr;q=0.7')
       .set('Accept', 'application/json');
 
     printError(response);
@@ -148,33 +146,5 @@ describe('Create PasswordReset', () => {
     expect(error).toHaveProperty('message');
     expect(error.message).toEqual('header user-agent not provided');
     expect(error.extensions.code).toEqual('USER_AGENT_NOT_PROVIDED');
-  });
-
-  test('createPasswordReset without header accept-language should response unsuccessful', async () => {
-    const response = await request(express)
-      .post('/')
-      .send({
-        query: `#graphql
-        mutation createPasswordReset($passwordResetInput: CreatePasswordResetInput!) {
-          createPasswordReset(passwordResetInput: $passwordResetInput) {
-            message
-          }
-        }
-      `,
-        variables: {
-          passwordResetInput: {
-            email: 'william@example.com',
-            ip: internet.ip(),
-          },
-        },
-      })
-      .set('User-Agent', internet.userAgent())
-      .set('Accept', 'application/json');
-
-    const [error] = response.body.errors;
-
-    expect(error).toHaveProperty('message');
-    expect(error.message).toEqual('header accept-language not provided');
-    expect(error.extensions.code).toEqual('ACCEPT_LANGUAGE_NOT_PROVIDED');
   });
 });

@@ -28,7 +28,6 @@ describe('Update PasswordReset', () => {
         },
       })
       .set('User-Agent', internet.userAgent())
-      .set('Accept-Language', 'pt-BR,en;q=0.9,pt;q=0.8,fr;q=0.7')
       .set('Accept', 'application/json');
 
     printError(response);
@@ -60,7 +59,6 @@ describe('Update PasswordReset', () => {
         },
       })
       .set('User-Agent', internet.userAgent())
-      .set('Accept-Language', 'pt-BR,en;q=0.9,pt;q=0.8,fr;q=0.7')
       .set('Accept', 'application/json');
 
     const [error] = response.body.errors;
@@ -91,7 +89,6 @@ describe('Update PasswordReset', () => {
         },
       })
       .set('User-Agent', internet.userAgent())
-      .set('Accept-Language', 'pt-BR,en;q=0.9,pt;q=0.8,fr;q=0.7')
       .set('Accept', 'application/json');
 
     const [error] = response.body.errors;
@@ -122,7 +119,6 @@ describe('Update PasswordReset', () => {
         },
       })
       .set('User-Agent', internet.userAgent())
-      .set('Accept-Language', 'pt-BR,en;q=0.9,pt;q=0.8,fr;q=0.7')
       .set('Accept', 'application/json');
 
     const [error] = response.body.errors;
@@ -153,7 +149,6 @@ describe('Update PasswordReset', () => {
         },
       })
       .set('User-Agent', internet.userAgent())
-      .set('Accept-Language', 'pt-BR,en;q=0.9,pt;q=0.8,fr;q=0.7')
       .set('Accept', 'application/json');
 
     const [error] = response.body.errors;
@@ -190,35 +185,5 @@ describe('Update PasswordReset', () => {
     expect(error).toHaveProperty('message');
     expect(error.message).toEqual('header user-agent not provided');
     expect(error.extensions.code).toEqual('USER_AGENT_NOT_PROVIDED');
-  });
-
-  test('updatePasswordReset without header accept-language should response unsuccessful', async () => {
-    const response = await request(express)
-      .post('/')
-      .send({
-        query: `#graphql
-        mutation updatePasswordReset($passwordResetInput: UpdatePasswordResetInput!) {
-          updatePasswordReset(passwordResetInput: $passwordResetInput) {
-            message
-          }
-        }
-      `,
-        variables: {
-          passwordResetInput: {
-            token: '',
-            newPassword: '12345',
-            confirmNewPassword: '123456',
-            ip: internet.ip(),
-          },
-        },
-      })
-      .set('User-Agent', internet.userAgent())
-      .set('Accept', 'application/json');
-
-    const [error] = response.body.errors;
-
-    expect(error).toHaveProperty('message');
-    expect(error.message).toEqual('header accept-language not provided');
-    expect(error.extensions.code).toEqual('ACCEPT_LANGUAGE_NOT_PROVIDED');
   });
 });

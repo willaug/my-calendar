@@ -41,8 +41,9 @@ class PasswordResetMapper {
   }
 
   public static async toUpdateAccountPassword(newPassword: string): Promise<{ password: string }> {
-    const password = await hash(newPassword, Number(process.env.HASH_SALT) || 10);
-    return { password };
+    return {
+      password: await hash(newPassword, Number(process.env.HASH_SALT) || 10),
+    };
   }
 }
 

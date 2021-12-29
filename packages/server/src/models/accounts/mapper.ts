@@ -6,6 +6,7 @@ class AccountsMapper {
     return {
       name: account.name,
       email: account.email,
+      language: account.language,
       password: await hash(account.password, Number(process.env.HASH_SALT) || 10),
     };
   }

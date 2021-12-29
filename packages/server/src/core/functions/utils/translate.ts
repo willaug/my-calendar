@@ -1,9 +1,7 @@
 import { Translate } from '@interfaces/functions/translate';
 
 export default function translate(translateData: Translate): any {
-  const langLowerCase = translateData.lang.toLowerCase();
-
-  if (langLowerCase.includes('pt')) {
+  if (translateData.lang === 'pt_br') {
     return translateData.langData.portuguese;
   }
 
