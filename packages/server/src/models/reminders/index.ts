@@ -1,4 +1,5 @@
 import { Reminders, ReminderSnackCase } from '@core/interfaces/index';
+import { ApolloError } from 'apollo-server-express';
 import myCalendarDatabase from '@core/database';
 import { Knex } from 'knex';
 
@@ -45,10 +46,19 @@ class RemindersModel extends RemindersMapper {
   }
 
   public async reminder({ queryReminderInput, authAccount }): Promise<ReminderSnackCase> {
-    return this.database<ReminderSnackCase>('reminders')
+    const reminder = await this.database<ReminderSnackCase>('reminders')
       .where('id', queryReminderInput)
       .andWhere('account_id', authAccount.account_id)
       .first();
+
+    if (!reminder) {
+      throw new ApolloError(
+        'reminder not found',
+        'REMINDER_NOT_FOUND',
+      );
+    }
+
+    return reminder;
   }
 
   public async createReminder({ createReminderInput, authAccount }): Promise<ReminderSnackCase> {

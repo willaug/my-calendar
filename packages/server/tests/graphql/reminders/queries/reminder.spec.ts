@@ -53,4 +53,29 @@ describe('Reminder', () => {
       updatedAt: expect.any(String),
     });
   });
+
+  test('reminder with non-existent id should response unsuccessful', async () => {
+    const response = await request(express)
+      .post('/')
+      .send({
+        query: `#graphql
+          query reminder($queryReminderInput: ID!) {
+            reminder(queryReminderInput: $queryReminderInput) {
+              id
+            }
+          }
+        `,
+        variables: {
+          queryReminderInput: 'a9bbd54b-0db5-5a0f-b7a2-2b4ff74c7e24',
+        },
+      })
+      .set('Authorization', correctWillDoeToken)
+      .set('Accept', 'application/json');
+
+    const [error] = response.body.errors;
+
+    expect(error).toHaveProperty('message');
+    expect(error.message).toEqual('reminder not found');
+    expect(error.extensions.code).toEqual('REMINDER_NOT_FOUND');
+  });
 });

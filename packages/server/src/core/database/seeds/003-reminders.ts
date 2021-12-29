@@ -58,6 +58,7 @@ export async function seed(knex: Knex): Promise<void> {
       account_id: 'e89b29c6-086a-581b-bdde-a5c09c1687bc',
       title: 'Pagamento de multa',
       remember_email: true,
+      full_day: false,
       scheduled_to: moment().add(4, 'hours'),
     },
   ]);
