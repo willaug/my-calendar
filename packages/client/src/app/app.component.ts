@@ -3,8 +3,5 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  public title = 'my-calendar-client';
-}
+export class AppComponent { }

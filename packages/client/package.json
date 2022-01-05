@@ -4,11 +4,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "lint": "ng lint",
     "start": "ng serve",
     "build": "ng build",
-    "lint": "ng lint",
     "lint-fix": "ng lint --fix",
     "commit": "cd .. && npm run commit",
+    "test": "ng test --no-watch --code-coverage --browsers=ChromeHeadless",
     "watch": "ng build --watch --configuration development"
   },
   "keywords": [
@@ -23,10 +24,12 @@
   "license": "ISC",
   "dependencies": {
     "@angular/animations": "~13.1.0",
+    "@angular/cdk": "~13.1.1",
     "@angular/common": "~13.1.0",
     "@angular/compiler": "~13.1.0",
     "@angular/core": "~13.1.0",
     "@angular/forms": "~13.1.0",
+    "@angular/material": "~13.1.1",
     "@angular/platform-browser": "~13.1.0",
     "@angular/platform-browser-dynamic": "~13.1.0",
     "@angular/router": "~13.1.0",
