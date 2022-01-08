@@ -4,10 +4,10 @@
   "description": "server do projeto my-calendar",
   "main": "server.js",
   "scripts": {
+    "start": "npm run build && cross-env NODE_ENV=production node dist/server",
+    "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules --no-notify src/server.ts",
     "lint": "npx eslint . --ext .ts",
     "lint-fix": "npx eslint . --fix --ext .ts",
-    "start-prod": "npm run build && cross-env NODE_ENV=production node dist/server",
-    "start-dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules --no-notify src/server.ts",
     "commit": "cd .. && npm run commit",
     "test": "npm run development && jest --detectOpenHandles --passWithNoTests",
     "test-dev": "jest --detectOpenHandles --passWithNoTests reminders/queries",

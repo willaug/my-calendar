@@ -1,7 +1,7 @@
 import { MatCardModule } from '@angular/material/card';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HomeComponent } from '../../../app/views/home/home.component';
+import { HomeComponent } from '@views/home/home.component';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
