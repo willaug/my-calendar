@@ -1,8 +1,8 @@
-import { Account, AccountSnackCase } from '@interfaces/index';
+import { Account, AccountSnakeCase } from '@interfaces/index';
 import { hash } from 'bcrypt';
 
 class AccountsMapper {
-  public static async toCreateAccount(account: Account): Promise<AccountSnackCase> {
+  public static async toCreateAccount(account: Account): Promise<AccountSnakeCase> {
     return {
       name: account.name,
       email: account.email,

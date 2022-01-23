@@ -7,7 +7,7 @@
     "postinstall": "lerna bootstrap",
     "commit": "npx cz",
     "lint": "lerna run lint --stream",
-    "lint-fix": "lerna run lint-fix --stream",
+    "lint:fix": "lerna run lint:fix --stream",
     "prepare": "husky install",
     "test": "lerna run test --stream"
   },

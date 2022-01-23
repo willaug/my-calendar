@@ -1,8 +1,8 @@
 import { DeviceDetectorResult } from 'device-detector-js';
-import { AccountSnackCase } from './account';
+import { AccountSnakeCase } from './account';
 import { Input } from './graphql/input';
 
-export interface PasswordResetSnackCase {
+export interface PasswordResetSnakeCase {
   id?: string;
   token?: string;
   used?: boolean;
@@ -20,7 +20,7 @@ export interface PasswordResetMessage {
 
 export interface PasswordResetData {
   passwordResetInput: Input['passwordResetInput'];
-  account?: AccountSnackCase;
+  account?: AccountSnakeCase;
   token?: string;
   agent: DeviceDetectorResult;
   accountLocation: PasswordResetAccountLocation;

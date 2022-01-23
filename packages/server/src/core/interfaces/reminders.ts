@@ -1,5 +1,5 @@
 export interface Reminders {
-  results: ReminderSnackCase[];
+  results: ReminderSnakeCase[];
   totalCount: number;
   limit: number;
   offset: number;
@@ -8,7 +8,7 @@ export interface Reminders {
 export interface Reminder {
   id?: string;
   title: string;
-  repeat: ReminderRepeat;
+  repeat?: ReminderRepeat;
   fullDay: boolean;
   accountId: string;
   scheduledTo: Date;
@@ -21,10 +21,10 @@ export interface Reminder {
   updatedAt?: Date;
 }
 
-export interface ReminderSnackCase {
+export interface ReminderSnakeCase {
   id?: string;
   title: string;
-  repeat: ReminderRepeatSnackCase;
+  repeat?: ReminderRepeatSnakeCase | any;
   full_day: boolean;
   account_id?: string;
   description: string | null;
@@ -37,7 +37,7 @@ export interface ReminderSnackCase {
   updated_at?: Date;
 }
 
-export interface ReminderAndAccountSnackCase extends ReminderSnackCase {
+export interface ReminderAndAccountSnakeCase extends ReminderSnakeCase {
   account_name: string;
   account_email: string;
   account_language: string;
@@ -62,7 +62,7 @@ export interface RemindersOrderBy {
   orderDirection: 'asc' | 'desc';
 }
 
-export enum ReminderRepeatSnackCase {
+export enum ReminderRepeatSnakeCase {
   'never',
   'every_day',
   'every_monday',

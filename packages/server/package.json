@@ -7,13 +7,13 @@
     "start": "npm run build && cross-env NODE_ENV=production node dist/server",
     "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules --no-notify src/server.ts",
     "lint": "npx eslint . --ext .ts",
-    "lint-fix": "npx eslint . --fix --ext .ts",
+    "lint:fix": "npx eslint . --fix --ext .ts",
     "commit": "cd .. && npm run commit",
     "test": "npm run development && jest --detectOpenHandles --passWithNoTests",
-    "test-dev": "jest --detectOpenHandles --passWithNoTests reminders/queries",
+    "test:dev": "jest --detectOpenHandles --passWithNoTests reminders/queries",
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
-    "migrate-make": "npx knex --knexfile src/core/database/config.ts migrate:make -x ts",
-    "seed-make": "npx knex --knexfile src/core/database/config.ts seed:make -x ts",
+    "migrate:make": "npx knex --knexfile src/core/database/config.ts migrate:make -x ts",
+    "seed:make": "npx knex --knexfile src/core/database/config.ts seed:make -x ts",
     "development": "ts-node-dev -r tsconfig-paths/register --transpile-only --ignore-watch node_modules --no-notify bin/development"
   },
   "keywords": [

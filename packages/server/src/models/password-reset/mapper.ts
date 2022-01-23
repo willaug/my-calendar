@@ -2,7 +2,7 @@ import { hash } from 'bcrypt';
 import {
   PasswordResetData,
   PasswordResetRequester,
-  PasswordResetSnackCase,
+  PasswordResetSnakeCase,
 } from '@interfaces/index';
 
 function passwordResetRequesterMapper(data: PasswordResetData): PasswordResetRequester {
@@ -25,7 +25,7 @@ function passwordResetRequesterMapper(data: PasswordResetData): PasswordResetReq
 }
 
 class PasswordResetMapper {
-  public static toCreatePasswordReset(data: PasswordResetData): PasswordResetSnackCase {
+  public static toCreatePasswordReset(data: PasswordResetData): PasswordResetSnakeCase {
     return {
       account_id: data.account.id,
       token: data.token,
@@ -33,7 +33,7 @@ class PasswordResetMapper {
     };
   }
 
-  public static toUpdatePasswordReset(data: PasswordResetData): PasswordResetSnackCase {
+  public static toUpdatePasswordReset(data: PasswordResetData): PasswordResetSnakeCase {
     return {
       used: true,
       updated_by: passwordResetRequesterMapper(data),

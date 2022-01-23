@@ -17,7 +17,7 @@ class Server extends App {
         return;
       }
 
-      setTimeout((): void => {
+      setInterval((): void => {
         remindersNotification()
           .catch((err: unknown) => {
             console.log(`[${red('ERROR')}] ${red(JSON.stringify(err))}`);

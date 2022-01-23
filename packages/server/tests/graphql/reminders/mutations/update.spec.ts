@@ -34,6 +34,7 @@ describe('Update Reminder', () => {
             id: '18f5b04a-631d-54bb-9839-aea9fa8079d0',
             title: 'Retirar passaporte europeu',
             description: 'Retirar!',
+            repeat: 'never',
             reminderColor: '#345678',
             archived: true,
           },

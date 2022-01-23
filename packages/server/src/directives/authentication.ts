@@ -1,6 +1,6 @@
 import { AuthenticationError, ExpressContext } from 'apollo-server-express';
 import { getDirective, MapperKind, mapSchema } from '@graphql-tools/utils';
-import { AccountSnackCase, AuthAccount } from '@interfaces/index';
+import { AccountSnakeCase, AuthAccount } from '@interfaces/index';
 import { GraphQLFieldConfig, GraphQLSchema } from 'graphql';
 import { verify } from 'jsonwebtoken';
 import database from '@core/database';
@@ -17,7 +17,7 @@ async function auth({ req }: ExpressContext | any): Promise<boolean> {
       return false;
     }
 
-    const account = await database<AccountSnackCase>('accounts')
+    const account = await database<AccountSnakeCase>('accounts')
       .where('id', decoded.account_id)
       .first();
 

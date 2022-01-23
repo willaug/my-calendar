@@ -4,9 +4,9 @@ import dotEnv from 'dotenv';
 
 import formatError from '@core/functions/errors/format-error';
 import decodeToken from '@core/functions/token/decode-token';
-import authentication from '@directives/authentication';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { graphqlUploadExpress } from 'graphql-upload';
+import authentication from '@directives/authentication';
 import resolvers from './resolvers';
 import typeDefs from './schemas';
 import models from './models';

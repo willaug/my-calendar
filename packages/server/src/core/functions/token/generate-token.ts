@@ -1,7 +1,7 @@
-import { AccountSnackCase } from '@interfaces/index';
+import { AccountSnakeCase } from '@interfaces/index';
 import { sign } from 'jsonwebtoken';
 
-export function generateAuthToken(account: AccountSnackCase): string {
+export function generateAuthToken(account: AccountSnakeCase): string {
   const secretKey = process.env.ACCESS_AUTH_TOKEN || '1234';
   const options = { expiresIn: process.env.EXPIRATION_AUTH_TOKEN || '3h' };
   const payload = {

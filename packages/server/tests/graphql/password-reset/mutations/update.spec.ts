@@ -21,8 +21,8 @@ describe('Update PasswordReset', () => {
         variables: {
           passwordResetInput: {
             token: 'xinFxacWT3VSu60MK45iN6gpLg3j3a',
-            newPassword: '123456',
-            confirmNewPassword: '123456',
+            newPassword: '1234',
+            confirmNewPassword: '1234',
             ip: internet.ip(),
           },
         },
@@ -52,8 +52,8 @@ describe('Update PasswordReset', () => {
         variables: {
           passwordResetInput: {
             token: '3CkXFClH1GP6ewF',
-            newPassword: '123456',
-            confirmNewPassword: '123456',
+            newPassword: '1234',
+            confirmNewPassword: '1234',
             ip: internet.ip(),
           },
         },

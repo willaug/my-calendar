@@ -1,12 +1,12 @@
 import { RemindersOrderBy, RemindersQueryConditions } from '../reminders';
-import { AccountLanguageSnackCase } from '../account';
+import { AccountLanguageSnakeCase } from '../account';
 
 export interface Input {
   accountInput?: {
     name?: string;
     email?: string;
     password?: string;
-    language?: AccountLanguageSnackCase;
+    language?: AccountLanguageSnakeCase;
   };
   passAccountInput?: {
     currentPassword: string;

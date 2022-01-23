@@ -9,7 +9,7 @@ export interface Account {
   updatedAt?: Date;
 }
 
-export interface AccountSnackCase {
+export interface AccountSnakeCase {
   id?: string;
   name: string;
   email: string;

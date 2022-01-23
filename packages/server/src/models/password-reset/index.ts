@@ -15,10 +15,10 @@ import {
 } from '@core/functions/utils/generate-requester';
 import myCalendarDatabase from '@core/database';
 import {
-  AccountSnackCase,
+  AccountSnakeCase,
   PasswordResetAccountLocation,
   PasswordResetMessage,
-  PasswordResetSnackCase,
+  PasswordResetSnakeCase,
 } from '@interfaces/index';
 import PasswordResetMapper from './mapper';
 
@@ -46,7 +46,7 @@ class PasswordResetModel extends PasswordResetMapper {
   }
 
   public async createPasswordReset({ passwordResetInput, userAgent }): Promise<PasswordResetMessage> {
-    const account = await this.database<AccountSnackCase>('accounts')
+    const account = await this.database<AccountSnakeCase>('accounts')
       .where('email', passwordResetInput.email)
       .first();
 
@@ -57,7 +57,7 @@ class PasswordResetModel extends PasswordResetMapper {
       );
     }
 
-    const [passwordReset] = await this.database<PasswordResetSnackCase>('password_reset')
+    const [passwordReset] = await this.database<PasswordResetSnakeCase>('password_reset')
       .insert(PasswordResetMapper.toCreatePasswordReset({
         account,
         passwordResetInput,
@@ -85,7 +85,7 @@ class PasswordResetModel extends PasswordResetMapper {
   }
 
   public async updatePasswordReset({ passwordResetInput, userAgent }): Promise<PasswordResetMessage> {
-    const passwordReset = await this.database<PasswordResetSnackCase>('password_reset')
+    const passwordReset = await this.database<PasswordResetSnakeCase>('password_reset')
       .where('token', passwordResetInput.token)
       .first();
 
@@ -111,7 +111,7 @@ class PasswordResetModel extends PasswordResetMapper {
     }
 
     const updatedData = await this.database.transaction(async (trx: Knex): Promise<any> => {
-      const [passwordResetUpdated] = await trx<PasswordResetSnackCase>('password_reset')
+      const [passwordResetUpdated] = await trx<PasswordResetSnakeCase>('password_reset')
         .update(PasswordResetMapper.toUpdatePasswordReset({
           passwordResetInput,
           accountLocation: await accountLocationInfo(passwordResetInput.ip),
@@ -120,7 +120,7 @@ class PasswordResetModel extends PasswordResetMapper {
         .where('id', passwordReset.id)
         .returning('*');
 
-      const [account] = await trx<AccountSnackCase>('accounts')
+      const [account] = await trx<AccountSnakeCase>('accounts')
         .update(await PasswordResetMapper.toUpdateAccountPassword(passwordResetInput.newPassword))
         .where('id', passwordResetUpdated.account_id)
         .returning('*');

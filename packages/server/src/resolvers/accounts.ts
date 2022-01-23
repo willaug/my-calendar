@@ -1,6 +1,6 @@
 import {
-  ReminderSnackCase,
-  AccountSnackCase,
+  ReminderSnakeCase,
+  AccountSnakeCase,
   Account,
   Context,
   Input,
@@ -36,14 +36,14 @@ export default {
     },
   },
   Account: {
-    createdAt: ({ created_at }: AccountSnackCase) => created_at,
-    updatedAt: ({ updated_at }: AccountSnackCase) => updated_at,
-    photoPath: ({ photo_path }: AccountSnackCase) => {
+    createdAt: ({ created_at }: AccountSnakeCase) => created_at,
+    updatedAt: ({ updated_at }: AccountSnakeCase) => updated_at,
+    photoPath: ({ photo_path }: AccountSnakeCase) => {
       if (!photo_path) return null;
       return `${process.env.HOST_URL}/images/accounts/${photo_path}`;
     },
-    reminders: ({ id }: AccountSnackCase) => {
-      return myCalendarDatabase<ReminderSnackCase>('reminders')
+    reminders: ({ id }: AccountSnakeCase) => {
+      return myCalendarDatabase<ReminderSnakeCase>('reminders')
         .where('account_id', id)
         .orderBy('scheduled_to', 'desc')
         .offset(0)

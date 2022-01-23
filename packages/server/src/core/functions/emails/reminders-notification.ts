@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { ReminderAndAccountSnackCase } from '@core/interfaces/index';
+import { ReminderAndAccountSnakeCase } from '@core/interfaces/index';
 import { sendEmail } from '@core/functions/emails/send-email';
 import moment from 'moment';
 import database from '@core/database';
@@ -9,7 +9,7 @@ import translate from '../utils/translate';
 
 export default async function remindersNotification(): Promise<any> {
   try {
-    const unnotifiedReminders = await database<ReminderAndAccountSnackCase>('reminders')
+    const unnotifiedReminders = await database<ReminderAndAccountSnakeCase>('reminders')
       .select(
         'reminders.*',
         'accounts.name as account_name',
@@ -23,7 +23,7 @@ export default async function remindersNotification(): Promise<any> {
       .andWhere('reminders.scheduled_to', '>=', moment())
       .andWhere('reminders.scheduled_to', '<=', moment().add(5, 'hours'));
 
-    unnotifiedReminders.forEach(async (reminder: ReminderAndAccountSnackCase) => {
+    unnotifiedReminders.forEach(async (reminder: ReminderAndAccountSnakeCase) => {
       const translatedData = translate({
         lang: reminder.account_language,
         langData: {
@@ -50,7 +50,7 @@ export default async function remindersNotification(): Promise<any> {
         },
       });
 
-      await database<ReminderAndAccountSnackCase>('reminders')
+      await database<ReminderAndAccountSnakeCase>('reminders')
         .where('id', reminder.id)
         .update('remembered', true);
     });

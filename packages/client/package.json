@@ -1,20 +1,20 @@
 {
   "name": "my-calendar-client",
-  "description": "client do projeto my-calendar",
+  "description": "client of my-calendar project",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "lint": "ng lint",
-    "lint-fix": "ng lint --fix",
+    "lint:fix": "ng lint --fix",
     "build": "ng build",
     "commit": "cd .. && npm run commit",
     "watch": "ng build --watch --configuration development",
     "test": "ng test --no-watch --code-coverage --browsers=ChromeHeadless",
-    "test-api": "cd ../server && npm t",
+    "test:api": "cd ../server && npm t",
     "start-api-dev": "cd ../server && npm run dev",
-    "test-api-and-start-app": "npm run test-api && npm run start-api-and-app",
-    "test-e2e": "npm run start-api-and-app \"npx cypress open\"",
+    "test-api-and-start-app": "npm run test:api && npm run start-api-and-app",
+    "e2e:watch": "npm run start-api-and-app \"npx cypress open\"",
     "start-api-and-app": "concurrently --r --kill-others \"npm run start-api-dev\" \"npm start\""
   },
   "keywords": [

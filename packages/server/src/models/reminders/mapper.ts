@@ -1,11 +1,15 @@
-import { ReminderSnackCase, Reminder, RemindersQueryConditions } from '@interfaces/index';
+import { ReminderSnakeCase, Reminder, RemindersQueryConditions } from '@interfaces/index';
 import { snakeCase } from 'change-case';
 
+function repeatToSnakeCase(repeat: any): string | undefined {
+  return repeat ? snakeCase(repeat) : undefined;
+}
+
 class RemindersMapper {
-  public static toCreateReminder({ reminder, accountId }): ReminderSnackCase {
+  public static toCreateReminder({ reminder, accountId }): ReminderSnakeCase {
     return {
       title: reminder.title,
-      repeat: reminder.repeat,
+      repeat: repeatToSnakeCase(reminder.repeat),
       full_day: reminder.fullDay,
       account_id: accountId,
       description: reminder.description,
@@ -15,10 +19,10 @@ class RemindersMapper {
     };
   }
 
-  public static toUpdateReminder(reminder: Reminder): ReminderSnackCase {
+  public static toUpdateReminder(reminder: Reminder): ReminderSnakeCase {
     return {
       title: reminder.title,
-      repeat: reminder.repeat,
+      repeat: repeatToSnakeCase(reminder.repeat),
       full_day: reminder.fullDay,
       description: reminder.description,
       scheduled_to: reminder.scheduledTo,
@@ -30,15 +34,15 @@ class RemindersMapper {
 
   public static toQueryConditions(builder: any, conditions: RemindersQueryConditions): any {
     Object.entries(conditions).forEach(([key, value]: any[]) => {
-      const keyInSnackCaseArr = snakeCase(key).split('_');
-      const keyCondition = keyInSnackCaseArr[keyInSnackCaseArr.length - 1];
-      const keyInSnackCase = keyInSnackCaseArr.join('_').replace(`_${keyCondition}`, '');
+      const keyInSnakeCaseArr = snakeCase(key).split('_');
+      const keyCondition = keyInSnakeCaseArr[keyInSnakeCaseArr.length - 1];
+      const keyInSnakeCase = keyInSnakeCaseArr.join('_').replace(`_${keyCondition}`, '');
 
-      if (keyCondition === 'like') builder.where(keyInSnackCase, 'like', `%${value}%`);
-      if (keyCondition === 'in') builder.whereIn(keyInSnackCase, value);
-      if (keyCondition === 'equal') builder.where(keyInSnackCase, value);
-      if (keyCondition === 'start') builder.where(keyInSnackCase, '>=', value);
-      if (keyCondition === 'end') builder.where(keyInSnackCase, '<=', value);
+      if (keyCondition === 'like') builder.where(keyInSnakeCase, 'like', `%${value}%`);
+      if (keyCondition === 'in') builder.whereIn(keyInSnakeCase, value);
+      if (keyCondition === 'equal') builder.where(keyInSnakeCase, value);
+      if (keyCondition === 'start') builder.where(keyInSnakeCase, '>=', value);
+      if (keyCondition === 'end') builder.where(keyInSnakeCase, '<=', value);
     });
 
     return builder;

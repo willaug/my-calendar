@@ -1,5 +1,5 @@
 import {
-  ReminderSnackCase,
+  ReminderSnakeCase,
   Reminders,
   Reminder,
   Context,
@@ -39,12 +39,12 @@ export default {
     },
   },
   Reminder: {
-    fullDay: ({ full_day }: ReminderSnackCase) => full_day,
-    createdAt: ({ created_at }: ReminderSnackCase) => created_at,
-    updatedAt: ({ updated_at }: ReminderSnackCase) => updated_at,
-    scheduledTo: ({ scheduled_to }: ReminderSnackCase) => scheduled_to,
-    rememberEmail: ({ remember_email }: ReminderSnackCase) => remember_email,
-    reminderColor: ({ reminder_color }: ReminderSnackCase) => reminder_color,
-    repeat: ({ repeat }: ReminderSnackCase) => camelCase(String(repeat)),
+    fullDay: ({ full_day }: ReminderSnakeCase) => full_day,
+    createdAt: ({ created_at }: ReminderSnakeCase) => created_at,
+    updatedAt: ({ updated_at }: ReminderSnakeCase) => updated_at,
+    scheduledTo: ({ scheduled_to }: ReminderSnakeCase) => scheduled_to,
+    rememberEmail: ({ remember_email }: ReminderSnakeCase) => remember_email,
+    reminderColor: ({ reminder_color }: ReminderSnakeCase) => reminder_color,
+    repeat: ({ repeat }: ReminderSnakeCase) => camelCase(String(repeat)),
   },
 };

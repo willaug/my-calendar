@@ -8,7 +8,7 @@ import { Knex } from 'knex';
 import sharp from 'sharp';
 
 import throwError from '@core/functions/errors/throw-error';
-import { AccountSnackCase } from '@interfaces/index';
+import { AccountSnakeCase } from '@interfaces/index';
 import myCalendarDatabase from '@core/database';
 import AccountsMapper from './mapper';
 
@@ -20,15 +20,15 @@ class AccountsModel extends AccountsMapper {
     this.database = myCalendarDatabase;
   }
 
-  public async account({ authAccount }): Promise<AccountSnackCase> {
-    return this.database<AccountSnackCase>('accounts')
+  public async account({ authAccount }): Promise<AccountSnakeCase> {
+    return this.database<AccountSnakeCase>('accounts')
       .where('id', authAccount.account_id)
       .first();
   }
 
-  public async createAccount({ accountInput }): Promise<AccountSnackCase | void> {
+  public async createAccount({ accountInput }): Promise<AccountSnakeCase | void> {
     try {
-      const [response] = await this.database<AccountSnackCase>('accounts')
+      const [response] = await this.database<AccountSnakeCase>('accounts')
         .insert(await AccountsMapper.toCreateAccount(accountInput))
         .returning('*');
 
@@ -38,9 +38,9 @@ class AccountsModel extends AccountsMapper {
     }
   }
 
-  public async updateAccount({ accountInput, authAccount }): Promise<AccountSnackCase | void> {
+  public async updateAccount({ accountInput, authAccount }): Promise<AccountSnakeCase | void> {
     try {
-      const [response] = await this.database<AccountSnackCase>('accounts')
+      const [response] = await this.database<AccountSnakeCase>('accounts')
         .update(accountInput)
         .where('id', authAccount.account_id)
         .returning('*');
@@ -51,8 +51,8 @@ class AccountsModel extends AccountsMapper {
     }
   }
 
-  public async updatePassAccount({ passAccountInput, authAccount }): Promise<AccountSnackCase> {
-    const account = await this.database<AccountSnackCase>('accounts')
+  public async updatePassAccount({ passAccountInput, authAccount }): Promise<AccountSnakeCase> {
+    const account = await this.database<AccountSnakeCase>('accounts')
       .where('id', authAccount.account_id)
       .first();
 
@@ -65,7 +65,7 @@ class AccountsModel extends AccountsMapper {
     }
 
     const password = await hash(passAccountInput.newPassword, Number(process.env.HASH_SALT) || 10);
-    const [response] = await this.database<AccountSnackCase>('accounts')
+    const [response] = await this.database<AccountSnakeCase>('accounts')
       .update({ password })
       .where('id', authAccount.account_id)
       .returning('*');
@@ -73,7 +73,7 @@ class AccountsModel extends AccountsMapper {
     return response;
   }
 
-  public async uploadPhotoAccount({ photoAccountInput, authAccount }): Promise<AccountSnackCase> {
+  public async uploadPhotoAccount({ photoAccountInput, authAccount }): Promise<AccountSnakeCase> {
     const { createReadStream, filename, mimetype } = await photoAccountInput;
 
     const allowedMimes = ['image/jpg', 'image/jpeg', 'image/png'];
@@ -110,8 +110,8 @@ class AccountsModel extends AccountsMapper {
     await sharp(filePath).resize(256, 256, { fit: 'cover' }).toFile(newFilePath);
     unlinkSync(filePath);
 
-    return this.database.transaction(async (trx: Knex): Promise<AccountSnackCase> => {
-      const account = await trx<AccountSnackCase>('accounts')
+    return this.database.transaction(async (trx: Knex): Promise<AccountSnakeCase> => {
+      const account = await trx<AccountSnakeCase>('accounts')
         .where('id', authAccount.account_id)
         .first();
 
@@ -119,7 +119,7 @@ class AccountsModel extends AccountsMapper {
         unlinkSync(`${__dirname}/../../../public/images/accounts/${account.photo_path}`);
       }
 
-      const [response] = await this.database<AccountSnackCase>('accounts')
+      const [response] = await this.database<AccountSnakeCase>('accounts')
         .update('photo_path', newFilename.replace('not-resized', '256px'))
         .where('id', authAccount.account_id)
         .returning('*');
@@ -128,9 +128,9 @@ class AccountsModel extends AccountsMapper {
     });
   }
 
-  public async deletePhotoAccount({ authAccount }): Promise<AccountSnackCase> {
-    return this.database.transaction(async (trx: Knex): Promise<AccountSnackCase> => {
-      const account = await trx<AccountSnackCase>('accounts')
+  public async deletePhotoAccount({ authAccount }): Promise<AccountSnakeCase> {
+    return this.database.transaction(async (trx: Knex): Promise<AccountSnakeCase> => {
+      const account = await trx<AccountSnakeCase>('accounts')
         .where('id', authAccount.account_id)
         .first();
 
@@ -142,7 +142,7 @@ class AccountsModel extends AccountsMapper {
       }
 
       unlinkSync(`${__dirname}/../../../public/images/accounts/${account.photo_path}`);
-      const [response] = await trx<AccountSnackCase>('accounts')
+      const [response] = await trx<AccountSnakeCase>('accounts')
         .update('photo_path', null)
         .where('id', authAccount.account_id)
         .returning('*');

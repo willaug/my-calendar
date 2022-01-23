@@ -3,7 +3,7 @@ import { compare } from 'bcrypt';
 import { Knex } from 'knex';
 
 import { generateAuthToken } from '@core/functions/token/generate-token';
-import { AccountSnackCase, Login } from '@interfaces/index';
+import { AccountSnakeCase, Login } from '@interfaces/index';
 import myCalendarDatabase from '@core/database';
 
 function throwLoginError(): void {
@@ -21,7 +21,7 @@ class LoginModel {
   }
 
   public async authenticate({ loginInput }): Promise<Login | void> {
-    const account = await this.database<AccountSnackCase>('accounts')
+    const account = await this.database<AccountSnakeCase>('accounts')
       .where('email', loginInput.email)
       .first();
 
