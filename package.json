@@ -9,7 +9,7 @@
     "lint": "lerna run lint --stream",
     "lint:fix": "lerna run lint:fix --stream",
     "prepare": "husky install",
-    "test": "lerna run test --stream"
+    "test": "lerna run test"
   },
   "repository": {
     "type": "git",

@@ -3,7 +3,8 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
-      "@views/*": ["src/app/views/*"]
+      "@views/*": ["src/app/views/*"],
+      "@components/*": ["src/app/components/*"]
     },
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",

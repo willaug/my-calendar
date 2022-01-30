@@ -1,4 +1,4 @@
-import { correctWillAugToken } from '@tests/utils/create-token';
+import { correctWillDoeToken } from '@tests/utils/create-token';
 import printError from '@tests/utils/print-error';
 import { date } from 'faker';
 import request from 'supertest';
@@ -36,12 +36,11 @@ describe('Create Reminder', () => {
             description: 'Consulta com o médico John Doe',
             reminderColor: '#876543',
             rememberEmail: true,
-            repeat: 'everyWednesday',
             fullDay: false,
           },
         },
       })
-      .set('Authorization', correctWillAugToken)
+      .set('Authorization', correctWillDoeToken)
       .set('Accept', 'application/json');
 
     printError(response);
@@ -52,7 +51,7 @@ describe('Create Reminder', () => {
       title: 'Consulta dermatológica',
       description: 'Consulta com o médico John Doe',
       scheduledTo: expect.any(String),
-      repeat: 'everyWednesday',
+      repeat: 'never',
       fullDay: false,
       archived: false,
       remembered: false,
@@ -81,7 +80,7 @@ describe('Create Reminder', () => {
           },
         },
       })
-      .set('Authorization', correctWillAugToken)
+      .set('Authorization', correctWillDoeToken)
       .set('Accept', 'application/json');
 
     const [error] = response.body.errors;
@@ -109,7 +108,7 @@ describe('Create Reminder', () => {
           },
         },
       })
-      .set('Authorization', correctWillAugToken)
+      .set('Authorization', correctWillDoeToken)
       .set('Accept', 'application/json');
 
     const [error] = response.body.errors;
@@ -140,7 +139,7 @@ describe('Create Reminder', () => {
           },
         },
       })
-      .set('Authorization', correctWillAugToken)
+      .set('Authorization', correctWillDoeToken)
       .set('Accept', 'application/json');
 
     const [error] = response.body.errors;

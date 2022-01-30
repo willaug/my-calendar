@@ -1,4 +1,4 @@
-import { correctWillDoeToken } from '@tests/utils/create-token';
+import { correctWillIpsumToken } from '@tests/utils/create-token';
 import printError from '@tests/utils/print-error';
 import request from 'supertest';
 import App from '@src/app';
@@ -29,26 +29,26 @@ describe('Reminder', () => {
           }
         `,
         variables: {
-          queryReminderInput: '4923e408-b524-5e35-8dd7-bb55a296ca82',
+          queryReminderInput: '6057268e-f91f-5620-a474-4b30ab53a7a6',
         },
       })
-      .set('Authorization', correctWillDoeToken)
+      .set('Authorization', correctWillIpsumToken)
       .set('Accept', 'application/json');
 
     printError(response);
     expect(response.status).toEqual(200);
     expect(response.body).toHaveProperty('data');
     expect(response.body.data.reminder).toStrictEqual({
-      id: '4923e408-b524-5e35-8dd7-bb55a296ca82',
-      title: 'Comprar pão',
-      repeat: 'everyMonday',
+      id: '6057268e-f91f-5620-a474-4b30ab53a7a6',
+      title: 'Pagamento de multa',
+      repeat: 'never',
       fullDay: false,
-      archived: true,
-      remembered: false,
+      archived: false,
+      remembered: true,
       scheduledTo: expect.any(String),
       description: null,
       rememberEmail: true,
-      reminderColor: '#548790',
+      reminderColor: '#465FDB',
       createdAt: expect.any(String),
       updatedAt: expect.any(String),
     });
@@ -69,7 +69,7 @@ describe('Reminder', () => {
           queryReminderInput: 'a9bbd54b-0db5-5a0f-b7a2-2b4ff74c7e24',
         },
       })
-      .set('Authorization', correctWillDoeToken)
+      .set('Authorization', correctWillIpsumToken)
       .set('Accept', 'application/json');
 
     const [error] = response.body.errors;

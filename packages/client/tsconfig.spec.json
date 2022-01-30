@@ -12,6 +12,6 @@
     "src/polyfills.ts"
   ],
   "include": [
-    "tests/*.spec.ts",
+    "src/**/*.spec.ts",
   ]
 }

@@ -1,11 +1,11 @@
-import { generateAuthToken } from '@core/functions/token/generate-token';
-import { Account } from '@interfaces/account';
 import { sign } from 'jsonwebtoken';
+import { generateAuthToken } from '@core/functions/token/generate-token';
+import { AccountSnakeCase } from '../../src/core/interfaces/account';
 
 delete process.env.ACCESS_AUTH_TOKEN;
 delete process.env.EXPIRATION_AUTH_TOKEN;
 
-function authTestToken(variables: Account): string {
+function authTestToken(variables: AccountSnakeCase): string {
   return `Bearer ${generateAuthToken(variables)}`;
 }
 

@@ -14,7 +14,7 @@ export interface AccountSnakeCase {
   name: string;
   email: string;
   password?: string;
-  language: string;
+  language?: string;
   photo_path?: string | null;
   created_at?: Date;
   updated_at?: Date;

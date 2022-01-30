@@ -1,0 +1,14 @@
+.header {
+  color: #9091A5;
+  background: #ffffff;
+
+  &__spacer {
+    flex: 1 1 auto;
+  }
+
+  &__logo {
+    width: auto;
+    height: 30px;
+    margin-left: 3px;
+  }
+}

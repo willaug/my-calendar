@@ -1,0 +1,18 @@
+<mat-toolbar class="header">
+  <button mat-icon-button aria-label="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <img class="header__logo" src="assets/logo.svg" alt="MyCalendar">
+  <span class="header__spacer"></span>
+  <button mat-icon-button aria-label="get started" [matMenuTriggerFor]="getStartedMenu">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+  <mat-menu #getStartedMenu="matMenu" xPosition="after">
+    <button mat-menu-item aria-label="Sign In">
+      Sign In
+    </button>
+    <button mat-menu-item aria-label="Sign Up">
+      Sign Up
+    </button>
+  </mat-menu>
+</mat-toolbar>

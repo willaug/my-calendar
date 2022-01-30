@@ -1,4 +1,4 @@
-import { correctWillDoeToken } from '@tests/utils/create-token';
+import { correctWillIpsumToken } from '@tests/utils/create-token';
 import printError from '@tests/utils/print-error';
 import request from 'supertest';
 import App from '@src/app';
@@ -34,7 +34,7 @@ describe('Reminders', () => {
         }
       `,
       })
-      .set('Authorization', correctWillDoeToken)
+      .set('Authorization', correctWillIpsumToken)
       .set('Accept', 'application/json');
 
     printError(response);
@@ -45,51 +45,37 @@ describe('Reminders', () => {
       totalCount, limit, offset, results,
     } = response.body.data.reminders;
 
-    expect(totalCount).toEqual(3);
+    expect(totalCount).toEqual(2);
     expect(limit).toEqual(10);
     expect(offset).toEqual(0);
 
-    expect(results).toHaveLength(3);
+    expect(results).toHaveLength(2);
     expect(results).toStrictEqual([
       {
-        id: '4923e408-b524-5e35-8dd7-bb55a296ca82',
-        title: 'Comprar pão',
-        repeat: 'everyMonday',
-        fullDay: false,
-        archived: true,
-        remembered: false,
-        scheduledTo: expect.any(String),
-        description: null,
-        rememberEmail: true,
-        reminderColor: '#548790',
-        createdAt: expect.any(String),
-        updatedAt: expect.any(String),
-      },
-      {
-        id: 'c646fd10-9953-5bd7-8005-d5e122a963f8',
+        id: 'd65f3f61-cf10-584d-a192-7c3fdb51d270',
         title: 'Consulta médica',
         repeat: 'never',
         fullDay: true,
         archived: false,
         remembered: false,
         scheduledTo: expect.any(String),
-        description: null,
-        rememberEmail: false,
-        reminderColor: '#465FDB',
+        description: 'Consulta médica com o Dr. Marcos',
+        rememberEmail: true,
+        reminderColor: '#9087e3',
         createdAt: expect.any(String),
         updatedAt: expect.any(String),
       },
       {
-        id: 'c4ce88bc-186e-5219-a930-4189b76a7713',
-        title: 'Consulta odontológica',
+        id: '6057268e-f91f-5620-a474-4b30ab53a7a6',
+        title: 'Pagamento de multa',
         repeat: 'never',
-        fullDay: true,
+        fullDay: false,
         archived: false,
-        remembered: false,
+        remembered: true,
         scheduledTo: expect.any(String),
-        description: 'Consulta com o Dr. Silva',
-        rememberEmail: false,
-        reminderColor: '#9087e3',
+        description: null,
+        rememberEmail: true,
+        reminderColor: '#465FDB',
         createdAt: expect.any(String),
         updatedAt: expect.any(String),
       },
@@ -119,7 +105,7 @@ describe('Reminders', () => {
           },
         },
       })
-      .set('Authorization', correctWillDoeToken)
+      .set('Authorization', correctWillIpsumToken)
       .set('Accept', 'application/json');
 
     printError(response);
@@ -131,7 +117,7 @@ describe('Reminders', () => {
     } = response.body.data.reminders;
 
     expect(results).toHaveLength(0);
-    expect(totalCount).toEqual(3);
+    expect(totalCount).toEqual(2);
     expect(offset).toEqual(10);
     expect(limit).toEqual(70);
   });
@@ -154,12 +140,12 @@ describe('Reminders', () => {
           queryRemindersInput: {
             orderBy: {
               orderColumn: 'title',
-              orderDirection: 'desc',
+              orderDirection: 'asc',
             },
           },
         },
       })
-      .set('Authorization', correctWillDoeToken)
+      .set('Authorization', correctWillIpsumToken)
       .set('Accept', 'application/json');
 
     printError(response);
@@ -168,17 +154,14 @@ describe('Reminders', () => {
 
     const { totalCount, results } = response.body.data.reminders;
 
-    expect(totalCount).toEqual(3);
-    expect(results).toHaveLength(3);
+    expect(totalCount).toEqual(2);
+    expect(results).toHaveLength(2);
     expect(results).toStrictEqual([
-      {
-        title: 'Consulta odontológica',
-      },
       {
         title: 'Consulta médica',
       },
       {
-        title: 'Comprar pão',
+        title: 'Pagamento de multa',
       },
     ]);
   });
@@ -193,14 +176,6 @@ describe('Reminders', () => {
               results {
                 id
                 title
-                repeat
-                fullDay
-                archived
-                remembered
-                scheduledTo
-                description
-                rememberEmail
-                reminderColor
               }
               totalCount
             }
@@ -210,23 +185,23 @@ describe('Reminders', () => {
           queryRemindersInput: {
             where: {
               titleLike: 'Consulta',
-              descriptionLike: 'Silva',
+              descriptionLike: 'Marcos',
               scheduledToStart: '2021-01-10T07:17:36.000Z',
-              scheduledToEnd: '2021-02-11T07:17:36.000Z',
+              scheduledToEnd: '2022-02-15T18:43:03.000Z',
               reminderColorIn: ['#9087e3'],
-              rememberEmailEqual: false,
+              rememberEmailEqual: true,
               repeatIn: ['never'],
               fullDayEqual: true,
               archivedEqual: false,
             },
             orderBy: {
               orderColumn: 'title',
-              orderDirection: 'asc',
+              orderDirection: 'desc',
             },
           },
         },
       })
-      .set('Authorization', correctWillDoeToken)
+      .set('Authorization', correctWillIpsumToken)
       .set('Accept', 'application/json');
 
     printError(response);
@@ -239,16 +214,8 @@ describe('Reminders', () => {
     expect(results).toHaveLength(1);
     expect(results).toStrictEqual([
       {
-        id: 'c4ce88bc-186e-5219-a930-4189b76a7713',
-        title: 'Consulta odontológica',
-        repeat: 'never',
-        fullDay: true,
-        archived: false,
-        remembered: false,
-        scheduledTo: '2021-02-10T07:17:36.000Z',
-        description: 'Consulta com o Dr. Silva',
-        rememberEmail: false,
-        reminderColor: '#9087e3',
+        id: 'd65f3f61-cf10-584d-a192-7c3fdb51d270',
+        title: 'Consulta médica',
       },
     ]);
   });

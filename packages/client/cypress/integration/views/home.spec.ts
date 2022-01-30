@@ -1,5 +1,5 @@
-describe('Home', () => {
-  before(() => cy.visit('/'));
+describe('HomeView', () => {
+  beforeEach(() => cy.visit('/'));
 
   it('Should browser url equal "/"', () => {
     cy.url().should('include', '/');
@@ -18,11 +18,5 @@ describe('Home', () => {
   it('Should have description', () => {
     cy.get('mat-card-content').should('be.visible');
     cy.get('mat-card-content').contains('Olá');
-  });
-
-  it('Should have footer', () => {
-    cy.get('footer').should('be.visible');
-    cy.get('footer').invoke('attr', 'class').should('contain', 'home-footer');
-    cy.get('footer').contains(`©${new Date().getFullYear()} MyCalendar`);
   });
 });

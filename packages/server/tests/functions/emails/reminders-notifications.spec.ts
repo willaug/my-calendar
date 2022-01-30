@@ -5,7 +5,7 @@ describe('RemindersNotification', () => {
     const response = await remindersNotification();
     expect(response).toStrictEqual({
       message: 'success',
-      remindersCalled: 3,
+      remindersCalled: 2,
     });
   });
 });

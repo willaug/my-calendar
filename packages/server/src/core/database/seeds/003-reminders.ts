@@ -49,7 +49,7 @@ export async function seed(knex: Knex): Promise<void> {
       account_id: 'e89b29c6-086a-581b-bdde-a5c09c1687bc',
       title: 'Consulta médica',
       description: 'Consulta médica com o Dr. Marcos',
-      scheduled_to: moment().add(3, 'hours'),
+      scheduled_to: '2022-02-14T18:43:03.000Z',
       remember_email: true,
       reminder_color: '#9087e3',
     },

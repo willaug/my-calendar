@@ -9,7 +9,7 @@
     "lint": "npx eslint . --ext .ts",
     "lint:fix": "npx eslint . --fix --ext .ts",
     "commit": "cd .. && npm run commit",
-    "test": "npm run development && jest --detectOpenHandles --passWithNoTests",
+    "test": "npm run development && jest --detectOpenHandles --passWithNoTests --runInBand",
     "test:dev": "jest --detectOpenHandles --passWithNoTests reminders/queries",
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
     "migrate:make": "npx knex --knexfile src/core/database/config.ts migrate:make -x ts",
