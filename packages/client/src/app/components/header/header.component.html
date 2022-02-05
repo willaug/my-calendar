@@ -8,7 +8,7 @@
     <mat-icon>account_circle</mat-icon>
   </button>
   <mat-menu #getStartedMenu="matMenu" xPosition="after">
-    <button mat-menu-item aria-label="Sign In">
+    <button mat-menu-item aria-label="Sign In" (click)="openLoginDialog()" data-cy="open-sign-in">
       Sign In
     </button>
     <button mat-menu-item aria-label="Sign Up">

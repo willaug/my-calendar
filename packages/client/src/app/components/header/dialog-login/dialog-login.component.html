@@ -1,0 +1,75 @@
+<h1 mat-dialog-title>
+  Login
+</h1>
+
+<div [formGroup]="loginForm" mat-dialog-content>
+  <form name="loginForm" fxLayout="column" fxLayoutGap="3px">
+    <mat-form-field appearance="standard" fxFlex>
+      <mat-label>Email</mat-label>
+      <input
+        autocomplete="username"
+        formControlName="email"
+        type="email"
+        placeholder="Type your email"
+        data-cy="email"
+        matInput
+      >
+      <mat-error *ngIf="loginForm.get('email')?.hasError('required')" data-cy="error-email-required">
+        Email is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="loginForm.get('email')?.hasError('email')" data-cy="error-email-invalid">
+        Email is <strong>invalid</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="standard" fxFlex>
+      <mat-label>Password</mat-label>
+      <input
+        autocomplete="current-password"
+        formControlName="password"
+        [type]="hide ? 'password' : 'text'"
+        placeholder="Type your password"
+        data-cy="password"
+        matInput
+      >
+      <button
+        type="button"
+        mat-icon-button
+        matSuffix
+        (click)="hide = !hide"
+        data-cy="hide-password"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide"
+      >
+        <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+      <mat-error data-cy="error-password-required">Password is <strong>required</strong></mat-error>
+    </mat-form-field>
+
+    <mat-error *ngIf="emailOrPasswordIncorrect" [style.font-size.px]="12"data-cy="error-login">
+      The email or password is <strong>incorrect</strong>!
+    </mat-error>
+  </form>
+</div>
+
+<div mat-dialog-actions align="end">
+  <mat-spinner
+    *ngIf="sendingForm"
+    [diameter]="36"
+    color="primary"
+    mode="indeterminate"
+  >
+  </mat-spinner>
+  <button
+    *ngIf="!sendingForm"
+    form="loginForm"
+    data-cy="submit-login"
+    class="dialog-sign-in__continue"
+    mat-button
+    color="primary"
+    [disabled]="loginForm.invalid || sendingForm"
+    (click)="sendForm()"
+  >
+    Continue
+  </button>
+</div>

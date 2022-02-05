@@ -1,10 +1,19 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
-      "@views/*": ["src/app/views/*"],
-      "@components/*": ["src/app/components/*"]
+      "@views/*": [
+        "src/app/views/*"
+      ],
+      "@components/*": [
+        "src/app/components/*"
+      ],
+      "@interfaces/*": [
+        "src/app/core/interfaces/*"
+      ],
+      "@core/*": [
+        "src/app/core/*"
+      ]
     },
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
@@ -24,8 +33,10 @@
     "module": "es2020",
     "lib": [
       "es2020",
-      "dom"
-    ]
+      "dom",
+      "esnext.asynciterable"
+    ],
+    "allowSyntheticDefaultImports": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

@@ -3,8 +3,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { HeaderComponent } from './header.component';
+import { DialogLoginComponent } from './dialog-login/dialog-login.component';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -12,12 +14,17 @@ describe('HeaderComponent', () => {
   const module = {
     declarations: [
       HeaderComponent,
+      DialogLoginComponent,
     ],
     imports: [
       MatToolbarModule,
       MatButtonModule,
       MatIconModule,
       MatMenuModule,
+      MatDialogModule,
+    ],
+    exports: [
+      HeaderComponent,
     ],
   };
 
