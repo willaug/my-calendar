@@ -10,8 +10,4 @@ export class DialogLoginService {
   public login(loginForm: Login): Observable<LoginResponse> {
     return this.loginApi.login(loginForm);
   }
-
-  public setToken(token: string): void {
-    localStorage.setItem('MC_AUTH_TOKEN', token);
-  }
 }

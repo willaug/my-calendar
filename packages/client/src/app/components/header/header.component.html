@@ -4,15 +4,63 @@
   </button>
   <img class="header__logo" src="assets/logo.svg" alt="MyCalendar">
   <span class="header__spacer"></span>
-  <button mat-icon-button aria-label="get started" [matMenuTriggerFor]="getStartedMenu">
-    <mat-icon>account_circle</mat-icon>
-  </button>
-  <mat-menu #getStartedMenu="matMenu" xPosition="after">
-    <button mat-menu-item aria-label="Sign In" (click)="openLoginDialog()" data-cy="open-sign-in">
-      Sign In
+  <ng-container *ngIf="!account">
+    <button
+      mat-icon-button
+      aria-label="get started"
+      data-cy="open-get-started-menu"
+      [matMenuTriggerFor]="getStartedMenu"
+    >
+      <mat-icon>account_circle</mat-icon>
     </button>
-    <button mat-menu-item aria-label="Sign Up">
-      Sign Up
-    </button>
-  </mat-menu>
+    <mat-menu #getStartedMenu="matMenu" xPosition="after">
+      <button
+        mat-menu-item
+        aria-label="Sign In"
+        (click)="openLoginDialog()"
+        data-cy="open-sign-in"
+      >
+        Sign In
+      </button>
+      <button mat-menu-item aria-label="Sign Up">
+        Sign Up
+      </button>
+    </mat-menu>
+  </ng-container>
+  <ng-container *ngIf="account">
+    <button
+      class="header__my-account-button"
+      mat-icon-button
+      aria-label="my account"
+      data-cy="open-my-account-menu"
+      style.background-image="url({{ account.photoPath }})"
+      [matMenuTriggerFor]="accountMenu"
+    ></button>
+    <mat-menu
+      class="header__my-account-menu"
+      appearance="outline"
+      #accountMenu="matMenu"
+    >
+      <div
+        class="header__my-account-menu--title"
+        mat-menu-item
+        data-cy="my-account-menu-name"
+      >
+        <b>{{ account.name }}</b>
+      </div>
+      <mat-divider></mat-divider>
+      <button mat-menu-item data-cy="my-account-menu-profile">
+        <mat-icon class="material-icons-outlined">person</mat-icon>
+        <span>Your account</span>
+      </button>
+      <button mat-menu-item data-cy="my-account-menu-settings">
+        <mat-icon class="material-icons-outlined">settings</mat-icon>
+        <span>Settings</span>
+      </button>
+      <button mat-menu-item data-cy="my-account-menu-sign-out">
+        <mat-icon class="material-icons-outlined">exit_to_app</mat-icon>
+        <span>Sign out</span>
+      </button>
+    </mat-menu>
+  </ng-container>
 </mat-toolbar>

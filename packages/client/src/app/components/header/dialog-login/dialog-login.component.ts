@@ -2,7 +2,10 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { LoginResponse } from '../../../core/interfaces/login';
+import { Observer } from 'rxjs';
+
+import { LoginResponse } from '@interfaces/login';
+import { TokenService } from '@core/shared/token/token.service';
 import { DialogLoginService } from './service/dialog-login.service';
 
 @Component({
@@ -18,6 +21,7 @@ export class DialogLoginComponent {
   public constructor(
     private formBuilder: FormBuilder,
     private loginService: DialogLoginService,
+    private tokenService: TokenService,
     private snackBar: MatSnackBar,
     private dialogRef: MatDialogRef<DialogLoginComponent>,
   ) {
@@ -32,14 +36,15 @@ export class DialogLoginComponent {
     this.emailOrPasswordIncorrect = false;
 
     const loginForm = this.loginForm.getRawValue();
-    this.loginService.login(loginForm).subscribe({
-      next: (data: LoginResponse): void => {
-        this.loginService.setToken(data.token);
+    this.loginService.login(loginForm).subscribe(this.loginSubscribeActions());
+  }
 
-        this.dialogRef.close();
-        this.snackBar.open('Welcome back!', 'Thanks', {
-          duration: 4000,
-        });
+  private loginSubscribeActions(): Partial<Observer<any>> {
+    return {
+      next: (data: LoginResponse): void => {
+        this.tokenService.setToken(data.token);
+        this.dialogRef.close(true);
+        this.openSnackBar('Welcome back!', 'Thanks', 4000);
       },
       error: (err: any): void => {
         this.sendingForm = false;
@@ -55,10 +60,12 @@ export class DialogLoginComponent {
         }
 
         this.dialogRef.close();
-        this.snackBar.open('An error ocurred, please try again later!', 'Ok', {
-          duration: 4000,
-        });
+        this.openSnackBar('An error occurred, please try again later!', 'Ok', 4000);
       },
-    });
+    };
+  }
+
+  private openSnackBar(message: string, buttonText: string, duration: number): void {
+    this.snackBar.open(message, buttonText, { duration });
   }
 }

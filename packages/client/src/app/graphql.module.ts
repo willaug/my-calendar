@@ -5,8 +5,11 @@ import { HttpLink } from 'apollo-angular/http';
 import { environment } from '../environments/environment';
 
 export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
+  const uri = environment.apiUrl;
+  const httpLinkCreate = httpLink.create({ uri });
+
   return {
-    link: httpLink.create({ uri: environment.apiUrl }),
+    link: httpLinkCreate,
     cache: new InMemoryCache(),
   };
 }

@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDividerModule } from '@angular/material/divider';
 
 import { HeaderComponent } from './header.component';
 import { DialogLoginComponent } from './dialog-login/dialog-login.component';
@@ -33,6 +34,7 @@ import { DialogLoginComponent } from './dialog-login/dialog-login.component';
     MatFormFieldModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
+    MatDividerModule,
   ],
   exports: [
     HeaderComponent,

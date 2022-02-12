@@ -21,8 +21,4 @@ describe('HomeComponent', () => {
   it('component should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('year property should return current year', () => {
-    expect(component.year).toEqual(new Date().getFullYear());
-  });
 });

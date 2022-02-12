@@ -2,6 +2,9 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
+      "@src/*": [
+        "src/*"
+      ],
       "@views/*": [
         "src/app/views/*"
       ],

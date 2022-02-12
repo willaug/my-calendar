@@ -1,7 +1,7 @@
 {
   "data": {
     "login": {
-      "token": "1yG6azIXWnW07QYjPPMl4Z4Awu5Q72XQCVaLtFPetQzaqUW1"
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50X2lkIjoiZmJiNTM3YzEtMzU5YS01YzRjLTg0YmMtOWU4MmQ1ZDgyOTVhIiwicHVycG9zZSI6IkFVVEhFTlRJQ0FUSU9OIiwic29saWNpdGVkX2F0IjoiMjAyMi0wMi0xMlQyMDoyMToyNS44MDdaIiwiaWF0IjoxNjQ0Njk3Mjg1LCJleHAiOjE4OTI0Njk3Mjg1fQ.zfKuyuiwYhbc-AmsCltpZq4Zd3aUpP6R_1sAXnMFpoQ"
     }
   }
 }
