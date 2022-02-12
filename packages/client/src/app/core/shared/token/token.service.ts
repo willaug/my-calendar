@@ -13,6 +13,10 @@ export class TokenService {
     localStorage.setItem(environment.localStorageAuthItemName, token);
   }
 
+  public removeToken(): void {
+    localStorage.removeItem(environment.localStorageAuthItemName);
+  }
+
   public decodeToken(): AuthToken | null {
     const token = this.getToken();
     return token ? decode<AuthToken>(token) : null;

@@ -40,6 +40,7 @@ export class AccountService {
   }
 
   public resetAccount(): void {
+    this.tokenService.removeToken();
     this.account.next(null);
   }
 }

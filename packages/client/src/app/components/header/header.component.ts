@@ -35,6 +35,10 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  public logout(): void {
+    this.accountService.resetAccount();
+  }
+
   private getAccountData(): void {
     this.accountService.getAccount().subscribe((account: Account | null) => {
       this.account = account;

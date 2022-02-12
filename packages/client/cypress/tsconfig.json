@@ -1,6 +1,9 @@
 {
   "extends": "../tsconfig.json",
-  "include": ["**/*.spec.ts"],
+  "include": [
+    "**/*.spec.ts",
+    "support/*.ts",
+  ],
   "compilerOptions": {
     "rootDir": "../",
     "sourceMap": false,
