@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observer } from 'rxjs';
 
-import { LoginResponse } from '@interfaces/login';
+import { Account, Login, LoginResponse } from '@interfaces/index';
 import { TokenService } from '@core/shared/token/token.service';
-import { DialogLoginService } from './service/dialog-login.service';
+import { SnackBarService } from '@core/shared/snack-bar/snack-bar.service';
+import { DialogLoginService } from './services/dialog-login.service';
 
 @Component({
   selector: 'app-dialog-login',
@@ -19,14 +19,15 @@ export class DialogLoginComponent {
   public emailOrPasswordIncorrect: boolean = false;
 
   public constructor(
+    @Inject(MAT_DIALOG_DATA) public data: Account,
     private formBuilder: FormBuilder,
     private loginService: DialogLoginService,
     private tokenService: TokenService,
-    private snackBar: MatSnackBar,
+    private snackBarService: SnackBarService,
     private dialogRef: MatDialogRef<DialogLoginComponent>,
   ) {
     this.loginForm = this.formBuilder.group({
-      email: [null, [Validators.required, Validators.email]],
+      email: [data.email, [Validators.required, Validators.email]],
       password: [null, [Validators.required]],
     });
   }
@@ -35,7 +36,7 @@ export class DialogLoginComponent {
     this.sendingForm = true;
     this.emailOrPasswordIncorrect = false;
 
-    const loginForm = this.loginForm.getRawValue();
+    const loginForm = this.loginForm.getRawValue() as Login;
     this.loginService.login(loginForm).subscribe(this.loginSubscribeActions());
   }
 
@@ -44,7 +45,7 @@ export class DialogLoginComponent {
       next: (data: LoginResponse): void => {
         this.tokenService.setToken(data.token);
         this.dialogRef.close(true);
-        this.openSnackBar('Welcome back!', 'Thanks', 4000);
+        this.snackBarService.open('Welcome back!', '<3', 4000);
       },
       error: (err: any): void => {
         this.sendingForm = false;
@@ -60,12 +61,8 @@ export class DialogLoginComponent {
         }
 
         this.dialogRef.close();
-        this.openSnackBar('An error occurred, please try again later!', 'Ok', 4000);
+        this.snackBarService.openUnknownError();
       },
     };
-  }
-
-  private openSnackBar(message: string, buttonText: string, duration: number): void {
-    this.snackBar.open(message, buttonText, { duration });
   }
 }

@@ -11,6 +11,14 @@ describe('Login', () => {
   });
 
   context('success', () => {
+    it('Should show and hide password field', () => {
+      cy.get('app-dialog-login').find('input[data-cy="password"]').should('have.attr', 'type', 'password');
+      cy.get('app-dialog-login').find('button[data-cy="hide-password"]').click();
+      cy.get('app-dialog-login').find('input[data-cy="password"]').should('have.attr', 'type', 'text');
+      cy.get('app-dialog-login').find('button[data-cy="hide-password"]').click();
+      cy.get('app-dialog-login').find('input[data-cy="password"]').should('have.attr', 'type', 'password');
+    });
+
     it('Should login and receive authentication token', () => {
       cy.get('app-dialog-login').find('input[data-cy="email"]').type('william@example.com');
       cy.get('app-dialog-login').find('input[data-cy="password"]').type('1234');
@@ -60,14 +68,6 @@ describe('Login', () => {
       cy.get('app-dialog-login').find('mat-error[data-cy="error-email-invalid"]').should('exist');
     });
 
-    it('Should show and hide password field', () => {
-      cy.get('app-dialog-login').find('input[data-cy="password"]').should('have.attr', 'type', 'password');
-      cy.get('app-dialog-login').find('button[data-cy="hide-password"]').click();
-      cy.get('app-dialog-login').find('input[data-cy="password"]').should('have.attr', 'type', 'text');
-      cy.get('app-dialog-login').find('button[data-cy="hide-password"]').click();
-      cy.get('app-dialog-login').find('input[data-cy="password"]').should('have.attr', 'type', 'password');
-    });
-
     it('Should send email without domain and receive api error', () => {
       cy.get('app-dialog-login').find('input[data-cy="email"]').type('example@withoutDomain');
       cy.get('app-dialog-login').find('input[data-cy="password"]').type('example');
@@ -79,9 +79,8 @@ describe('Login', () => {
       }));
 
       cy.get('app-dialog-login').find('button[data-cy="submit-login"]').click();
-      cy.wait('@gqlLoginMutation').then(() => {
-        cy.get('app-dialog-login').find('mat-error[data-cy="error-email-invalid"]').should('exist');
-      });
+      cy.wait('@gqlLoginMutation');
+      cy.get('app-dialog-login').find('mat-error[data-cy="error-email-invalid"]').should('exist');
     });
 
     it('Should send incorrect email and password', () => {
@@ -95,9 +94,8 @@ describe('Login', () => {
       }));
 
       cy.get('app-dialog-login').find('button[data-cy="submit-login"]').click();
-      cy.wait('@gqlLoginMutation').then(() => {
-        cy.get('app-dialog-login').find('mat-error[data-cy="error-login"]').should('exist');
-      });
+      cy.wait('@gqlLoginMutation');
+      cy.get('app-dialog-login').find('mat-error[data-cy="error-login"]').should('exist');
     });
   });
 });

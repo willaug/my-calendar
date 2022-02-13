@@ -15,11 +15,13 @@ import { MatDividerModule } from '@angular/material/divider';
 
 import { HeaderComponent } from './header.component';
 import { DialogLoginComponent } from './dialog-login/dialog-login.component';
+import { DialogSignUpComponent } from './dialog-sign-up/dialog-sign-up.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     DialogLoginComponent,
+    DialogSignUpComponent,
   ],
   imports: [
     CommonModule,

@@ -15,6 +15,7 @@
     "start-api-dev": "cd ../server && npm run dev",
     "test-api-and-start-app": "npm run test:api && npm run start-api-and-app",
     "e2e:watch": "npm run start-api-and-app \"npx cypress open\"",
+    "e2e:test": "npm run start-api-and-app \"npx cypress run\"",
     "start-api-and-app": "concurrently --r --kill-others \"npm run start-api-dev\" \"npm start\""
   },
   "keywords": [

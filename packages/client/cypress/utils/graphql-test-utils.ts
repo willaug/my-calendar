@@ -1,4 +1,4 @@
-import { capitalCase } from 'change-case';
+import { pascalCase } from 'change-case';
 
 interface AliasParams {
   req: any;
@@ -19,14 +19,14 @@ export function hasOperationName(req: any, operationName: string): boolean {
 
 export function aliasQuery({ req, operation, fixture }: AliasParams): void {
   if (hasOperationName(req, operation)) {
-    req.alias = `gql${capitalCase(operation)}Query`;
+    req.alias = `gql${pascalCase(operation)}Query`;
     addFixtureToResponse(req, fixture);
   }
 }
 
 export function aliasMutation({ req, operation, fixture }: AliasParams): void {
   if (hasOperationName(req, operation)) {
-    req.alias = `gql${capitalCase(operation)}Mutation`;
+    req.alias = `gql${pascalCase(operation)}Mutation`;
     addFixtureToResponse(req, fixture);
   }
 }

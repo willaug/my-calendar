@@ -3,7 +3,7 @@
 </h1>
 
 <div [formGroup]="loginForm" mat-dialog-content>
-  <form name="loginForm" fxLayout="column" fxLayoutGap="3px">
+  <form name="loginForm" fxLayout="column">
     <mat-form-field appearance="standard" fxFlex>
       <mat-label>Email</mat-label>
       <input
@@ -62,14 +62,13 @@
   </mat-spinner>
   <button
     *ngIf="!sendingForm"
-    form="loginForm"
-    data-cy="submit-login"
-    class="dialog-sign-in__continue"
     mat-button
     color="primary"
+    data-cy="submit-login"
+    class="dialog-sign-in__continue"
     [disabled]="loginForm.invalid || sendingForm"
     (click)="sendForm()"
   >
-    Continue
+    Submit
   </button>
 </div>

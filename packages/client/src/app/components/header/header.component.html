@@ -22,7 +22,12 @@
       >
         Sign In
       </button>
-      <button mat-menu-item aria-label="Sign Up">
+      <button
+        mat-menu-item
+        aria-label="Sign Up"
+        (click)="openSignUpDialog()"
+        data-cy="open-sign-up"
+      >
         Sign Up
       </button>
     </mat-menu>

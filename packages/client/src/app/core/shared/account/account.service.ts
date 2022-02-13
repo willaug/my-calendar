@@ -1,10 +1,10 @@
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Injectable } from '@angular/core';
 import { lastValueFrom, Observable, Subject } from 'rxjs';
 
 import { Account } from '@interfaces/index';
 import { TokenService } from '../token/token.service';
 import { AccountApiService } from './api/account-api.service';
+import { SnackBarService } from '../snack-bar/snack-bar.service';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
@@ -12,7 +12,7 @@ export class AccountService {
 
   public constructor(
     private accountApiService: AccountApiService,
-    private snackBar: MatSnackBar,
+    private snackBarService: SnackBarService,
     private tokenService: TokenService,
   ) {
     this.account = new Subject<Account | null>();
@@ -35,7 +35,7 @@ export class AccountService {
       this.account.next(response);
     } catch (err: any) {
       this.account.next(null);
-      this.snackBar.open('An error occurred, please try again later!', 'Ok', { duration: 4000 });
+      this.snackBarService.openUnknownError();
     }
   }
 

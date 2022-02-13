@@ -1,0 +1,105 @@
+<h1 mat-dialog-title>
+  Sign Up
+</h1>
+
+<div [formGroup]="signUpForm" mat-dialog-content>
+  <form name="signUpForm" fxLayout="column">
+    <mat-form-field appearance="standard" fxFlex>
+      <mat-label>Name</mat-label>
+      <input
+        maxlength="100"
+        autocomplete="off"
+        formControlName="name"
+        type="text"
+        placeholder="Type your full name"
+        data-cy="name"
+        matInput
+      >
+      <mat-hint align="end" data-cy="hint-length-name">
+        {{ signUpForm.get('name')?.value?.length || 0 }}/100
+      </mat-hint>
+      <mat-error *ngIf="signUpForm.get('name')?.hasError('required')" data-cy="error-name-required">
+        Name is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="signUpForm.get('name')?.hasError('minlength')" data-cy="error-name-min-length">
+        Name must be at least <strong>5 characters long</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="standard" fxFlex>
+      <mat-label>Email</mat-label>
+      <input
+        autocomplete="email"
+        formControlName="email"
+        type="email"
+        placeholder="Type your best email"
+        data-cy="email"
+        matInput
+      >
+      <mat-error *ngIf="signUpForm.get('email')?.hasError('required')" data-cy="error-email-required">
+        Email is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="signUpForm.get('email')?.hasError('email')" data-cy="error-email-invalid">
+        Email is <strong>invalid</strong>
+      </mat-error>
+      <mat-error *ngIf="signUpForm.get('email')?.hasError('emailUnique')" data-cy="error-email-unique">
+        Email is <strong>already being used</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="standard" fxFlex>
+      <mat-label>Password</mat-label>
+      <input
+        autocomplete="new-password"
+        (keydown.enter)="sendSignUpFormByEnterKey()"
+        maxlength="100"
+        formControlName="password"
+        [type]="hide ? 'password' : 'text'"
+        placeholder="Type your password"
+        data-cy="password"
+        matInput
+      >
+      <button
+        type="button"
+        mat-icon-button
+        matSuffix
+        (click)="hide = !hide"
+        data-cy="hide-password"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide"
+      >
+        <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+      <mat-hint align="end" data-cy="hint-length-password">
+        {{ signUpForm.get('password')?.value?.length || 0 }}/100
+      </mat-hint>
+      <mat-error *ngIf="signUpForm.get('password')?.hasError('required')" data-cy="error-password-required">
+        Password is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="signUpForm.get('password')?.hasError('minlength')" data-cy="error-password-min-length">
+        Password must be at least <strong>8 characters long</strong>
+      </mat-error>
+    </mat-form-field>
+  </form>
+</div>
+
+<div mat-dialog-actions align="end">
+  <mat-spinner
+    *ngIf="sendingForm"
+    [diameter]="36"
+    color="primary"
+    mode="indeterminate"
+  >
+  </mat-spinner>
+  <button
+    *ngIf="!sendingForm"
+    mat-button
+    color="primary"
+    data-cy="submit-sign-up"
+    (click)="sendSignUpForm()"
+    class="dialog-sign-in__continue"
+    [disabled]="signUpForm.invalid || sendingForm"
+  >
+    Create account
+  </button>
+</div>

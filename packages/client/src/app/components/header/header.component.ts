@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Account } from '@src/app/core/interfaces';
+import { Account, AnyObject } from '@interfaces/index';
 import { lastValueFrom } from 'rxjs';
 
 import { AccountService } from '@core/shared/account/account.service';
+import { DialogSignUpComponent } from './dialog-sign-up/dialog-sign-up.component';
 import { DialogLoginComponent } from './dialog-login/dialog-login.component';
 
 @Component({
@@ -23,15 +24,27 @@ export class HeaderComponent implements OnInit {
     this.getAccountData();
   }
 
-  public async openLoginDialog(): Promise<void> {
+  public async openLoginDialog(data?: AnyObject): Promise<void> {
     const loginDialogAfterClosed = await lastValueFrom(this.dialog.open(DialogLoginComponent, {
       width: '80%',
       maxWidth: '450px',
+      data: { ...data },
     }).afterClosed());
 
     if (loginDialogAfterClosed) {
       await this.accountService.setAccount();
       this.getAccountData();
+    }
+  }
+
+  public async openSignUpDialog(): Promise<void> {
+    const email = await lastValueFrom(this.dialog.open(DialogSignUpComponent, {
+      width: '80%',
+      maxWidth: '450px',
+    }).afterClosed());
+
+    if (email) {
+      this.openLoginDialog({ email });
     }
   }
 
