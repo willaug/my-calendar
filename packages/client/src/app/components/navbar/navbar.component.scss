@@ -1,0 +1,20 @@
+.navbar {
+  &__icon {
+    margin-bottom: 60px !important;
+    cursor: pointer;
+    outline: none;
+  }
+
+  &__option {
+    border-radius: 12px;
+    color: #9091a5;
+    transition: all .3s ease-in-out;
+
+    &--active {
+      color: #6b76ff;
+      background-color: rgba($color: #6b76ff, $alpha: 0.05);
+    }
+  }
+}
+
+

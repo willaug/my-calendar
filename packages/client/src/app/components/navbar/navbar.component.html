@@ -1,0 +1,31 @@
+<div
+  class="navbar"
+  fxLayout="column"
+  fxLayoutAlign="start"
+  fxLayoutGap="15px"
+>
+
+  <img
+    class="navbar__icon"
+    src="assets/icon.svg"
+    role="link"
+    alt="MyCalendar"
+    routerLink="/"
+    matTooltip="git clone git@github.com:willaug/my-calendar.git"
+    matTooltipPosition="after"
+  >
+
+  <a
+    *ngFor="let navbarOption of navbarOptions"
+    class="navbar__option"
+    [matTooltip]="navbarOption.title"
+    [routerLink]="navbarOption.url"
+    routerLinkActive="navbar__option--active"
+    matTooltipPosition="after"
+    mat-icon-button
+  >
+    <mat-icon class="material-icons-outlined">
+      {{ navbarOption.icon }}
+    </mat-icon>
+  </a>
+</div>

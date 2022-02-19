@@ -5,6 +5,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
+console.log('%cDo not enter or paste code you don\'t know!', 'color: orangered;');
 if (environment.production) {
   enableProdMode();
 }

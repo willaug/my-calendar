@@ -20,9 +20,6 @@ describe('Login', () => {
     });
 
     it('Should login and receive authentication token', () => {
-      cy.get('app-dialog-login').find('input[data-cy="email"]').type('william@example.com');
-      cy.get('app-dialog-login').find('input[data-cy="password"]').type('1234');
-
       cy.intercept('POST', Cypress.env('apiUrl'), (req: any) => aliasMutation({
         req,
         operation: 'login',
@@ -35,7 +32,8 @@ describe('Login', () => {
         fixture: 'account/success',
       }));
 
-      cy.get('app-dialog-login').find('button[data-cy="submit-login"]').click();
+      cy.get('app-dialog-login').find('input[data-cy="email"]').type('william@example.com');
+      cy.get('app-dialog-login').find('input[data-cy="password"]').type('1234{enter}');
       cy.wait('@gqlLoginMutation').then((interception: Interception) => {
         const { token } = interception.response && interception.response.body.data.login;
         expect(token).to.eq(localStorage.getItem(Cypress.env('localStorageAuthItemName')));
@@ -50,8 +48,6 @@ describe('Login', () => {
       cy.get('button[data-cy="open-my-account-menu"]').click();
 
       cy.get('[data-cy="my-account-menu-name"]').should('contain', 'William Augusto');
-      cy.get('[data-cy="my-account-menu-profile"]').should('contain', 'Your account');
-      cy.get('[data-cy="my-account-menu-settings"]').should('contain', 'Settings');
       cy.get('[data-cy="my-account-menu-sign-out"]').should('contain', 'Sign out');
     });
   });

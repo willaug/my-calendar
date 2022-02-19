@@ -32,6 +32,12 @@ export class DialogLoginComponent {
     });
   }
 
+  public sendLoginFormByEnterKey(): void {
+    if (this.loginForm.valid) {
+      this.sendForm();
+    }
+  }
+
   public sendForm(): void {
     this.sendingForm = true;
     this.emailOrPasswordIncorrect = false;

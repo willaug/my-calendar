@@ -1,3 +1,4 @@
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -28,6 +29,7 @@ describe('HeaderComponent', () => {
       MatDialogModule,
       MatSnackBarModule,
       MatDividerModule,
+      FlexLayoutModule,
     ],
     exports: [
       HeaderComponent,

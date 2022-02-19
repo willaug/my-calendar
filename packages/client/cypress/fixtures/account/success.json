@@ -2,7 +2,12 @@
   "data": {
     "account": {
       "id": "f789018a-9ada-55af-be14-2d3e22a952cc",
-      "name": "William Augusto"
+      "name": "William Augusto",
+      "email": "william@example.com",
+      "language": "en",
+      "photoPath": null,
+      "createdAt": "2022-12-31T21:57:02-03:00",
+      "updatedAt": "2022-12-31T21:57:02-03:00"
     }
   }
 }

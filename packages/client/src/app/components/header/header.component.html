@@ -1,8 +1,23 @@
 <mat-toolbar class="header">
-  <button mat-icon-button aria-label="menu">
+  <button
+    *ngIf="account"
+    fxHide
+    fxShow.lt-md
+    mat-icon-button
+    data-cy="navbar-menu-button"
+    aria-label="menu"
+    (click)="toggleNavBar()"
+  >
     <mat-icon>menu</mat-icon>
   </button>
-  <img class="header__logo" src="assets/logo.svg" alt="MyCalendar">
+  <img
+    [fxHide]="account"
+    fxShow.lt-md
+    class="header__logo"
+    src="assets/logo.svg"
+    alt="MyCalendar"
+    data-cy="header-logo"
+  >
   <span class="header__spacer"></span>
   <ng-container *ngIf="!account">
     <button
@@ -54,14 +69,6 @@
         <b>{{ account.name }}</b>
       </div>
       <mat-divider></mat-divider>
-      <button mat-menu-item data-cy="my-account-menu-profile">
-        <mat-icon class="material-icons-outlined">person</mat-icon>
-        <span>Your account</span>
-      </button>
-      <button mat-menu-item data-cy="my-account-menu-settings">
-        <mat-icon class="material-icons-outlined">settings</mat-icon>
-        <span>Settings</span>
-      </button>
       <button
         mat-menu-item
         data-cy="my-account-menu-sign-out"

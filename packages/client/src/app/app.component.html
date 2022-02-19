@@ -1,3 +1,15 @@
-<mat-progress-bar *ngIf="loadingAccount" mode="indeterminate"></mat-progress-bar>
-<app-header></app-header>
-<router-outlet></router-outlet>
+<mat-sidenav-container class="navbar-container" fullscreen>
+  <mat-progress-bar *ngIf="loadingAccount" mode="indeterminate"></mat-progress-bar>
+  <mat-sidenav
+    *ngIf="account"
+    data-cy="sidenav"
+    class="navbar-container__side"
+    [mode]="navbarMode"
+    [opened]="navbarOpened"
+    (closed)="closeNavbar()"
+  >
+    <app-navbar></app-navbar>
+  </mat-sidenav>
+  <app-header></app-header>
+  <router-outlet></router-outlet>
+</mat-sidenav-container>

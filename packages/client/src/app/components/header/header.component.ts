@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Account, AnyObject } from '@interfaces/index';
 import { lastValueFrom } from 'rxjs';
 
 import { AccountService } from '@core/shared/account/account.service';
+import { NavBarService } from '@core/shared/nav-bar/nav-bar.service';
 import { DialogSignUpComponent } from './dialog-sign-up/dialog-sign-up.component';
 import { DialogLoginComponent } from './dialog-login/dialog-login.component';
 
@@ -14,14 +15,34 @@ import { DialogLoginComponent } from './dialog-login/dialog-login.component';
 })
 export class HeaderComponent implements OnInit {
   public account: Account | null = null;
+  public showNavBar: boolean = false;
 
   public constructor(
     private dialog: MatDialog,
+    private navbarService: NavBarService,
     private accountService: AccountService,
   ) { }
 
   public ngOnInit(): void {
     this.getAccountData();
+    this.getNavbarState();
+  }
+
+  private getNavbarState(): void {
+    this.navbarService.getNavBarState().subscribe((navbarState: boolean) => {
+      this.showNavBar = navbarState;
+    });
+  }
+
+  @HostListener('window:resize', ['$event'])
+  private setNavbarState(): void {
+    if (window.innerWidth > 959) {
+      this.navbarService.setNavbarState(true);
+    }
+  }
+
+  public toggleNavBar(): void {
+    this.navbarService.setNavbarState(!this.showNavBar);
   }
 
   public async openLoginDialog(data?: AnyObject): Promise<void> {
