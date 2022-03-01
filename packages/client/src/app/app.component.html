@@ -1,5 +1,10 @@
+<mat-progress-bar
+  *ngIf="loading"
+  mode="indeterminate"
+  class="navbar-container__loading"
+  data-cy="main-progress-bar"
+></mat-progress-bar>
 <mat-sidenav-container class="navbar-container" fullscreen>
-  <mat-progress-bar *ngIf="loadingAccount" mode="indeterminate"></mat-progress-bar>
   <mat-sidenav
     *ngIf="account"
     data-cy="sidenav"
@@ -11,5 +16,7 @@
     <app-navbar></app-navbar>
   </mat-sidenav>
   <app-header></app-header>
-  <router-outlet></router-outlet>
+  <main class="main-container" [@routeAnimation]="outlet.isActivated ? outlet.activatedRoute : ''">
+    <router-outlet #outlet="outlet"></router-outlet>
+  </main>
 </mat-sidenav-container>

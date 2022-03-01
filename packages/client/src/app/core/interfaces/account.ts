@@ -12,3 +12,10 @@ export enum AccountLanguageEnum {
   en,
   pt_br,
 }
+
+export interface AccountDataList {
+  title: string;
+  icon: string;
+  isDate?: boolean;
+  data?: any;
+}

@@ -1,3 +1,5 @@
+@import '../../core/scss/theme-colors.scss';
+
 .navbar {
   &__icon {
     margin-bottom: 60px !important;
@@ -7,12 +9,12 @@
 
   &__option {
     border-radius: 12px;
-    color: #9091a5;
+    color: map-get($my-calendar-colors, primary-gray);
     transition: all .3s ease-in-out;
 
     &--active {
-      color: #6b76ff;
-      background-color: rgba($color: #6b76ff, $alpha: 0.05);
+      color: map-get($my-calendar-colors, primary-blue);
+      background-color: rgba($color: map-get($my-calendar-colors, primary-blue), $alpha: 0.05);
     }
   }
 }

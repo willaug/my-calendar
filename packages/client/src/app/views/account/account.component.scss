@@ -1,0 +1,49 @@
+@import '../../core/scss/theme-colors.scss';
+
+.account {
+  max-width: 600px;
+
+  &__introduction {
+    &__image {
+      width: 90%;
+      height: auto;
+      max-width: 140px;
+      border-radius: 15px;
+    }
+
+    &__fake-image {
+      width: 140px;
+      height: 140px;
+      border-radius: 15px;
+      background-color: map-get($my-calendar-colors, dark-white);
+    }
+
+    &__title {
+      margin: 0 0 8px;
+      padding: 0;
+    }
+  }
+
+  &__about {
+    margin-top: 70px;
+
+    &__card {
+      box-shadow: none;
+      border: 1px solid map-get($my-calendar-colors, dark-white);
+      margin-top: 15px;
+
+      mat-icon, .mat-card-avatar {
+        font-size: 30px;
+        line-height: 43px;
+      }
+
+      mat-card-title {
+        margin-bottom: 2px;
+      }
+
+      mat-card-subtitle {
+        margin: 0;
+      }
+    }
+  }
+}

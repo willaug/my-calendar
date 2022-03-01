@@ -1,10 +1,16 @@
+@import '../../core/scss/theme-colors.scss';
+
 ::ng-deep .mat-menu-panel {
   margin-top: 7px;
 }
 
 .header {
-  color: #9091A5;
-  background: #ffffff;
+  top: 0;
+  right: 0;
+  z-index: 3000;
+  position: fixed;
+  color: map-get($my-calendar-colors, primary-gray);
+  background: map-get($my-calendar-colors, full-white);
 
   &__spacer {
     flex: 1 1 auto;
@@ -18,7 +24,7 @@
 
   &__my-account {
     &-button {
-      background: #f3f3f3;
+      background: map-get($my-calendar-colors, dark-white);
       background-size: cover;
     }
   }

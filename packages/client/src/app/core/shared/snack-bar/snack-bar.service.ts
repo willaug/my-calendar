@@ -6,6 +6,7 @@ export class SnackBarService {
   public constructor(private snackBar: MatSnackBar) { }
 
   public open(message: string, buttonText: string, duration?: number): void {
+    this.snackBar.dismiss();
     this.snackBar.open(message, buttonText, { duration: duration || 4000 });
   }
 

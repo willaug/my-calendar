@@ -25,7 +25,6 @@ chrome-profiler-events*.json
 # IDE - VSCode
 .vscode/*
 vscode
-animations
 
 # misc
 /.angular/cache

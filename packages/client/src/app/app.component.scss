@@ -1,7 +1,31 @@
+@import './core/scss/theme-colors.scss';
 
 .navbar-container {
   &__side {
     padding: 16px;
-    background-color: #ffffff;
+    background-color: map-get($my-calendar-colors, full-white);
   }
+
+  &__loading {
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: 9999;
+  }
+}
+
+.main-container {
+  top: 64px;
+  overflow: auto;
+  margin-top: 64px;
+  height: calc(100vh - 64px);
+}
+
+.view-section {
+  left: 50%;
+  max-width: 1200px;
+  padding: 30px 16px;
+  position: relative;
+  width: calc(100% - 32px);
+  transform: translateX(-50%);
 }

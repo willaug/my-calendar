@@ -27,6 +27,7 @@ describe('NavBarComponent', () => {
 
     it('Should show navbar with over mode on smartphones and tablets', () => {
       cy.viewport('iphone-xr');
+      cy.reload();
 
       cy.get('app-header').find('button[data-cy="navbar-menu-button"]').click();
       cy.get('mat-sidenav[data-cy="sidenav"]').should('be.visible');
@@ -36,6 +37,7 @@ describe('NavBarComponent', () => {
 
     it('Should show navbar with side mode on other devices', () => {
       cy.viewport('macbook-13');
+      cy.reload();
 
       cy.get('mat-sidenav[data-cy="sidenav"]').should('be.visible');
       cy.get('mat-sidenav[data-cy="sidenav"]').invoke('attr', 'ng-reflect-mode').should('contain', 'side');
@@ -44,6 +46,8 @@ describe('NavBarComponent', () => {
 
     it('Should change mode of navbar from smartphone to laptop', () => {
       cy.viewport('iphone-xr');
+      cy.reload();
+
       cy.get('mat-sidenav[data-cy="sidenav"]').should('not.be.visible');
 
       cy.viewport('macbook-13');

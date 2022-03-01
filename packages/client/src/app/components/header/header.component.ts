@@ -76,23 +76,6 @@ export class HeaderComponent implements OnInit {
   private getAccountData(): void {
     this.accountService.getAccount().subscribe((account: Account | null) => {
       this.account = account;
-      if (this.account && this.account.name && !this.account.photoPath) {
-        this.account.photoPath = this.generateAccountAvatarUrl(this.account.name);
-      }
     });
-  }
-
-  private generateAccountAvatarUrl(accountName: string): string {
-    const searchParams = new URLSearchParams({
-      'font-size': '0.40',
-      background: 'f3f3f3',
-      name: accountName,
-      rounded: 'true',
-      format: 'svg',
-      length: '1',
-      size: '40',
-    });
-
-    return `https://ui-avatars.com/api/?${searchParams}`;
   }
 }

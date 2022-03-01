@@ -14,6 +14,7 @@ $my-calendar-client-theme: mat.define-light-theme((
 ));
 
 @include mat.all-component-themes($my-calendar-client-theme);
+@import './app/core/scss/theme-colors.scss';
 
 html, body {
   height: 100%;
@@ -27,3 +28,23 @@ body {
 input::-ms-reveal, input::-ms-clear {
   display: none;
 }
+
+@media (min-width: 960px) {
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: map-get($my-calendar-colors, light-white);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background: map-get($my-calendar-colors, light-gray);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: map-get($my-calendar-colors, secondary-gray);
+  }
+}
+

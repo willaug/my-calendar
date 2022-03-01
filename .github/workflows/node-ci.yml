@@ -54,6 +54,6 @@ jobs:
 
     - name: Run client e2e tests
       working-directory: packages/client
-      run: npm run start-api-dev & npm start & npx cypress run
+      run: npm run start-api-dev & npm start & TZ=America/Sao_Paulo npx cypress run
       env:
         DB_PASS_DEV: admin

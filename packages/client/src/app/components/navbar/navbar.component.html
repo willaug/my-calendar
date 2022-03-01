@@ -16,11 +16,13 @@
   >
 
   <a
-    *ngFor="let navbarOption of navbarOptions"
+    *ngFor="let navbarOption of navbarOptions; index as index"
     class="navbar__option"
     [matTooltip]="navbarOption.title"
     [routerLink]="navbarOption.url"
+    [routerLinkActiveOptions]="{ exact: true }"
     routerLinkActive="navbar__option--active"
+    attr.data-cy="navbar-option-{{ index }}"
     matTooltipPosition="after"
     mat-icon-button
   >

@@ -1,0 +1,81 @@
+<section class="view-section account">
+  <div
+    class="account__introduction"
+    fxLayout="row"
+    fxLayoutAlign="start center"
+    fxLayoutGap="25px"
+  >
+    <ng-container>
+      <div
+        *ngIf="!account?.photoPath"
+        class="account__introduction__fake-image"
+        fxLayout="row"
+        fxLayoutAlign="center center"
+        data-cy="fake-image-background"
+      >
+        <mat-spinner
+          [diameter]="36"
+          color="primary"
+          mode="indeterminate"
+          data-cy="account-image-spinner"
+        ></mat-spinner>
+      </div>
+      <img
+        *ngIf="account?.photoPath"
+        data-cy="account-image"
+        class="account__introduction__image"
+        [src]="account?.photoPath"
+        alt="account image"
+      >
+    </ng-container>
+    <div>
+      <h2 class="mat-display-1 account__introduction__title" data-cy="account-name">
+        {{ account?.name || 'Loading...' }}
+      </h2>
+      <a
+        class="account__introduction__edit-button"
+        mat-stroked-button
+        routerLink="/settings"
+      >
+        Edit account
+      </a>
+    </div>
+  </div>
+  <div class="account__about">
+    <h1>About you</h1>
+    <mat-card
+      *ngFor="let accountData of accountDataList; index as index"
+      class="account__about__card"
+    >
+      <mat-card-header>
+        <mat-icon
+          fxHide.lt-md
+          class="material-icons-outlined"
+          attr.data-cy="account-data-{{ index }}-icon"
+          mat-card-avatar
+        >
+          {{ accountData.icon }}
+        </mat-icon>
+        <mat-card-title
+          *ngIf="accountData.data"
+          attr.data-cy="account-data-{{ index }}-value"
+        >
+          {{
+            accountData.isDate
+            ? (accountData.data | date: 'MM/dd/yy, hh:mm a')
+            : accountData.data
+          }}
+        </mat-card-title>
+        <mat-card-title
+          *ngIf="!accountData.data"
+          data-cy="account-data-loading"
+        >
+          Loading...
+        </mat-card-title>
+        <mat-card-subtitle data-cy="account-data-title">
+          {{ accountData.title }}
+        </mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+  </div>
+</section>

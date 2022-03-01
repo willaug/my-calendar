@@ -32,6 +32,10 @@ export class AccountService {
 
     try {
       const response = await lastValueFrom(this.accountApiService.account(token));
+      if (!response.photoPath && response.name) {
+        response.photoPath = this.generateAccountAvatarUrl(response.name);
+      }
+
       this.account.next(response);
     } catch (err: any) {
       this.account.next(null);
@@ -42,5 +46,18 @@ export class AccountService {
   public resetAccount(): void {
     this.tokenService.removeToken();
     this.account.next(null);
+  }
+
+  private generateAccountAvatarUrl(accountName: string): string {
+    const searchParams = new URLSearchParams({
+      'font-size': '0.40',
+      background: 'f3f3f3',
+      name: accountName,
+      format: 'svg',
+      length: '1',
+      size: '40',
+    });
+
+    return `https://ui-avatars.com/api/?${searchParams}`;
   }
 }
