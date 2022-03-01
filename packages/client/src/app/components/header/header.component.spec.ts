@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { HeaderComponent } from './header.component';
 import { DialogLoginComponent } from './dialog-login/dialog-login.component';
@@ -30,6 +31,7 @@ describe('HeaderComponent', () => {
       MatSnackBarModule,
       MatDividerModule,
       FlexLayoutModule,
+      RouterTestingModule,
     ],
     exports: [
       HeaderComponent,

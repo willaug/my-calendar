@@ -21,12 +21,13 @@ describe('Your Account Page', () => {
     });
 
     it('Should load and show all account data successfully', () => {
-      cy.get('a[data-cy="navbar-option-2"]').click();
       cy.intercept('POST', Cypress.env('apiUrl'), (req: any) => aliasQuery({
         req,
         operation: 'account',
         fixture: 'account/success',
       }));
+
+      cy.get('a[data-cy="navbar-option-2"]').click();
 
       cy.wait('@gqlAccountQuery');
       cy.get('img[data-cy="account-image"]').should('be.visible');
@@ -47,13 +48,14 @@ describe('Your Account Page', () => {
     });
 
     it('Should show loading progress and spinner before load account data', () => {
-      cy.get('a[data-cy="navbar-option-2"]').click();
       cy.intercept('POST', Cypress.env('apiUrl'), (req: any) => aliasQuery({
         req,
         delay: 2000,
         operation: 'account',
         fixture: 'account/success',
       }));
+
+      cy.get('a[data-cy="navbar-option-2"]').click();
 
       cy.get('[data-cy="main-progress-bar"]').should('be.visible');
       cy.get('div[data-cy="fake-image-background"]').should('be.visible');

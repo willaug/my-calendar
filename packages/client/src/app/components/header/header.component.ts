@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Account, AnyObject } from '@interfaces/index';
+import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 
 import { AccountService } from '@core/shared/account/account.service';
@@ -18,6 +19,7 @@ export class HeaderComponent implements OnInit {
   public showNavBar: boolean = false;
 
   public constructor(
+    private router: Router,
     private dialog: MatDialog,
     private navbarService: NavBarService,
     private accountService: AccountService,
@@ -71,6 +73,7 @@ export class HeaderComponent implements OnInit {
 
   public logout(): void {
     this.accountService.resetAccount();
+    this.router.navigateByUrl('/');
   }
 
   private getAccountData(): void {

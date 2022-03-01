@@ -13,4 +13,14 @@ describe('Logout', () => {
       expect(localStorage.getItem(Cypress.env('localStorageAuthItemName'))).to.eq(null);
     });
   });
+
+  it('Should redirect to index page after logout', () => {
+    cy.visit('/account');
+    cy.url().should('include', '/account');
+
+    cy.get('button[data-cy="open-my-account-menu"]').click();
+    cy.get('[data-cy="my-account-menu-sign-out"]').should('contain', 'Sign out');
+    cy.get('[data-cy="my-account-menu-sign-out"]').click();
+    cy.url().should('not.include', '/account');
+  });
 });
