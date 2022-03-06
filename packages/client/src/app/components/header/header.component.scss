@@ -36,8 +36,12 @@
 }
 
 @media (min-width: 960px) {
-  .header .header__logo {
-    margin: 0;
-    height: 40px;
+  .header {
+    width: calc(100% - 72px);
+
+    .header__logo {
+      margin: 0;
+      height: 40px;
+    }
   }
 }

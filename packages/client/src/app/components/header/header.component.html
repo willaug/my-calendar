@@ -10,15 +10,27 @@
   >
     <mat-icon>menu</mat-icon>
   </button>
+
   <img
     [fxHide]="account"
-    fxShow.lt-md
+    [fxShow.lt-md]="pageTitle === 'Dashboard'"
     class="header__logo"
     src="assets/logo.svg"
     alt="MyCalendar"
     data-cy="header-logo"
   >
+
+  <h1
+    *ngIf="account"
+    data-cy="header-title"
+    [fxHide.lt-md]="pageTitle === 'Dashboard'"
+    fxShow
+  >
+    {{ pageTitle }}
+  </h1>
+
   <span class="header__spacer"></span>
+
   <ng-container *ngIf="!account">
     <button
       mat-icon-button
@@ -28,6 +40,7 @@
     >
       <mat-icon>account_circle</mat-icon>
     </button>
+
     <mat-menu #getStartedMenu="matMenu" xPosition="after">
       <button
         mat-menu-item
@@ -47,6 +60,7 @@
       </button>
     </mat-menu>
   </ng-container>
+
   <ng-container *ngIf="account">
     <button
       class="header__my-account-button"
@@ -57,6 +71,7 @@
       [matMenuTriggerFor]="accountMenu"
       xPosition="before"
     ></button>
+
     <mat-menu
       class="header__my-account-menu"
       appearance="outline"

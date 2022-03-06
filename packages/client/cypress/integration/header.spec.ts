@@ -33,5 +33,17 @@ describe('HeaderComponent', () => {
       cy.clearLocalStorageAndLogin();
       cy.get('app-header').find('img[data-cy="header-logo"]').should('not.be.visible');
     });
+
+    it('Set new header title on change page', () => {
+      cy.clearLocalStorageAndLogin();
+      cy.visit('/');
+      cy.get('app-header').find('h1[data-cy="header-title"]').should('contain', 'Dashboard');
+
+      cy.visit('/account');
+      cy.get('app-header').find('h1[data-cy="header-title"]').should('contain', 'Account');
+
+      cy.visit('/settings');
+      cy.get('app-header').find('h1[data-cy="header-title"]').should('contain', 'Settings');
+    });
   });
 });

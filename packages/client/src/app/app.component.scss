@@ -15,9 +15,8 @@
 }
 
 .main-container {
-  top: 64px;
-  overflow: auto;
   margin-top: 64px;
+  overflow: auto !important;
   height: calc(100vh - 64px);
 }
 

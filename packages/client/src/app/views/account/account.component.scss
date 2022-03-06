@@ -1,8 +1,6 @@
 @import '../../core/scss/theme-colors.scss';
 
 .account {
-  max-width: 600px;
-
   &__introduction {
     &__image {
       width: 90%;
@@ -30,7 +28,6 @@
     &__card {
       box-shadow: none;
       border: 1px solid map-get($my-calendar-colors, dark-white);
-      margin-top: 15px;
 
       mat-icon, .mat-card-avatar {
         font-size: 30px;

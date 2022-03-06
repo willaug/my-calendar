@@ -1,0 +1,40 @@
+<mat-expansion-panel
+  #expansionPanel
+  class="expansion-panel"
+  hideToggle
+  [disabled]="disabled"
+>
+  <mat-expansion-panel-header>
+    <mat-panel-title fxLayout="row" fxLayoutAlign="start center">
+      {{ title }}
+    </mat-panel-title>
+    <mat-panel-description
+      fxLayout="row"
+      fxLayoutGap="5px"
+      fxLayoutAlign="space-between center"
+    >
+      <span>
+        {{ description }}
+      </span>
+      <mat-icon
+        *ngIf="!expansionPanel.expanded"
+        @fadeInAnimation
+        color="primary"
+        class="material-icons-outlined"
+        data-cy="expansion-panel-create-icon"
+      >
+        create
+      </mat-icon>
+      <mat-icon
+        *ngIf="expansionPanel.expanded"
+        @fadeInAnimation
+        color="primary"
+        class="material-icons-outlined"
+        data-cy="expansion-panel-close-icon"
+      >
+        close
+      </mat-icon>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <ng-content></ng-content>
+</mat-expansion-panel>

@@ -1,8 +1,8 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Account, AnyObject } from '@interfaces/index';
-import { Router } from '@angular/router';
-import { lastValueFrom } from 'rxjs';
+import { ActivationStart, Router } from '@angular/router';
+import { filter, lastValueFrom, map } from 'rxjs';
 
 import { AccountService } from '@core/shared/account/account.service';
 import { NavBarService } from '@core/shared/nav-bar/nav-bar.service';
@@ -15,15 +15,28 @@ import { DialogLoginComponent } from './dialog-login/dialog-login.component';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  public account: Account | null = null;
-  public showNavBar: boolean = false;
+  public showNavBar: boolean;
+  public account: Account | null;
+  public pageTitle: string | null;
 
   public constructor(
     private router: Router,
     private dialog: MatDialog,
     private navbarService: NavBarService,
     private accountService: AccountService,
-  ) { }
+  ) {
+    this.account = null;
+    this.pageTitle = null;
+    this.showNavBar = false;
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof ActivationStart),
+        map((event) => event instanceof ActivationStart && event.snapshot),
+      )
+      .subscribe((snapshot) => {
+        this.pageTitle = snapshot && snapshot.data && snapshot.data['title'];
+      });
+  }
 
   public ngOnInit(): void {
     this.getAccountData();

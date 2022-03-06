@@ -1,3 +1,4 @@
+import { NavBarService } from '@core/shared/nav-bar/nav-bar.service';
 import { Component } from '@angular/core';
 
 interface NavbarOption {
@@ -12,26 +13,36 @@ interface NavbarOption {
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent {
-  public readonly navbarOptions: NavbarOption[] = [
-    {
-      title: 'Dashboard',
-      icon: 'dashboard',
-      url: '',
-    },
-    {
-      title: 'Calendar',
-      icon: 'today',
-      url: 'calendar',
-    },
-    {
-      title: 'Your account',
-      icon: 'person',
-      url: 'account',
-    },
-    {
-      title: 'Settings',
-      icon: 'settings',
-      url: 'settings',
-    },
-  ];
+  public readonly navbarOptions: NavbarOption[];
+
+  public constructor(private navbarService: NavBarService) {
+    this.navbarOptions = [
+      {
+        title: 'Dashboard',
+        icon: 'dashboard',
+        url: '',
+      },
+      {
+        title: 'Calendar',
+        icon: 'today',
+        url: 'calendar',
+      },
+      {
+        title: 'Your account',
+        icon: 'person',
+        url: 'account',
+      },
+      {
+        title: 'Settings',
+        icon: 'settings',
+        url: 'settings',
+      },
+    ];
+  }
+
+  public closeNavbar(): void {
+    if (window.innerWidth < 959) {
+      this.navbarService.setNavbarState(false);
+    }
+  }
 }

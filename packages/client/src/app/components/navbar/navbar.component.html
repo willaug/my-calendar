@@ -18,6 +18,7 @@
   <a
     *ngFor="let navbarOption of navbarOptions; index as index"
     class="navbar__option"
+    (click)="closeNavbar()"
     [matTooltip]="navbarOption.title"
     [routerLink]="navbarOption.url"
     [routerLinkActiveOptions]="{ exact: true }"

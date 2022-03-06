@@ -1,6 +1,6 @@
 import { aliasQuery } from 'cypress/utils/graphql-test-utils';
 
-describe('Your Account Page', () => {
+describe('YourAccount Page', () => {
   beforeEach(() => {
     cy.clearLocalStorage();
   });

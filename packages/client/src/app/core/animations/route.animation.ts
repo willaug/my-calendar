@@ -8,37 +8,29 @@ import {
 } from '@angular/animations';
 
 const optional = { optional: true };
-
 export const routeAnimation = trigger('routeAnimation', [
   transition('* <=> *', [
     group([
-      query(':leave', [
+      query(':enter, :leave', [
         style({
-          opacity: 1,
-          top: '64px',
+          position: 'fixed',
           width: '100%',
-          position: 'absolute',
-          transform: 'translateX(0)',
         }),
-
-        animate('600ms ease-out', style({
-          opacity: 0,
-          position: 'absolute',
-          transform: 'translateX(-10%)',
-        })),
       ], optional),
       query(':enter', [
         style({
-          opacity: 0,
-          top: '64px',
-          width: '100%',
-          position: 'absolute',
-          transform: 'translateX(-10%)',
+          transform: 'translateX(100%)',
         }),
-
-        animate('600ms ease-out', style({
-          opacity: 1,
-          transform: 'translateX(0)',
+        animate(700, style({
+          transform: 'translateX(0%)',
+        })),
+      ], optional),
+      query(':leave', [
+        style({
+          transform: 'translateX(0%)',
+        }),
+        animate(700, style({
+          transform: 'translateX(-100%)',
         })),
       ], optional),
     ]),
