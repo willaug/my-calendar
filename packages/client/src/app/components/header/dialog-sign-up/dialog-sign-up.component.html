@@ -51,7 +51,7 @@
       <mat-label>Password</mat-label>
       <input
         autocomplete="new-password"
-        (keydown.enter)="sendSignUpFormByEnterKey()"
+        (keydown.enter)="signUpForm.valid && sendSignUpForm()"
         maxlength="100"
         formControlName="password"
         [type]="hide ? 'password' : 'text'"

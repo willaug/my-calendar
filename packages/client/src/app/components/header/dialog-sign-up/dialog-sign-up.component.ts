@@ -2,8 +2,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { trimAndReplaceSpacesFromObject } from '@core/functions/trim-and-replace-spaces-from-object';
-import { SignUp, SignUpResponse } from '@src/app/core/interfaces';
-import { Observer } from 'rxjs';
+import { SignUp } from '@src/app/core/interfaces';
+import { lastValueFrom } from 'rxjs';
 
 import { SnackBarService } from '@core/shared/snack-bar/snack-bar.service';
 import { DialogSignUpService } from './services/dialog-sign-up.service';
@@ -33,49 +33,37 @@ export class DialogSignUpComponent {
   }
 
   private trimAndRemoveTwoOrMoreSpacesInForm(): void {
-    const signUpFormValue = this.signUpForm.getRawValue() as SignUp;
-    this.signUpForm.setValue(trimAndReplaceSpacesFromObject(signUpFormValue));
+    const signUpFormValue = this.signUpForm.getRawValue();
+    const signUpFormValueWithTrim = trimAndReplaceSpacesFromObject(signUpFormValue);
+    this.signUpForm.setValue(signUpFormValueWithTrim);
   }
 
-  public sendSignUpFormByEnterKey(): void {
-    if (this.signUpForm.valid) {
-      this.sendSignUpForm();
-    }
-  }
-
-  public sendSignUpForm(): void {
+  public async sendSignUpForm(): Promise<void> {
     this.trimAndRemoveTwoOrMoreSpacesInForm();
-    if (this.signUpForm.invalid) {
-      return;
-    }
+    if (this.signUpForm.invalid) return;
 
     this.sendingForm = true;
 
-    const signUpForm = this.signUpForm.getRawValue() as SignUp;
-    this.signUpService.signUp(signUpForm).subscribe(this.signUpSubscribeActions());
-  }
+    try {
+      const signUpForm = this.signUpForm.getRawValue() as SignUp;
+      const data = await lastValueFrom(this.signUpService.signUp(signUpForm));
 
-  private signUpSubscribeActions(): Partial<Observer<any>> {
-    return {
-      next: (data: SignUpResponse): void => {
-        this.dialogRef.close(data.email);
-      },
-      error: (err: any): void => {
-        this.sendingForm = false;
+      this.dialogRef.close(data.email);
+    } catch (err: any) {
+      this.sendingForm = false;
 
-        if (JSON.stringify(err).includes('BAD_USER_INPUT')) {
-          this.signUpForm.get('email')?.setErrors({ email: true });
-          return;
-        }
+      if (JSON.stringify(err).includes('BAD_USER_INPUT')) {
+        this.signUpForm.get('email')?.setErrors({ email: true });
+        return;
+      }
 
-        if (JSON.stringify(err).includes('ACCOUNTS_EMAIL_UNIQUE')) {
-          this.signUpForm.get('email')?.setErrors({ emailUnique: true });
-          return;
-        }
+      if (JSON.stringify(err).includes('ACCOUNTS_EMAIL_UNIQUE')) {
+        this.signUpForm.get('email')?.setErrors({ emailUnique: true });
+        return;
+      }
 
-        this.dialogRef.close();
-        this.snackBarService.openUnknownError();
-      },
-    };
+      this.dialogRef.close();
+      this.snackBarService.openUnknownError();
+    }
   }
 }
