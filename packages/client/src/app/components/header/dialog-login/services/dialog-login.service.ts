@@ -5,7 +5,7 @@ import { LoginApiService } from './api/login-api.service';
 
 @Injectable({ providedIn: 'root' })
 export class DialogLoginService {
-  public constructor(public loginApi: LoginApiService) { }
+  public constructor(private loginApi: LoginApiService) { }
 
   public login(loginForm: Login): Observable<LoginResponse> {
     return this.loginApi.login(loginForm);

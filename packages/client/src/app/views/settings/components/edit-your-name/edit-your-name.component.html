@@ -1,0 +1,55 @@
+<form
+  class="edit-your-name"
+  autocomplete="off"
+>
+  <div fxLayout="row">
+    <mat-form-field fxFlex="100">
+      <mat-label>Name</mat-label>
+      <input
+        matInput
+        type="text"
+        maxlength="100"
+        [formControl]="nameForm"
+        placeholder="Type your new name"
+        data-cy="edit-your-name"
+      >
+
+      <mat-error *ngIf="nameForm.hasError('required')" data-cy="error-name-required">
+        Name is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="nameForm.hasError('minlength')" data-cy="error-name-min-length">
+        Name must be at least <strong>5 characters long</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
+    <mat-spinner
+      *ngIf="savingName"
+      [diameter]="36"
+      color="primary"
+      mode="indeterminate"
+    >
+    </mat-spinner>
+
+    <ng-container *ngIf="!savingName">
+      <button
+        data-cy="close-edit-name-panel"
+        (click)="closePanel()"
+        mat-flat-button
+        type="button"
+      >
+        Cancel
+      </button>
+      <button
+        data-cy="save-edit-name-panel"
+        (click)="saveName()"
+        [disabled]="nameForm.invalid"
+        mat-flat-button
+        type="button"
+        color="primary"
+      >
+        Save
+      </button>
+    </ng-container>
+  </div>
+</form>

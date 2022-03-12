@@ -9,6 +9,10 @@ export class TokenService {
     return localStorage.getItem(environment.localStorageAuthItemName);
   }
 
+  public getTokenWithBearer(): string | null {
+    return this.getToken() && `Bearer ${this.getToken()}`;
+  }
+
   public setToken(token: string): void {
     localStorage.setItem(environment.localStorageAuthItemName, token);
   }

@@ -14,8 +14,8 @@ import { DialogSignUpService } from './services/dialog-sign-up.service';
 })
 export class DialogSignUpComponent {
   public signUpForm: FormGroup;
-  public hide: boolean = true;
-  public sendingForm: boolean = false;
+  public sendingForm: boolean;
+  public hide: boolean;
 
   public constructor(
     private formBuilder: FormBuilder,
@@ -23,6 +23,8 @@ export class DialogSignUpComponent {
     private signUpService: DialogSignUpService,
     private dialogRef: MatDialogRef<DialogSignUpComponent>,
   ) {
+    this.hide = true;
+    this.sendingForm = false;
     this.signUpForm = this.formBuilder.group({
       name: [null, [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
       password: [null, [Validators.required, Validators.minLength(8), Validators.maxLength(100)]],

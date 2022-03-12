@@ -31,7 +31,7 @@ export class AccountService {
     }
 
     try {
-      const response = await lastValueFrom(this.accountApiService.account(token));
+      const response = await lastValueFrom(this.accountApiService.account());
       if (!response.photoPath && response.name) {
         response.photoPath = this.generateAccountAvatarUrl(response.name);
       }

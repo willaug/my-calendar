@@ -1,3 +1,5 @@
+import { aliasQuery, aliasMutation } from '../utils/graphql-test-utils';
+
 describe('Settings Page', () => {
   beforeEach(() => {
     cy.clearLocalStorage();
@@ -6,40 +8,37 @@ describe('Settings Page', () => {
   context('success', () => {
     beforeEach(() => {
       cy.clearLocalStorageAndLogin();
+      cy.intercept('POST', Cypress.env('apiUrl'), (req: any) => aliasQuery({
+        req,
+        operation: 'account',
+        fixture: 'account/success',
+      }));
+
       cy.visit('/settings');
+      cy.wait('@gqlAccountQuery');
     });
 
-    it('Should open and close a expansion panel and change icon', () => {
-      cy.get('[data-cy="expansion-panel-create-icon"]').should('exist');
-      cy.get('[data-cy="picture-expansion-panel"]').click();
+    it('Should change account name', () => {
+      cy.intercept('POST', Cypress.env('apiUrl'), (req) => aliasQuery({
+        req,
+        operation: 'account',
+      }));
+
+      cy.intercept('POST', Cypress.env('apiUrl'), (req) => aliasMutation({
+        req,
+        operation: 'updateAccount',
+      }));
+
+      cy.get('[data-cy="name-expansion-panel"]').should('be.visible');
+      cy.get('[data-cy="name-expansion-panel"]').click();
       cy.get('[data-cy="expansion-panel-close-icon"]').should('exist');
-      cy.get('[data-cy="picture-expansion-panel"]').click();
-      cy.get('[data-cy="expansion-panel-create-icon"]').should('exist');
-    });
+      cy.get('input[data-cy="edit-your-name"]').should('have.value', 'William Augusto');
+      cy.get('input[data-cy="edit-your-name"]').clear().type('willaug');
+      cy.get('button[data-cy="save-edit-name-panel"]').should('not.be.disabled');
+      cy.get('button[data-cy="save-edit-name-panel"]').click();
 
-    it('Should load expansion panel about account picture', () => {
-      cy.get('[data-cy="picture-expansion-panel"]').should('contain', 'Your picture');
-      cy.get('[data-cy="picture-expansion-panel"]').should('contain', 'Change your actual picture.');
-    });
-
-    it('Should load expansion panel about account name', () => {
-      cy.get('[data-cy="name-expansion-panel"]').should('contain', 'Your name');
-      cy.get('[data-cy="name-expansion-panel"]').should('contain', 'Change your full-name.');
-    });
-
-    it('Should load expansion panel about account email', () => {
-      cy.get('[data-cy="email-expansion-panel"]').should('contain', 'Your email');
-      cy.get('[data-cy="email-expansion-panel"]').should('contain', 'Change your primary email.');
-    });
-
-    it('Should load expansion panel about account language', () => {
-      cy.get('[data-cy="language-expansion-panel"]').should('contain', 'Your language');
-      cy.get('[data-cy="language-expansion-panel"]').should('contain', 'Change your preference language.');
-    });
-
-    it('Should load expansion panel about account password', () => {
-      cy.get('[data-cy="password-expansion-panel"]').should('contain', 'Your password');
-      cy.get('[data-cy="password-expansion-panel"]').should('contain', 'Create a new password to use in login.');
+      cy.wait(['@gqlAccountQuery', '@gqlUpdateAccountMutation']);
+      cy.get('[data-cy="expansion-panel-close-icon"]').should('not.exist');
     });
   });
 

@@ -7,7 +7,7 @@ import { map, Observable } from 'rxjs';
 export class AccountApiService {
   public constructor(private apollo: Apollo) { }
 
-  public account(token: string): Observable<Account> {
+  public account(): Observable<Account> {
     return this.apollo.mutate({
       mutation: gql`
         query account {
@@ -22,11 +22,6 @@ export class AccountApiService {
           }
         }
       `,
-      context: {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      },
     })
       .pipe(map((response: MutationResult) => response.data.account as Account));
   }

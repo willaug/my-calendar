@@ -8,6 +8,12 @@ export interface Account {
   updatedAt?: string;
 }
 
+export interface AccountInput {
+  name?: string;
+  email?: string;
+  language?: AccountLanguageEnum,
+}
+
 export enum AccountLanguageEnum {
   en,
   pt_br,
