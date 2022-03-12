@@ -25,10 +25,10 @@
     <mat-form-field appearance="standard" fxFlex>
       <mat-label>Password</mat-label>
       <input
-        (keyup.enter)="sendLoginFormByEnterKey()"
+        (keyup.enter)="loginForm.valid && sendForm()"
         autocomplete="current-password"
         formControlName="password"
-        [type]="hide ? 'password' : 'text'"
+        [type]="hidePassword ? 'password' : 'text'"
         placeholder="Type your password"
         data-cy="password"
         matInput
@@ -37,17 +37,17 @@
         type="button"
         mat-icon-button
         matSuffix
-        (click)="hide = !hide"
+        (click)="hidePassword = !hidePassword"
         data-cy="hide-password"
         [attr.aria-label]="'Hide password'"
-        [attr.aria-pressed]="hide"
+        [attr.aria-pressed]="hidePassword"
       >
-        <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+        <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
       </button>
       <mat-error data-cy="error-password-required">Password is <strong>required</strong></mat-error>
     </mat-form-field>
 
-    <mat-error *ngIf="emailOrPasswordIncorrect" [style.font-size.px]="12"data-cy="error-login">
+    <mat-error *ngIf="emailOrPasswordIsIncorrect" [style.font-size.px]="12"data-cy="error-login">
       The email or password is <strong>incorrect</strong>!
     </mat-error>
   </form>
