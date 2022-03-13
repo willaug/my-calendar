@@ -52,7 +52,10 @@
         data-cy="language-expansion-panel"
         description="Change your preference language."
       >
-        Settings!
+        <app-edit-your-language
+          [language]="account.language"
+          (closeAccordion)="accordionSetting.closeAll()"
+        ></app-edit-your-language>
       </app-settings-expansion-panel>
       <app-settings-expansion-panel
         title="Your password"

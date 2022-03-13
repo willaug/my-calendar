@@ -13,24 +13,18 @@ export const routeAnimation = trigger('routeAnimation', [
     group([
       query(':enter, :leave', [
         style({
-          position: 'fixed',
+          opacity: 0,
           width: '100%',
+          position: 'absolute',
         }),
       ], optional),
       query(':enter', [
         style({
-          transform: 'translateX(100%)',
+          transform: 'translateX(-10%)',
         }),
-        animate(700, style({
+        animate(400, style({
           transform: 'translateX(0%)',
-        })),
-      ], optional),
-      query(':leave', [
-        style({
-          transform: 'translateX(0%)',
-        }),
-        animate(700, style({
-          transform: 'translateX(-100%)',
+          opacity: 1,
         })),
       ], optional),
     ]),

@@ -56,6 +56,25 @@ describe('Settings Page', () => {
       cy.wait('@gqlUpdateAccountMutation');
       cy.get('[data-cy="expansion-panel-close-icon"]').should('not.exist');
     });
+
+    it('Should change account language', () => {
+      cy.intercept('POST', Cypress.env('apiUrl'), (req) => aliasMutation({
+        req,
+        operation: 'updateAccount',
+        fixture: 'settings/update-language',
+      }));
+
+      cy.get('[data-cy="language-expansion-panel"]').should('be.visible');
+      cy.get('[data-cy="language-expansion-panel"]').click();
+      cy.get('[data-cy="expansion-panel-close-icon"]').should('exist');
+      cy.get('mat-select[data-cy="edit-your-language"]').should('contain', 'English');
+      cy.get('mat-select[data-cy="edit-your-language"]').click();
+      cy.get('mat-option[data-cy="edit-your-language-option"]').contains('Portuguese').click();
+      cy.get('button[data-cy="save-edit-language-panel"]').click();
+
+      cy.wait('@gqlUpdateAccountMutation');
+      cy.get('[data-cy="expansion-panel-close-icon"]').should('not.exist');
+    });
   });
 
   context('err', () => {
@@ -75,6 +94,7 @@ describe('Settings Page', () => {
         }));
 
         cy.visit('/settings');
+        cy.wait(2000);
         cy.wait('@gqlAccountQuery');
       });
 

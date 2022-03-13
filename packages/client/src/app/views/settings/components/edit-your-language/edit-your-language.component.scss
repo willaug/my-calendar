@@ -1,0 +1,10 @@
+.edit-your-language {
+  left: 50%;
+  max-width: 500px;
+  position: relative;
+  transform: translateX(-50%);
+
+  &__mb-10 {
+    margin-bottom: 10px;
+  }
+}

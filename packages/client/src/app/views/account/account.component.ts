@@ -48,7 +48,7 @@ export class AccountComponent implements OnInit {
       this.account = account;
       this.accountDataList[0].data = account?.name;
       this.accountDataList[1].data = account?.email;
-      this.accountDataList[2].data = AccountLanguageEnumToName[account?.language || 'en'];
+      this.accountDataList[2].data = AccountLanguageEnumToName[String(account?.language)];
       this.accountDataList[3].data = account?.createdAt;
       this.accountDataList[4].data = account?.updatedAt;
 

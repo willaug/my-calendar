@@ -1,0 +1,49 @@
+<form
+  (keydown.enter)="$event.preventDefault()"
+  class="edit-your-language"
+  autocomplete="off"
+>
+  <div fxLayout="row" class="edit-your-language__mb-10">
+    <mat-form-field fxFlex="100">
+      <mat-label>Language</mat-label>
+      <mat-select [formControl]="languageForm" data-cy="edit-your-language">
+        <mat-option value="en" data-cy="edit-your-language-option">
+          English
+        </mat-option>
+        <mat-option value="pt_br" data-cy="edit-your-language-option">
+          Brazilian Portuguese
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
+    <mat-spinner
+      *ngIf="savingLanguage"
+      [diameter]="36"
+      color="primary"
+      mode="indeterminate"
+    >
+    </mat-spinner>
+
+    <ng-container *ngIf="!savingLanguage">
+      <button
+        data-cy="close-edit-language-panel"
+        (click)="closePanel()"
+        mat-flat-button
+        type="button"
+      >
+        Cancel
+      </button>
+      <button
+        data-cy="save-edit-language-panel"
+        (click)="saveLanguage()"
+        [disabled]="languageForm.invalid"
+        mat-flat-button
+        type="button"
+        color="primary"
+      >
+        Save
+      </button>
+    </ng-container>
+  </div>
+</form>
