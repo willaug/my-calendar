@@ -1,22 +1,27 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ApolloModule } from 'apollo-angular';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { EditYourEmailComponent } from './edit-your-email.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-describe('EditYourEmailComponent', () => {
-  let component: EditYourEmailComponent;
-  let fixture: ComponentFixture<EditYourEmailComponent>;
+import { EditYourDataComponent } from './edit-your-data.component';
+
+describe('EditYourDataComponent', () => {
+  let component: EditYourDataComponent;
+  let fixture: ComponentFixture<EditYourDataComponent>;
   const module = {
-    declarations: [EditYourEmailComponent],
+    declarations: [
+      EditYourDataComponent,
+    ],
     imports: [
       ApolloModule,
       MatInputModule,
-      MatSnackBarModule,
+      MatSelectModule,
       MatFormFieldModule,
+      MatSnackBarModule,
       ReactiveFormsModule,
       BrowserAnimationsModule,
     ],
@@ -24,7 +29,7 @@ describe('EditYourEmailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule(module).compileComponents();
-    fixture = TestBed.createComponent(EditYourEmailComponent);
+    fixture = TestBed.createComponent(EditYourDataComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

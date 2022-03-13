@@ -9,12 +9,12 @@ import { fadeInAnimation } from '@core/animations/fade-in.animation';
   animations: [fadeInAnimation],
 })
 export class SettingsExpansionPanelComponent {
-  @Input() public title: string;
+  @Input() public panelTitle: string;
   @Input() public disabled: boolean;
   @Input() public description: string;
 
   public constructor(private loadingService: LoadingService) {
-    this.title = 'Title';
+    this.panelTitle = 'Title';
     this.disabled = false;
     this.description = 'Description';
 

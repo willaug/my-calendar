@@ -21,44 +21,61 @@
   <div *ngIf="account" @fadeInAnimation>
     <mat-accordion #accordionSetting="matAccordion">
       <app-settings-expansion-panel
-        title="Your picture"
+        panelTitle="Your picture"
         data-cy="picture-expansion-panel"
         description="Change your actual picture."
       >
         Settings!
       </app-settings-expansion-panel>
       <app-settings-expansion-panel
-        title="Your name"
+        panelTitle="Your name"
         data-cy="name-expansion-panel"
         description="Change your full-name."
       >
-        <app-edit-your-name
-          [name]="account.name"
+        <app-edit-your-data
           (closeAccordion)="accordionSetting.closeAll()"
-        ></app-edit-your-name>
+          [data]="account.name"
+          inputTitle="Name"
+          inputPlaceholder="Type your new name"
+          dataType="name"
+          [minLength]="5"
+          [maxLength]="100"
+          [isRequired]="true"
+        ></app-edit-your-data>
       </app-settings-expansion-panel>
       <app-settings-expansion-panel
-        title="Your e-mail"
+        panelTitle="Your e-mail"
         data-cy="email-expansion-panel"
         description="Change your primary e-mail."
       >
-        <app-edit-your-email
-          [email]="account.email"
+        <app-edit-your-data
           (closeAccordion)="accordionSetting.closeAll()"
-        ></app-edit-your-email>
+          [data]="account.email"
+          inputTitle="E-mail"
+          inputPlaceholder="Type your new e-mail"
+          dataType="email"
+          [isEmail]="true"
+          [isRequired]="true"
+        ></app-edit-your-data>
       </app-settings-expansion-panel>
       <app-settings-expansion-panel
-        title="Your language"
+        panelTitle="Your language"
         data-cy="language-expansion-panel"
         description="Change your preference language."
       >
-        <app-edit-your-language
-          [language]="account.language"
+        <app-edit-your-data
           (closeAccordion)="accordionSetting.closeAll()"
-        ></app-edit-your-language>
+          [data]="account.language"
+          inputTitle="Language"
+          inputPlaceholder="Select your new language"
+          dataType="language"
+          [isSelect]="true"
+          [selectOptions]="languageOptions"
+          [isRequired]="true"
+        ></app-edit-your-data>
       </app-settings-expansion-panel>
       <app-settings-expansion-panel
-        title="Your password"
+        panelTitle="Your password"
         data-cy="password-expansion-panel"
         description="Create a new password to use in login."
       >

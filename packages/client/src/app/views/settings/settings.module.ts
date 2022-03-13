@@ -11,17 +11,13 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { SettingsComponent } from './settings.component';
 import { SettingsRoutingModule } from './settings-routing.module';
-import { EditYourNameComponent } from './components/edit-your-name/edit-your-name.component';
-import { EditYourEmailComponent } from './components/edit-your-email/edit-your-email.component';
-import { EditYourLanguageComponent } from './components/edit-your-language/edit-your-language.component';
+import { EditYourDataComponent } from './components/edit-your-data/edit-your-data.component';
 import { SettingsExpansionPanelComponent } from './components/settings-expansion-panel/settings-expansion-panel.component';
 
 @NgModule({
   declarations: [
     SettingsComponent,
-    EditYourNameComponent,
-    EditYourEmailComponent,
-    EditYourLanguageComponent,
+    EditYourDataComponent,
     SettingsExpansionPanelComponent,
   ],
   imports: [

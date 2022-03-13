@@ -1,0 +1,87 @@
+<form
+  (keydown.enter)="$event.preventDefault()"
+  class="edit-your-data"
+  autocomplete="off"
+>
+  <div fxLayout="row" class="edit-your-data__mb-10">
+    <mat-form-field fxFlex="100">
+      <mat-label>{{ inputTitle }}</mat-label>
+
+      <mat-select
+        *ngIf="isSelect"
+        [formControl]="dataForm"
+        attr.data-cy="edit-your-{{ dataType}}"
+      >
+        <mat-option
+          *ngFor="let option of selectOptions"
+          [value]="option.value"
+          attr.data-cy="edit-your-{{ dataType }}-option"
+        >
+          {{ option.text }}
+        </mat-option>
+      </mat-select>
+
+      <input
+        *ngIf="!isSelect"
+        matInput
+        type="text"
+        [formControl]="dataForm"
+        attr.maxlength="{{ maxLength }}"
+        (keydown.enter)="dataForm.valid && saveData()"
+        placeholder="{{ inputPlaceholder }}"
+        attr.data-cy="edit-your-{{ dataType }}"
+      >
+
+      <mat-hint
+        *ngIf="maxLength"
+        attr.data-cy="hint-length-{{ dataType }}"
+        align="end"
+      >
+        {{ dataForm.value?.length || 0 }}/{{ maxLength }}
+      </mat-hint>
+
+      <mat-error *ngIf="dataForm.hasError('required')" attr.data-cy="error-{{ dataType }}-required">
+        {{ inputTitle }} is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="dataForm.hasError('email')" attr.data-cy="error-{{ dataType}}-invalid">
+        {{ inputTitle }} is <strong>invalid</strong>
+      </mat-error>
+      <mat-error *ngIf="dataForm.hasError('emailUnique')" attr.data-cy="error-{{ dataType }}-unique">
+        {{ inputTitle }} is <strong>already being used</strong>
+      </mat-error>
+      <mat-error *ngIf="dataForm.hasError('minlength')" attr.data-cy="error-{{ dataType }}-min-length">
+        {{ inputTitle }} must be at least <strong>{{ minLength }} characters long</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
+    <mat-spinner
+      *ngIf="savingData"
+      [diameter]="36"
+      color="primary"
+      mode="indeterminate"
+    >
+    </mat-spinner>
+
+    <ng-container *ngIf="!savingData">
+      <button
+        attr.data-cy="close-edit-{{ dataType }}-panel"
+        (click)="closePanel()"
+        mat-flat-button
+        type="button"
+      >
+        Cancel
+      </button>
+      <button
+        attr.data-cy="save-edit-{{ dataType }}-panel"
+        (click)="saveData()"
+        [disabled]="dataForm.invalid"
+        mat-flat-button
+        type="button"
+        color="primary"
+      >
+        Save
+      </button>
+    </ng-container>
+  </div>
+</form>

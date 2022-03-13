@@ -5,3 +5,5 @@ export * from './account';
 export type AnyObject = {
   [key: string]: any
 };
+
+export type EditYourDataType = 'email' | 'language' | 'name';

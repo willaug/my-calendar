@@ -12,6 +12,7 @@ import { fadeInAnimation } from '@core/animations/fade-in.animation';
 })
 export class SettingsComponent implements OnInit {
   public account: Account | null;
+  public languageOptions: any[];
 
   public constructor(
     private accountService: AccountService,
@@ -23,6 +24,17 @@ export class SettingsComponent implements OnInit {
       this.loadingService.resetLoading();
       this.account = account;
     });
+
+    this.languageOptions = [
+      {
+        text: 'English',
+        value: 'en',
+      },
+      {
+        text: 'Brazilian Portuguese',
+        value: 'pt_br',
+      },
+    ];
   }
 
   public async ngOnInit(): Promise<void> {
