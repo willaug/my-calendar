@@ -1,0 +1,10 @@
+{
+  "errors": [
+    {
+      "message": "column email (will@example.com) already exists",
+      "extensions":{
+        "code":"ACCOUNTS_EMAIL_UNIQUE"
+      }
+    }
+  ]
+}

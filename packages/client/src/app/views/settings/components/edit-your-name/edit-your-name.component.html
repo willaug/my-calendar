@@ -1,8 +1,9 @@
 <form
+  (keydown.enter)="$event.preventDefault()"
   class="edit-your-name"
   autocomplete="off"
 >
-  <div fxLayout="row">
+  <div fxLayout="row" class="edit-your-name__mb-10">
     <mat-form-field fxFlex="100">
       <mat-label>Name</mat-label>
       <input
@@ -10,10 +11,13 @@
         type="text"
         maxlength="100"
         [formControl]="nameForm"
+        (keydown.enter)="nameForm.valid && saveName()"
         placeholder="Type your new name"
         data-cy="edit-your-name"
       >
-
+      <mat-hint align="end" data-cy="hint-length-name">
+        {{ nameForm.value?.length || 0 }}/100
+      </mat-hint>
       <mat-error *ngIf="nameForm.hasError('required')" data-cy="error-name-required">
         Name is <strong>required</strong>
       </mat-error>

@@ -1,5 +1,4 @@
 {
-  "data": null,
   "errors": [
     {
       "message": "column email (william@example.com) already exists",

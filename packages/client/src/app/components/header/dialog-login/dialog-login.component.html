@@ -5,7 +5,7 @@
 <div [formGroup]="loginForm" mat-dialog-content>
   <form name="loginForm" fxLayout="column">
     <mat-form-field appearance="standard" fxFlex>
-      <mat-label>Email</mat-label>
+      <mat-label>E-mail</mat-label>
       <input
         autocomplete="username"
         formControlName="email"
@@ -15,10 +15,10 @@
         matInput
       >
       <mat-error *ngIf="loginForm.get('email')?.hasError('required')" data-cy="error-email-required">
-        Email is <strong>required</strong>
+        E-mail is <strong>required</strong>
       </mat-error>
       <mat-error *ngIf="loginForm.get('email')?.hasError('email')" data-cy="error-email-invalid">
-        Email is <strong>invalid</strong>
+        E-mail is <strong>invalid</strong>
       </mat-error>
     </mat-form-field>
 

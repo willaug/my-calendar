@@ -1,0 +1,59 @@
+<form
+  (keydown.enter)="$event.preventDefault()"
+  class="edit-your-email"
+  autocomplete="off"
+>
+  <div fxLayout="row" class="edit-your-email__mb-10">
+    <mat-form-field fxFlex="100">
+      <mat-label>E-mail</mat-label>
+      <input
+        matInput
+        type="text"
+        maxlength="100"
+        [formControl]="emailForm"
+        (keydown.enter)="emailForm.valid && saveEmail()"
+        placeholder="Type your new e-mail"
+        data-cy="edit-your-email"
+      >
+      <mat-error *ngIf="emailForm.hasError('required')" data-cy="error-email-required">
+        E-mail is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="emailForm.hasError('email')" data-cy="error-email-invalid">
+        E-mail is <strong>invalid</strong>
+      </mat-error>
+      <mat-error *ngIf="emailForm.hasError('emailUnique')" data-cy="error-email-unique">
+        E-mail is <strong>already being used</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
+    <mat-spinner
+      *ngIf="savingEmail"
+      [diameter]="36"
+      color="primary"
+      mode="indeterminate"
+    >
+    </mat-spinner>
+
+    <ng-container *ngIf="!savingEmail">
+      <button
+        data-cy="close-edit-email-panel"
+        (click)="closePanel()"
+        mat-flat-button
+        type="button"
+      >
+        Cancel
+      </button>
+      <button
+        data-cy="save-edit-email-panel"
+        (click)="saveEmail()"
+        [disabled]="emailForm.invalid"
+        mat-flat-button
+        type="button"
+        color="primary"
+      >
+        Save
+      </button>
+    </ng-container>
+  </div>
+</form>

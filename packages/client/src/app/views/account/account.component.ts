@@ -25,7 +25,7 @@ export class AccountComponent implements OnInit {
         icon: 'face',
       },
       {
-        title: 'Email',
+        title: 'E-mail',
         icon: 'alternate_email',
       },
       {

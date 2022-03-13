@@ -65,10 +65,7 @@ export class EditYourNameComponent implements OnInit {
       this.loadingService.resetLoading();
       this.savingName = false;
       this.nameForm.enable();
-
-      setTimeout(() => {
-        this.closePanel();
-      });
+      setTimeout(() => this.closePanel());
     }
   }
 }

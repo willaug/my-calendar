@@ -89,7 +89,7 @@ describe('SignUp', () => {
       cy.intercept('POST', Cypress.env('apiUrl'), (req: any) => aliasMutation({
         req,
         operation: 'createAccount',
-        fixture: 'sign-up/errors/accounts-email-unique',
+        fixture: 'sign-up/errors/email-unique',
       }));
 
       cy.get('app-dialog-sign-up').find('button[data-cy="submit-sign-up"]').click();

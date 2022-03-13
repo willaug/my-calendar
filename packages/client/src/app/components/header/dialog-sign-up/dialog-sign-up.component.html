@@ -27,7 +27,7 @@
     </mat-form-field>
 
     <mat-form-field appearance="standard" fxFlex>
-      <mat-label>Email</mat-label>
+      <mat-label>E-mail</mat-label>
       <input
         autocomplete="email"
         formControlName="email"
@@ -37,13 +37,13 @@
         matInput
       >
       <mat-error *ngIf="signUpForm.get('email')?.hasError('required')" data-cy="error-email-required">
-        Email is <strong>required</strong>
+        E-mail is <strong>required</strong>
       </mat-error>
       <mat-error *ngIf="signUpForm.get('email')?.hasError('email')" data-cy="error-email-invalid">
-        Email is <strong>invalid</strong>
+        E-mail is <strong>invalid</strong>
       </mat-error>
       <mat-error *ngIf="signUpForm.get('email')?.hasError('emailUnique')" data-cy="error-email-unique">
-        Email is <strong>already being used</strong>
+        E-mail is <strong>already being used</strong>
       </mat-error>
     </mat-form-field>
 

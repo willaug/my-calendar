@@ -38,11 +38,14 @@
         ></app-edit-your-name>
       </app-settings-expansion-panel>
       <app-settings-expansion-panel
-        title="Your email"
+        title="Your e-mail"
         data-cy="email-expansion-panel"
-        description="Change your primary email."
+        description="Change your primary e-mail."
       >
-        Settings!
+        <app-edit-your-email
+          [email]="account.email"
+          (closeAccordion)="accordionSetting.closeAll()"
+        ></app-edit-your-email>
       </app-settings-expansion-panel>
       <app-settings-expansion-panel
         title="Your language"
