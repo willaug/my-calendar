@@ -79,7 +79,11 @@
         data-cy="password-expansion-panel"
         description="Create a new password to use in login."
       >
-        Settings!
+        <app-edit-your-password
+          (closeAccordion)="accordionSetting.closeAll()"
+          [email]="account.email"
+        >
+        </app-edit-your-password>
       </app-settings-expansion-panel>
     </mat-accordion>
   </div>

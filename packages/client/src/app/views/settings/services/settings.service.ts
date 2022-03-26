@@ -1,13 +1,41 @@
-import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Account, AccountInput } from '@interfaces/account';
-import { AccountApiService } from './api/account-api.service';
+import { delay, Observable } from 'rxjs';
+import { Apollo, gql, MutationResult } from 'apollo-angular';
+import { AccountInput, AccountPasswordInput } from '@interfaces/account';
 
 @Injectable({ providedIn: 'root' })
 export class SettingsService {
-  public constructor(private accountApi: AccountApiService) { }
+  public constructor(private apollo: Apollo) { }
 
-  public updateAccount(accountInput: AccountInput): Observable<Account> {
-    return this.accountApi.updateAccount(accountInput);
+  public updateAccount(accountInput: AccountInput): Observable<MutationResult> {
+    return this.apollo.mutate({
+      mutation: gql`
+        mutation updateAccount($accountInput: UpdateAccountInput!) {
+          updateAccount(accountInput: $accountInput) {
+            id
+          }
+        }
+      `,
+      variables: {
+        accountInput,
+      },
+    })
+      .pipe(delay(400));
+  }
+
+  public updateAccountPassword(passAccountInput: AccountPasswordInput): Observable<MutationResult> {
+    return this.apollo.mutate({
+      mutation: gql`
+        mutation updatePassAccount($passAccountInput: UpdatePassAccountInput!) {
+          updatePassAccount(passAccountInput: $passAccountInput) {
+            id
+          }
+        }
+      `,
+      variables: {
+        passAccountInput,
+      },
+    })
+      .pipe(delay(400));
   }
 }

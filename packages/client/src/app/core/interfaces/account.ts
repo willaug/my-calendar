@@ -14,6 +14,12 @@ export interface AccountInput {
   language?: AccountLanguageEnum,
 }
 
+export interface AccountPasswordInput {
+  confirmNewPassword: string;
+  currentPassword?: string;
+  newPassword: string;
+}
+
 export enum AccountLanguageEnum {
   en,
   pt_br,

@@ -25,6 +25,7 @@
         *ngIf="!isSelect"
         matInput
         type="text"
+        [autocomplete]="isEmail ? 'username' : 'off'"
         [formControl]="dataForm"
         attr.maxlength="{{ maxLength }}"
         (keydown.enter)="dataForm.valid && saveData()"

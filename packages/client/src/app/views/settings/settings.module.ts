@@ -1,3 +1,4 @@
+import { MatDialogModule } from '@angular/material/dialog';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -12,13 +13,17 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SettingsComponent } from './settings.component';
 import { SettingsRoutingModule } from './settings-routing.module';
 import { EditYourDataComponent } from './components/edit-your-data/edit-your-data.component';
+import { EditYourPasswordComponent } from './components/edit-your-password/edit-your-password.component';
 import { SettingsExpansionPanelComponent } from './components/settings-expansion-panel/settings-expansion-panel.component';
+import { DialogPasswordVerifyComponent } from './components/edit-your-password/dialog-password-verify/dialog-password-verify.component';
 
 @NgModule({
   declarations: [
     SettingsComponent,
     EditYourDataComponent,
+    EditYourPasswordComponent,
     SettingsExpansionPanelComponent,
+    DialogPasswordVerifyComponent,
   ],
   imports: [
     CommonModule,
@@ -30,6 +35,7 @@ import { SettingsExpansionPanelComponent } from './components/settings-expansion
     MatIconModule,
     MatInputModule,
     MatButtonModule,
+    MatDialogModule,
     MatExpansionModule,
   ],
 })

@@ -1,13 +1,25 @@
-import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Login, LoginResponse } from '@interfaces/login';
-import { LoginApiService } from './api/login-api.service';
+import { Login, LoginResponse } from '@interfaces/index';
+import { Apollo, gql, MutationResult } from 'apollo-angular';
+import { map, Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class DialogLoginService {
-  public constructor(private loginApi: LoginApiService) { }
+  public constructor(private apollo: Apollo) { }
 
-  public login(loginForm: Login): Observable<LoginResponse> {
-    return this.loginApi.login(loginForm);
+  public login(loginInput: Login): Observable<LoginResponse> {
+    return this.apollo.mutate({
+      mutation: gql`
+        mutation login($loginInput: LoginInput!) {
+          login(loginInput: $loginInput) {
+            token
+          }
+        }
+      `,
+      variables: {
+        loginInput,
+      },
+    })
+      .pipe(map((response: MutationResult) => response.data.login as LoginResponse));
   }
 }

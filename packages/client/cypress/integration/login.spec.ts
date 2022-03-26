@@ -1,5 +1,5 @@
 import { Interception } from 'cypress/types/net-stubbing';
-import { aliasMutation, aliasQuery } from '../utils/graphql-test-utils';
+import { graphqlApi } from '../utils/graphql-test-utils';
 
 describe('Login', () => {
   beforeEach(() => {
@@ -20,27 +20,27 @@ describe('Login', () => {
     });
 
     it('Should login and receive authentication token', () => {
-      cy.intercept('POST', Cypress.env('apiUrl'), (req: any) => aliasMutation({
+      cy.intercept('POST', Cypress.env('apiUrl'), (req: any) => graphqlApi({
         req,
-        operation: 'login',
-        fixture: 'login/success',
+        operationName: 'login',
+        reply: { fixture: 'login/success' },
       }));
 
-      cy.intercept('POST', Cypress.env('apiUrl'), (req: any) => aliasQuery({
+      cy.intercept('POST', Cypress.env('apiUrl'), (req: any) => graphqlApi({
         req,
-        operation: 'account',
-        fixture: 'account/success',
+        operationName: 'account',
+        reply: { fixture: 'account/success' },
       }));
 
       cy.get('app-dialog-login').find('input[data-cy="email"]').type('william@example.com');
       cy.get('app-dialog-login').find('input[data-cy="password"]').type('1234{enter}');
-      cy.wait('@gqlLoginMutation').then((interception: Interception) => {
+      cy.wait('@login').then((interception: Interception) => {
         const { token } = interception.response && interception.response.body.data.login;
         expect(token).to.eq(localStorage.getItem(Cypress.env('localStorageAuthItemName')));
       });
 
       cy.get('app-dialog-login').should('not.exist');
-      cy.wait('@gqlAccountQuery');
+      cy.wait('@account');
 
       cy.get('button[data-cy="open-get-started-menu"]').should('not.exist');
       cy.get('button[data-cy="open-my-account-menu"]').should('exist');
@@ -65,32 +65,32 @@ describe('Login', () => {
     });
 
     it('Should send email without domain and receive api error', () => {
-      cy.get('app-dialog-login').find('input[data-cy="email"]').type('example@withoutDomain');
-      cy.get('app-dialog-login').find('input[data-cy="password"]').type('example');
-
-      cy.intercept('POST', Cypress.env('apiUrl'), (req: any) => aliasMutation({
+      cy.intercept('POST', Cypress.env('apiUrl'), (req: any) => graphqlApi({
         req,
-        operation: 'login',
-        fixture: 'login/errors/invalid-email',
+        operationName: 'login',
+        reply: { fixture: 'login/errors/invalid-email' },
       }));
 
+      cy.get('app-dialog-login').find('input[data-cy="email"]').type('example@withoutDomain');
+      cy.get('app-dialog-login').find('input[data-cy="password"]').type('example');
       cy.get('app-dialog-login').find('button[data-cy="submit-login"]').click();
-      cy.wait('@gqlLoginMutation');
+
+      cy.wait('@login');
       cy.get('app-dialog-login').find('mat-error[data-cy="error-email-invalid"]').should('exist');
     });
 
     it('Should send incorrect email and password', () => {
-      cy.get('app-dialog-login').find('input[data-cy="email"]').type('example@domain.co');
-      cy.get('app-dialog-login').find('input[data-cy="password"]').type('example');
-
-      cy.intercept('POST', Cypress.env('apiUrl'), (req: any) => aliasMutation({
+      cy.intercept('POST', Cypress.env('apiUrl'), (req: any) => graphqlApi({
         req,
-        operation: 'login',
-        fixture: 'login/errors/incorrect-email-or-password',
+        operationName: 'login',
+        reply: { fixture: 'login/errors/incorrect-email-or-password' },
       }));
 
+      cy.get('app-dialog-login').find('input[data-cy="email"]').type('example@domain.co');
+      cy.get('app-dialog-login').find('input[data-cy="password"]').type('example');
       cy.get('app-dialog-login').find('button[data-cy="submit-login"]').click();
-      cy.wait('@gqlLoginMutation');
+
+      cy.wait('@login');
       cy.get('app-dialog-login').find('mat-error[data-cy="error-login"]').should('exist');
     });
   });

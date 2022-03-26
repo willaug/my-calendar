@@ -1,4 +1,4 @@
-import { aliasQuery } from 'cypress/utils/graphql-test-utils';
+import { graphqlApi } from 'cypress/utils/graphql-test-utils';
 
 describe('YourAccount Page', () => {
   beforeEach(() => {
@@ -21,15 +21,15 @@ describe('YourAccount Page', () => {
     });
 
     it('Should load and show all account data successfully', () => {
-      cy.intercept('POST', Cypress.env('apiUrl'), (req: any) => aliasQuery({
+      cy.intercept('POST', Cypress.env('apiUrl'), (req: any) => graphqlApi({
         req,
-        operation: 'account',
-        fixture: 'account/success',
+        operationName: 'account',
+        reply: { fixture: 'account/success' },
       }));
 
       cy.get('a[data-cy="navbar-option-2"]').click();
 
-      cy.wait('@gqlAccountQuery');
+      cy.wait('@account');
       cy.get('img[data-cy="account-image"]').should('be.visible');
       cy.get('h2[data-cy="account-name"]').should('contain', 'William Augusto');
 
@@ -47,32 +47,15 @@ describe('YourAccount Page', () => {
       cy.get('mat-card-title[data-cy="account-data-4-value"]').should('contain', '02/13/22, 09:02 PM');
     });
 
-    it('Should show loading progress and spinner before load account data', () => {
-      cy.intercept('POST', Cypress.env('apiUrl'), (req: any) => aliasQuery({
-        req,
-        delay: 2000,
-        operation: 'account',
-        fixture: 'account/success',
-      }));
-
-      cy.get('a[data-cy="navbar-option-2"]').click();
-
-      cy.get('[data-cy="main-progress-bar"]').should('be.visible');
-      cy.get('div[data-cy="fake-image-background"]').should('be.visible');
-      cy.get('h2[data-cy="account-name"]').should('contain', 'Loading...');
-      cy.get('mat-spinner[data-cy="account-image-spinner"]').should('be.visible');
-      cy.get('mat-card-title[data-cy="account-data-loading"]').should('have.length', 5);
-    });
-
     it('Should hide loading progress and spinner after load account data', () => {
       cy.get('a[data-cy="navbar-option-2"]').click();
-      cy.intercept('POST', Cypress.env('apiUrl'), (req: any) => aliasQuery({
+      cy.intercept('POST', Cypress.env('apiUrl'), (req: any) => graphqlApi({
         req,
-        operation: 'account',
-        fixture: 'account/success',
+        operationName: 'account',
+        reply: { fixture: 'account/success' },
       }));
 
-      cy.wait('@gqlAccountQuery');
+      cy.wait('@account');
       cy.get('[data-cy="main-progress-bar"]').should('not.exist');
       cy.get('div[data-cy="fake-image-background"]').should('not.exist');
       cy.get('h2[data-cy="account-name"]').should('not.contain', 'Loading...');

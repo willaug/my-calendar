@@ -80,6 +80,7 @@ export class EditYourDataComponent implements OnInit {
       await this.accountService.setAccount();
 
       this.dataForm.enable();
+      this.snackBarService.open('Account successfully updated!', '<3');
       setTimeout(() => this.closePanel());
     } catch (err) {
       this.dataForm.enable();

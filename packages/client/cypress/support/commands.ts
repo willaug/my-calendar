@@ -1,6 +1,18 @@
-import { aliasMutation, aliasQuery } from 'cypress/utils/graphql-test-utils';
+import { graphqlApi } from 'cypress/utils/graphql-test-utils';
 
 Cypress.Commands.add('clearLocalStorageAndLogin', (): void => {
+  cy.intercept('POST', Cypress.env('apiUrl'), (req: any) => graphqlApi({
+    req,
+    operationName: 'login',
+    reply: { fixture: 'login/success' },
+  }));
+
+  cy.intercept('POST', Cypress.env('apiUrl'), (req: any) => graphqlApi({
+    req,
+    operationName: 'account',
+    reply: { fixture: 'account/success' },
+  }));
+
   cy.clearLocalStorage();
   cy.visit('/');
 
@@ -9,18 +21,6 @@ Cypress.Commands.add('clearLocalStorageAndLogin', (): void => {
   cy.get('app-dialog-login').find('input[data-cy="email"]').type('william@example.com');
   cy.get('app-dialog-login').find('input[data-cy="password"]').type('1234');
 
-  cy.intercept('POST', Cypress.env('apiUrl'), (req: any) => aliasMutation({
-    req,
-    operation: 'login',
-    fixture: 'login/success',
-  }));
-
-  cy.intercept('POST', Cypress.env('apiUrl'), (req: any) => aliasQuery({
-    req,
-    operation: 'account',
-    fixture: 'account/success',
-  }));
-
   cy.get('app-dialog-login').find('button[data-cy="submit-login"]').click();
-  cy.wait(['@gqlLoginMutation', '@gqlAccountQuery']);
+  cy.wait(['@login', '@account']);
 });

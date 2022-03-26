@@ -46,6 +46,8 @@ export class DialogSignUpComponent {
 
     try {
       const signUpForm = this.signUpForm.getRawValue() as SignUp;
+      signUpForm.language = navigator.language.includes('pt') ? 'pt_br' : 'en';
+
       const data = await lastValueFrom(this.signUpService.signUp(signUpForm));
 
       this.dialogRef.close(data.email);
