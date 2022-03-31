@@ -1,0 +1,43 @@
+@import '../../../../../core/scss/theme-colors.scss';
+
+.dialog-upload-picture {
+  transition: all .3s ease-in-out;
+
+  &__add-button {
+    padding: 10px;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 5px;
+    border: 2px dashed;
+    margin-bottom: 15px;
+    transition: all .3s ease-in-out;
+    color: map-get($my-calendar-colors, primary-gray);
+    border-color: map-get($my-calendar-colors, primary-gray);
+
+    &__title {
+      margin: 5px 0 0;
+      padding: 0;
+    }
+  }
+
+  &__error {
+    font-size: 12px;
+  }
+
+  &__cropper {
+    left: 50%;
+    width: auto;
+    height: auto;
+    max-height: 256px;
+    position: relative;
+    transform: translateX(-50%);
+  }
+
+  .mt-0 {
+    margin-top: 0;
+  }
+
+  .ml-5 {
+    margin-left: 5px;
+  }
+}

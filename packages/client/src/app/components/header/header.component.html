@@ -79,8 +79,8 @@
     >
       <div
         class="header__my-account-menu--title"
-        mat-menu-item
         data-cy="my-account-menu-name"
+        mat-menu-item
       >
         <b>{{ account.name }}</b>
       </div>
@@ -90,7 +90,7 @@
         data-cy="my-account-menu-sign-out"
         (click)="logout()"
       >
-        <mat-icon class="material-icons-outlined">exit_to_app</mat-icon>
+        <mat-icon>exit_to_app</mat-icon>
         <span>Sign out</span>
       </button>
     </mat-menu>

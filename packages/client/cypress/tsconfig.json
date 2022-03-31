@@ -7,6 +7,6 @@
   "compilerOptions": {
     "rootDir": "../",
     "sourceMap": false,
-    "types": ["cypress"]
+    "types": ["cypress", "cypress-file-upload"]
   }
 }

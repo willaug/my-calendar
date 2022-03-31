@@ -19,14 +19,13 @@
   </ng-container>
 
   <div *ngIf="account" @fadeInAnimation>
+    <app-edit-your-picture
+      [photoPath]="account.photoPath"
+      (closeAccordion)="accordionSetting.closeAll()"
+    >
+    </app-edit-your-picture>
+
     <mat-accordion #accordionSetting="matAccordion">
-      <app-settings-expansion-panel
-        panelTitle="Your picture"
-        data-cy="picture-expansion-panel"
-        description="Change your actual picture."
-      >
-        Settings!
-      </app-settings-expansion-panel>
       <app-settings-expansion-panel
         panelTitle="Your name"
         data-cy="name-expansion-panel"

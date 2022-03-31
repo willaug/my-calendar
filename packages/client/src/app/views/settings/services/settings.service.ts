@@ -38,4 +38,36 @@ export class SettingsService {
     })
       .pipe(delay(400));
   }
+
+  public uploadPhotoAccount(photoAccountInput: Blob): Observable<MutationResult> {
+    return this.apollo.mutate({
+      mutation: gql`
+        mutation uploadPhotoAccount($photoAccountInput: Upload!) {
+          uploadPhotoAccount(photoAccountInput: $photoAccountInput) {
+            id
+          }
+        }
+      `,
+      variables: {
+        photoAccountInput,
+      },
+      context: {
+        useMultipart: true,
+      },
+    })
+      .pipe(delay(400));
+  }
+
+  public deletePhotoAccount(): Observable<MutationResult> {
+    return this.apollo.mutate({
+      mutation: gql`
+        mutation deletePhotoAccount {
+          deletePhotoAccount {
+            id
+          }
+        }
+      `,
+    })
+      .pipe(delay(400));
+  }
 }

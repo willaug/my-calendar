@@ -1,0 +1,33 @@
+<mat-card class="edit-your-picture">
+  <mat-card-content fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="start center">
+    <img
+      class="edit-your-picture__picture"
+      [src]="photoPath"
+      alt="your picture"
+      data-cy="account-picture"
+    >
+    <div>
+      <div fxLayout="row" fxLayoutGap="7px">
+        <button
+          mat-stroked-button
+          (click)="openUploadPictureDialog()"
+          [disabled]="sendingChanges"
+          data-cy="upload-your-picture"
+        >
+          Upload a picture
+        </button>
+        <button
+          *ngIf="isUpdate"
+          color="primary"
+          mat-stroked-button
+          (click)="deletePicture()"
+          [disabled]="sendingChanges"
+          data-cy="delete-your-picture"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+      <p>Must be JPEG, JPG or PNG and cannot exceed 2MB.</p>
+    </div>
+  </mat-card-content>
+</mat-card>

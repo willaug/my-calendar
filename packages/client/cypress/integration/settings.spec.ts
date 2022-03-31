@@ -19,6 +19,15 @@ describe('Settings Page', () => {
       cy.wait('@account');
     });
 
+    it('Should upload account picture', () => {
+      cy.get('button[data-cy="delete-your-picture"]').should('not.exist');
+      cy.get('button[data-cy="upload-your-picture"]').click();
+      cy.get('label[data-cy="upload-add-file-button"]').should('be.visible');
+      cy.get('input[data-cy="upload-file"]').attachFile('settings/images/my-picture.jpg');
+
+      cy.get('button[data-cy="save-account-picture"]').click();
+    });
+
     it('Should change account name', () => {
       cy.intercept('POST', Cypress.env('apiUrl'), (req) => graphqlApi({
         req,
@@ -76,7 +85,7 @@ describe('Settings Page', () => {
       cy.get('[data-cy="expansion-panel-close-icon"]').should('not.exist');
     });
 
-    it.only('Should change account password', () => {
+    it('Should change account password', () => {
       cy.intercept('POST', Cypress.env('apiUrl'), (req: any) => graphqlApi({
         req,
         operationName: 'updatePassAccount',
@@ -116,6 +125,14 @@ describe('Settings Page', () => {
         cy.visit('/settings');
         cy.wait(2000);
         cy.wait('@account');
+      });
+
+      context('picture', () => {
+        it('Should upload an invalid file', () => {
+          cy.get('button[data-cy="upload-your-picture"]').click();
+          cy.get('input[data-cy="upload-file"]').attachFile('settings/update-email');
+          cy.get('mat-error[data-cy="upload-picture-invalid-format-error"]').should('be.visible');
+        });
       });
 
       context('name', () => {

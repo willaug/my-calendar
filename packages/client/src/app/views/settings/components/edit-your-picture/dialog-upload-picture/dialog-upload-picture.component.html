@@ -1,0 +1,75 @@
+<div class="dialog-upload-picture">
+  <h1 mat-dialog-title>
+    Upload a picture
+  </h1>
+
+  <div mat-dialog-content>
+    <input
+      fxHide
+      type="file"
+      accept="image/jpg, image/jpeg, image/png"
+      #pictureFile
+      data-cy="upload-file"
+      (change)="photoChangeEvent($event)"
+    >
+
+    <label
+      matRipple
+      (click)="hidePicture(); pictureFile.click()"
+      [fxLayout]="loadedImage ? 'row' : 'column'"
+      [fxLayoutAlign]="loadedImage ? 'start center' : 'center center'"
+      class="dialog-upload-picture__add-button"
+      data-cy="upload-add-file-button"
+    >
+      <mat-icon>
+        add_photo_alternate
+      </mat-icon>
+      <small
+        class="dialog-upload-picture__add-button__title"
+        [ngClass]="{ 'ml-5': loadedImage, 'mt-0': loadedImage }"
+      >
+        {{ loadedImage ? 'Click here to send a other picture' : 'Click here to send a picture' }}
+      </small>
+    </label>
+
+    <image-cropper
+      *ngIf="loadedImage"
+      @fadeInAnimation
+      class="dialog-upload-picture__cropper"
+      [imageChangedEvent]="imageChangedEvent"
+      (imageCropped)="imageCropped($event)"
+      [resizeToWidth]="256"
+      [resizeToHeight]="256"
+      [cropperMinWidth]="256"
+      [cropperMinHeight]="256"
+    ></image-cropper>
+
+    <mat-error
+      *ngIf="uploadErrors['format']"
+      class="dialog-upload-picture__error"
+      data-cy="upload-picture-invalid-format-error"
+    >
+      The selected image format is <strong>invalid</strong>
+    </mat-error>
+
+    <mat-error
+      *ngIf="uploadErrors['size']"
+      class="dialog-upload-picture__error"
+      data-cy="upload-picture-invalid-size-error"
+    >
+      The selected image is <strong>large</strong> (+ 2MB)
+    </mat-error>
+  </div>
+
+  <div mat-dialog-actions align="end">
+    <button
+      mat-button
+      color="primary"
+      [mat-dialog-close]="{ selectedImage }"
+      [disabled]="!selectedImage"
+      data-cy="save-account-picture"
+    >
+      Save
+    </button>
+  </div>
+</div>

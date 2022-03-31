@@ -10,6 +10,7 @@ import { AccountService } from '@core/shared/account/account.service';
 import { NavBarService } from '@core/shared/nav-bar/nav-bar.service';
 import { routeAnimation } from '@core/animations/route.animation';
 import { LoadingService } from '@core/shared/loading/loading.service';
+import { MatIconRegistry } from '@angular/material/icon';
 
 @Component({
   selector: 'app-root',
@@ -28,7 +29,10 @@ export class AppComponent implements OnInit {
     private accountService: AccountService,
     private loadingService: LoadingService,
     private navbarService: NavBarService,
+    private iconRegistry: MatIconRegistry,
   ) {
+    this.iconRegistry.setDefaultFontSetClass('material-icons-outlined');
+
     this.account = null;
     this.loading = true;
     this.navbarMode = 'side';

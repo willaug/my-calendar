@@ -1,0 +1,10 @@
+.edit-your-picture {
+  margin-bottom: 40px;
+
+  &__picture {
+    width: 96px;
+    height: 96px;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+}
