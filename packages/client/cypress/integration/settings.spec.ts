@@ -15,7 +15,6 @@ describe('Settings Page', () => {
       }));
 
       cy.visit('/settings');
-      cy.wait(2000);
       cy.wait('@account');
     });
 
@@ -28,7 +27,21 @@ describe('Settings Page', () => {
       cy.get('button[data-cy="save-account-picture"]').click();
     });
 
+    it('Should delete account picture', () => {
+      cy.intercept('POST', Cypress.env('apiUrl'), (req: any) => graphqlApi({
+        req,
+        operationName: 'account',
+        reply: { fixture: 'account/account-with-picture' },
+      }));
+
+      cy.reload();
+      cy.wait('@account');
+      cy.get('button[data-cy="delete-your-picture"]').should('be.visible');
+      cy.get('button[data-cy="delete-your-picture"]').click();
+    });
+
     it('Should change account name', () => {
+      cy.wait(2000);
       cy.intercept('POST', Cypress.env('apiUrl'), (req) => graphqlApi({
         req,
         operationName: 'updateAccount',
@@ -48,6 +61,7 @@ describe('Settings Page', () => {
     });
 
     it('Should change account e-mail', () => {
+      cy.wait(2000);
       cy.intercept('POST', Cypress.env('apiUrl'), (req) => graphqlApi({
         req,
         operationName: 'updateAccount',
@@ -67,6 +81,7 @@ describe('Settings Page', () => {
     });
 
     it('Should change account language', () => {
+      cy.wait(2000);
       cy.intercept('POST', Cypress.env('apiUrl'), (req) => graphqlApi({
         req,
         operationName: 'updateAccount',
@@ -86,6 +101,7 @@ describe('Settings Page', () => {
     });
 
     it('Should change account password', () => {
+      cy.wait(2000);
       cy.intercept('POST', Cypress.env('apiUrl'), (req: any) => graphqlApi({
         req,
         operationName: 'updatePassAccount',
