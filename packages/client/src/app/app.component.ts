@@ -1,16 +1,17 @@
 import { Account } from '@interfaces/index';
 import { MatDrawerMode } from '@angular/material/sidenav';
+import { MatIconRegistry } from '@angular/material/icon';
 import {
   Component,
   HostListener,
   OnInit,
   ViewEncapsulation,
 } from '@angular/core';
+import { SeoService } from '@core/shared/seo/seo.service';
 import { AccountService } from '@core/shared/account/account.service';
 import { NavBarService } from '@core/shared/nav-bar/nav-bar.service';
 import { routeAnimation } from '@core/animations/route.animation';
 import { LoadingService } from '@core/shared/loading/loading.service';
-import { MatIconRegistry } from '@angular/material/icon';
 
 @Component({
   selector: 'app-root',
@@ -28,10 +29,12 @@ export class AppComponent implements OnInit {
   public constructor(
     private accountService: AccountService,
     private loadingService: LoadingService,
-    private navbarService: NavBarService,
     private iconRegistry: MatIconRegistry,
+    private navbarService: NavBarService,
+    private seoService: SeoService,
   ) {
     this.iconRegistry.setDefaultFontSetClass('material-icons-outlined');
+    this.seoService.setPageTitleOnChangedRoute();
 
     this.account = null;
     this.loading = true;

@@ -5,7 +5,7 @@ import { SettingsComponent } from './settings.component';
 
 const routes: Routes = [{
   path: '',
-  data: { title: 'Settings' },
+  data: { title: 'MyCalendar - Settings' },
   component: SettingsComponent,
   canActivate: [AuthGuardService],
 }];

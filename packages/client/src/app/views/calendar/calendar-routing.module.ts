@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuardService } from '@core/shared/auth-guard/auth-guard.service';
-import { AccountComponent } from './account.component';
+import { CalendarComponent } from './calendar.component';
 
 const routes: Routes = [{
   path: '',
-  data: { title: 'MyCalendar - Account' },
-  component: AccountComponent,
+  data: { title: 'MyCalendar - Calendar' },
+  component: CalendarComponent,
   canActivate: [AuthGuardService],
 }];
 
@@ -18,4 +18,4 @@ const routes: Routes = [{
     RouterModule,
   ],
 })
-export class AccountRoutingModule { }
+export class CalendarRoutingModule { }

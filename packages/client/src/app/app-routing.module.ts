@@ -11,6 +11,10 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
+    path: 'calendar',
+    loadChildren: () => import('@views/calendar/calendar.module').then((module) => module.CalendarModule),
+  },
+  {
     path: 'account',
     loadChildren: () => import('@views/account/account.module').then((module) => module.AccountModule),
   },
